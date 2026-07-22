@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Site Definition Schema",
+  "description": "Skema kerangka struktur situs web Next.js yang diekstrak dari Company Profile",
+  "type": "object",
+  "required": [
+    "brandName",
+    "theme",
+    "pages"
+  ],
+  "properties": {
+    "brandName": {
+      "type": "string",
+      "description": "Nama resmi perusahaan atau merek."
+    },
+    "tagline": {
+      "type": "string",
+      "description": "Slogan atau tagline singkat."
+    },
+    "theme": {
+      "type": "object",
+      "required": ["primaryColor"],
+      "properties": {
+        "primaryColor": {
+          "type": "string",
+          "description": "Hex code warna dominan perusahaan dari PDF."
+        },
+        "secondaryColor": {
+          "type": "string",
+          "description": "Hex code warna sekunder / aksen."
+        },
+        "fontFamily": {
+          "type": "string",
+          "description": "Google Font yang disarankan, misal 'Inter'."
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "description": "Daftar 7 halaman wajib website beserta strukturnya.",
+      "items": {
+        "type": "object",
+        "required": ["route", "title", "contentSections"],
+        "properties": {
+          "route": {
+            "type": "string",
+            "enum": ["/", "/about", "/services", "/portfolio", "/blog", "/careers", "/contact"],
+            "description": "Path rute Next.js."
+          },
+          "title": {
+            "type": "string",
+            "description": "Meta Title dari halaman ini."
+          },
+          "metaDescription": {
+            "type": "string",
+            "description": "Meta Description untuk SEO."
+          },
+          "contentSections": {
+            "type": "array",
+            "description": "Daftar bagian/komponen penyusun halaman (misal: Hero, Features, Testimonial).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Nama komponen (Hero, VisiMisi, ContactForm, dsb)."
+                },
+                "data": {
+                  "type": "object",
+                  "description": "Konten teks mentah hasil ekstraksi PDF untuk komponen ini."
+                }
+              },
+              "required": ["type", "data"]
+            }
+          }
+        }
+      }
+    }
+  }
+}
