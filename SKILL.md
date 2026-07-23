@@ -16,9 +16,9 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 5. **Preservasi Pesan & Persuasi PDF.** Teks persuasi, poin *value proposition*, dan kalimat berdaya pikat yang ada di PDF Company Profile DILARANG dihapus/dibuang. Teks tersebut harus diadaptasi secara alami dan diperkaya dengan kata kunci SEO.
 6. **Animasi Lenis Mandatory.** Setiap proyek WAJIB menginstal `lenis` (paket Lenis React/core terbaru) dan mengintegrasikannya secara global di `app/layout.tsx` untuk memastikan kelancaran *scrolling*.
 7. **SEO & Keywords Strict Compliance (SOP Checklist).** Setiap website yang digenerate WAJIB memenuhi seluruh kriteria SEO Analyze Checklist (lihat bagian khusus di bawah).
-8. **UI/UX Mobile Responsiveness & Layout Safety.** 
-   - `html` dan `body` WAJIB memiliki `overflow-x: hidden` dan `max-width: 100vw` untuk mencegah bug konten keluar layar di tampilan mobile.
-   - Semua elemen Grid/List dengan 2-9 item WAJIB dibungkus `<SwipeableCards>` yang dilengkapi **indikator visual jelas** (*pagination dots*, *horizontal scrollbar*, atau *peek effect*).
+8. **UI/UX Mobile Responsiveness & Layout Safety untuk tampilan mobile.** 
+   - `html` dan `body` WAJIB memiliki `overflow-x: hidden` dan `max-width: 100vw` untuk mencegah bug konten keluar layar.
+   - Semua elemen Grid/List dengan **2-9 item WAJIB dibungkus `<SwipeableCards>`** yang dilengkapi **indikator visual jelas** (*pagination dots*, *horizontal scrollbar*, atau *peek effect*).
    - Elemen Grid/List dengan **10 item atau lebih WAJIB diubah menjadi Auto-slide Carousel** dengan indikator visual dan kontrol gesture agar pengguna tidak lelah/bingung melakukan swipe manual terlalu banyak.
 9. **Aksesibilitas & Attributes.** Semua tag `<a>` (link) dan `<img>` / `<Image />` WAJIB memiliki atribut `title` dan `alt`.
 10. **LOKASI OUTPUT.** Hasil akhir (proyek Next.js) DILARANG ditaruh di dalam folder skill `.agents/skills/sitegen/`. Harus selalu di-*scaffold* di root `landings/<brand>/`.
@@ -102,7 +102,7 @@ Setelah Next.js siap:
    - **Larangan Keras:** DILARANG menambahkan media query CSS Grid (contoh: `.gridClass { grid-template-columns: 1fr; }`) dari CSS luar yang menimpa elemen SwipeableCards pada mode mobile.
    - **Aturan Penggunaan Berdasarkan Jumlah Item:**
      - **2-9 Item:** Tampilkan sebagai **Grid biasa di Desktop**, dan jadikan **SwipeableCards di Mobile**. Pastikan pagination dots/counter HANYA MUNCUL DI MOBILE (saat layout menjadi flex-scroll), jangan sampai counter muncul berantakan di desktop.
-     - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna, dan memiliki indikator visual (dots/counter) yang tampil rapi di semua layar.
+     - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna.
 6. **Page Implementation:**
    - Semua Halaman wajib menyertakan metadata SEO (Title ≤ 55 char, Meta Description ≤ 155 char).
    - Setiap Halaman memuat 1 *section embed video* SMO.
@@ -111,7 +111,7 @@ Setelah Next.js siap:
 
 ### GATE 4 — QC, AUTO-DEBUGGING & SCREENSHOT (Puppeteer Self-Healing)
 1. Jalankan dev server: `cd landings/<brand> && npm run dev`.
-2. Jalankan skrip screenshot crawler:
+2. Setelah dev server berjalan, jalankan skrip screenshot crawler:
    ```bash
    node .agents/skills/sitegen/scripts/render.js http://localhost:3000 / /about /services /portfolio /blog /careers /contact
    ```
