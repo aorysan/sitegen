@@ -89,7 +89,7 @@ npx create-next-app@latest ./landings/<brand> --use-npm --eslint --tailwind=fals
 ### GATE 3 — DEVELOPMENT, MOBILE UX & SEO INTEGRATION
 Setelah Next.js siap:
 1. **CSS System & Anti-Overflow:** Atur CSS variables dari warna brand PDF di `app/globals.css`. Pastikan `html, body` diset `max-width: 100vw; overflow-x: hidden;` untuk mencegah bug konten keluar layar di mobile.
-2. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama *Schema.org JSON-LD*.
+2. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama global metadata.
 3. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`.
 4. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
 5. **Mobile Swipeable & Carousel Rules (CRITICAL):**
@@ -103,7 +103,13 @@ Setelah Next.js siap:
    - **Aturan Penggunaan Berdasarkan Jumlah Item:**
      - **2-9 Item:** Tampilkan sebagai **Grid biasa di Desktop**, dan jadikan **SwipeableCards di Mobile**. Pastikan pagination dots/counter HANYA MUNCUL DI MOBILE (saat layout menjadi flex-scroll), jangan sampai counter muncul berantakan di desktop.
      - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna.
-6. **Page Implementation:**
+6. **Page Implementation & Schema.org (CRITICAL):**
+   - Setiap Halaman WAJIB diinjeksi **Page-Specific Schema.org JSON-LD**:
+     - Beranda (`/`): `Organization` / `LocalBusiness` + `WebSite`
+     - Layanan (`/services`): `Service`
+     - Blog (`/blog`): `Article` / `BlogPosting`
+     - Karir (`/careers`): `JobPosting`
+     - Semua Halaman: `BreadcrumbList`
    - Semua Halaman wajib menyertakan metadata SEO (Title ≤ 55 char, Meta Description ≤ 155 char).
    - Setiap Halaman memuat 1 *section embed video* SMO.
    - Semua `<Image />` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style.
