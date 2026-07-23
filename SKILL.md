@@ -3,7 +3,7 @@ name: sitegen
 description: Generator Website Multi-Page Next.js berdasarkan asupan dokumen Company Profile (PDF). Menghasilkan website korporat profesional dengan standar animasi interaktif modern (terinspirasi dari *Zenless Zone Zero*), animasi smooth scroll Lenis, serta optimasi SEO Lanjutan & UI/UX Pro Max. Output berupa project Next.js TypeScript lengkap (App Router, Vanilla CSS Modules) di folder `landings/<brand>/`.
 ---
 
-# Full Website Generator (Sitegen V3.2)
+# Full Website Generator (Sitegen V3.3)
 
 Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* premium, animasi *smooth scroll* via Lenis, transisi mulus, dan *micro-interactions* tingkat tinggi. Input utama adalah dokumen **Company Profile (PDF)**. Output adalah struktur proyek Next.js lengkap (komponen, halaman, routing, aset, SEO files).
 
@@ -92,20 +92,32 @@ Setelah Next.js siap:
 2. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama *Schema.org JSON-LD*.
 3. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`.
 4. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
-5. **Mobile Swipeable & Carousel Rules:**
-   - Komponen `<SwipeableCards>` harus disediakan di `components/SwipeableCards.tsx`.
-   - Untuk 2-9 item: Bungkus dengan `<SwipeableCards>` dan sertakan **indikator visual jelas** (seperti pagination dots di bawahnya atau efek *peek*).
-   - Untuk ≥ 10 item: Gunakan **Auto-slide Carousel** dengan indikator visual dan auto-play slider agar pengguna tidak lelah me-swipe.
+5. **Mobile Swipeable & Carousel Rules (CRITICAL):**
+   - Komponen `<SwipeableCards>` harus dirancang untuk **Native CSS Horizontal Scroll**. JANGAN gunakan manipulasi JS (seperti `transform: translateX`) untuk menggeser kartu karena sering menyebabkan bug "semua kartu bergerak bersamaan".
+   - **Struktur CSS Wajib untuk SwipeableCards:**
+     1. Parent container WAJIB memiliki `display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;` pada saat aktif (mobile ≤ 768px, atau all screens untuk carousel).
+     2. Parent WAJIB memiliki `overflow-x: auto` dan `scroll-snap-type: x mandatory`. Sembunyikan scrollbar native.
+     3. **Semua direct children (kartu)** WAJIB memiliki lebar relatif/tetap dengan larangan shrink (`flex-shrink: 0`), contoh `flex: 0 0 85vw !important;`, agar tidak mengecil dan memaksa munculnya *horizontal scroll*.
+     4. Berikan vertical padding (contoh: `padding-block: 20px; margin-block: -20px;`) agar bayangan (shadow) atau efek hover kartu tidak terpotong (clipped).
+   - **Larangan Keras:** DILARANG menambahkan media query CSS Grid (contoh: `.gridClass { grid-template-columns: 1fr; }`) dari CSS luar yang menimpa elemen SwipeableCards pada mode mobile.
+   - **Aturan Penggunaan Berdasarkan Jumlah Item:**
+     - **2-9 Item:** Tampilkan sebagai **Grid biasa di Desktop**, dan jadikan **SwipeableCards di Mobile**. Pastikan pagination dots/counter HANYA MUNCUL DI MOBILE (saat layout menjadi flex-scroll), jangan sampai counter muncul berantakan di desktop.
+     - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna, dan memiliki indikator visual (dots/counter) yang tampil rapi di semua layar.
 6. **Page Implementation:**
    - Semua Halaman wajib menyertakan metadata SEO (Title ≤ 55 char, Meta Description ≤ 155 char).
    - Setiap Halaman memuat 1 *section embed video* SMO.
    - Semua `<Image />` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style.
    - Di Halaman Blog: 3 artikel backlink dengan gambar clickable mengarah ke situs utama.
 
-### GATE 4 — QC & SCREENSHOT (Puppeteer Self-Healing)
+### GATE 4 — QC, AUTO-DEBUGGING & SCREENSHOT (Puppeteer Self-Healing)
 1. Jalankan dev server: `cd landings/<brand> && npm run dev`.
 2. Jalankan skrip screenshot crawler:
    ```bash
    node .agents/skills/sitegen/scripts/render.js http://localhost:3000 / /about /services /portfolio /blog /careers /contact
    ```
-3. Perbaiki error jika ada. Jika semua hijau dan screenshot tersimpan di `landings/<brand>/.preview/`, eksekusi selesai!
+3. Jangan pernah simpan hasil screenshot di `.agents/skills/sitegen/`.
+4. **Auto-Debugging Wajib:** 
+   - Periksa log di console. Jika ada error React/Next.js (termasuk *hydration error*), segera perbaiki kodenya.
+   - Periksa semua gambar screenshot yang dihasilkan di folder `landings/<brand>/.preview/`. Jika terdapat layout yang rusak (misalnya: konten *SwipeableCard* menjadi vertikal padahal seharusnya horizontal, gambar terpotong, teks tumpah keluar dari tombol, atau counter dot/badge muncul pada layout desktop grid), **Anda WAJIB memperbaiki CSS/komponennya** lalu menjalankan skrip screenshot lagi.
+   - Ulangi proses iterasi dan debugging ini sampai seluruh halaman terlihat 100% sempurna tanpa cacat (bug-free).
+5. Jika semua hijau dan sempurna, eksekusi selesai!
