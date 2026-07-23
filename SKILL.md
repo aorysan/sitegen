@@ -109,11 +109,15 @@ Setelah Next.js siap:
    - Semua `<Image />` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style.
    - Di Halaman Blog: 3 artikel backlink dengan gambar clickable mengarah ke situs utama.
 
-### GATE 4 — QC & SCREENSHOT (Puppeteer Self-Healing)
+### GATE 4 — QC, AUTO-DEBUGGING & SCREENSHOT (Puppeteer Self-Healing)
 1. Jalankan dev server: `cd landings/<brand> && npm run dev`.
 2. Jalankan skrip screenshot crawler:
    ```bash
    node .agents/skills/sitegen/scripts/render.js http://localhost:3000 / /about /services /portfolio /blog /careers /contact
    ```
 3. Jangan pernah simpan hasil screenshot di `.agents/skills/sitegen/`.
-4. Perbaiki error jika ada. Jika semua hijau dan screenshot tersimpan di `landings/<brand>/.preview/`, eksekusi selesai!
+4. **Auto-Debugging Wajib:** 
+   - Periksa log di console. Jika ada error React/Next.js (termasuk *hydration error*), segera perbaiki kodenya.
+   - Periksa semua gambar screenshot yang dihasilkan di folder `landings/<brand>/.preview/`. Jika terdapat layout yang rusak (misalnya: konten *SwipeableCard* menjadi vertikal padahal seharusnya horizontal, gambar terpotong, teks tumpah keluar dari tombol, atau counter dot/badge muncul pada layout desktop grid), **Anda WAJIB memperbaiki CSS/komponennya** lalu menjalankan skrip screenshot lagi.
+   - Ulangi proses iterasi dan debugging ini sampai seluruh halaman terlihat 100% sempurna tanpa cacat (bug-free).
+5. Jika semua hijau dan sempurna, eksekusi selesai!
