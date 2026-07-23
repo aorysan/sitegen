@@ -94,6 +94,8 @@ Setelah Next.js siap:
 4. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
 5. **Mobile Swipeable & Carousel Rules:**
    - Komponen `<SwipeableCards>` harus disediakan di `components/SwipeableCards.tsx`.
+   - `SwipeableCards.module.css` WAJIB menggunakan `display: flex !important;` pada breakpoint `@media (max-width: 768px)` serta menambahkan vertical padding (`padding-top: 16px; padding-bottom: 16px; margin-top: -16px; margin-bottom: -8px;`) agar shadow dan badge card tidak terpotong saat scrolling horizontal.
+   - **DILARANG KERAS** menambahkan media query `.gridClass { grid-template-columns: 1fr; }` di CSS halaman (page.module.css) untuk komponen yang dibungkus `<SwipeableCards>` karena akan merusak layout flex-swipe horizontal.
    - Untuk 2-9 item: Bungkus dengan `<SwipeableCards>` dan sertakan **indikator visual jelas** (seperti pagination dots di bawahnya atau efek *peek*).
    - Untuk ≥ 10 item: Gunakan **Auto-slide Carousel** dengan indikator visual dan auto-play slider agar pengguna tidak lelah me-swipe.
 6. **Page Implementation:**
