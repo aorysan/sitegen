@@ -5,7 +5,7 @@
   "description": "QC tooling untuk skill sitegen — hanya untuk screenshot verifikasi, BUKAN untuk output landing page (landing page = HTML murni).",
   "scripts": {
     "generate": "node scripts/generate.js",
-    "qc": "node scripts/render.cjs"
+    "qc": "node scripts/render.js"
   },
   "dependencies": {
     "node-vibrant": "^3.1.6",
