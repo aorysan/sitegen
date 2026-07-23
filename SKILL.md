@@ -92,12 +92,17 @@ Setelah Next.js siap:
 2. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama *Schema.org JSON-LD*.
 3. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`.
 4. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
-5. **Mobile Swipeable & Carousel Rules:**
-   - Komponen `<SwipeableCards>` harus disediakan di `components/SwipeableCards.tsx`.
-   - `SwipeableCards.module.css` WAJIB menggunakan `display: flex !important;` pada breakpoint `@media (max-width: 768px)` serta menambahkan vertical padding (`padding-top: 16px; padding-bottom: 16px; margin-top: -16px; margin-bottom: -8px;`) agar shadow dan badge card tidak terpotong saat scrolling horizontal.
-   - **DILARANG KERAS** menambahkan media query `.gridClass { grid-template-columns: 1fr; }` di CSS halaman (page.module.css) untuk komponen yang dibungkus `<SwipeableCards>` karena akan merusak layout flex-swipe horizontal.
-   - Untuk 2-9 item: Bungkus dengan `<SwipeableCards>` dan sertakan **indikator visual jelas** (seperti pagination dots di bawahnya atau efek *peek*).
-   - Untuk ≥ 10 item: Gunakan **Auto-slide Carousel** dengan indikator visual dan auto-play slider agar pengguna tidak lelah me-swipe.
+5. **Mobile Swipeable & Carousel Rules (CRITICAL):**
+   - Komponen `<SwipeableCards>` harus dirancang untuk **Native CSS Horizontal Scroll**. JANGAN gunakan manipulasi JS (seperti `transform: translateX`) untuk menggeser kartu karena sering menyebabkan bug "semua kartu bergerak bersamaan".
+   - **Struktur CSS Wajib untuk SwipeableCards:**
+     1. Parent container WAJIB memiliki `display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;` pada saat aktif (mobile ≤ 768px, atau all screens untuk carousel).
+     2. Parent WAJIB memiliki `overflow-x: auto` dan `scroll-snap-type: x mandatory`. Sembunyikan scrollbar native.
+     3. **Semua direct children (kartu)** WAJIB memiliki lebar relatif/tetap dengan larangan shrink (`flex-shrink: 0`), contoh `flex: 0 0 85vw !important;`, agar tidak mengecil dan memaksa munculnya *horizontal scroll*.
+     4. Berikan vertical padding (contoh: `padding-block: 20px; margin-block: -20px;`) agar bayangan (shadow) atau efek hover kartu tidak terpotong (clipped).
+   - **Larangan Keras:** DILARANG menambahkan media query CSS Grid (contoh: `.gridClass { grid-template-columns: 1fr; }`) dari CSS luar yang menimpa elemen SwipeableCards pada mode mobile.
+   - **Aturan Penggunaan Berdasarkan Jumlah Item:**
+     - **2-9 Item:** Tampilkan sebagai **Grid biasa di Desktop**, dan jadikan **SwipeableCards di Mobile**. Pastikan pagination dots/counter HANYA MUNCUL DI MOBILE (saat layout menjadi flex-scroll), jangan sampai counter muncul berantakan di desktop.
+     - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna, dan memiliki indikator visual (dots/counter) yang tampil rapi di semua layar.
 6. **Page Implementation:**
    - Semua Halaman wajib menyertakan metadata SEO (Title ≤ 55 char, Meta Description ≤ 155 char).
    - Setiap Halaman memuat 1 *section embed video* SMO.
@@ -110,4 +115,5 @@ Setelah Next.js siap:
    ```bash
    node .agents/skills/sitegen/scripts/render.js http://localhost:3000 / /about /services /portfolio /blog /careers /contact
    ```
-3. Perbaiki error jika ada. Jika semua hijau dan screenshot tersimpan di `landings/<brand>/.preview/`, eksekusi selesai!
+3. Jangan pernah simpan hasil screenshot di `.agents/skills/sitegen/`.
+4. Perbaiki error jika ada. Jika semua hijau dan screenshot tersimpan di `landings/<brand>/.preview/`, eksekusi selesai!
