@@ -1,11 +1,11 @@
 ---
 name: debug
-description: Automated QA, Visual Debugging with Puppeteer, and fixing SEO mismatches.
+description: QA Otomatis, Visual Debugging dengan Puppeteer, dan perbaikan ketidaksesuaian SEO.
 ---
 
 # Sitegen Debug
 
-Run automated QA on the generated website.
-Tasks include:
-1. **Visual Debugging:** Run Puppeteer screenshot scripts. Analyze the results for layout breaks (e.g., overflow issues, broken SwipeableCards in mobile) and auto-fix them in the code.
-2. **SEO Debugging:** Review any issues reported by the `seo` skill (e.g., missing meta tags, keywords not matching the SOP, missing persuasion points) and apply code fixes to ensure 100% compliance with the SEO checklist.
+Jalankan QA otomatis pada website yang telah dibuat.
+Tugas meliputi:
+1. **Visual Debugging:** Jalankan script screenshot Puppeteer. Analisis hasilnya untuk masalah tata letak/layout yang rusak (misalnya: masalah overflow, SwipeableCards rusak di mobile) dan perbaiki secara otomatis di dalam kode.
+2. **SEO Debugging:** Tinjau masalah apa pun yang dilaporkan oleh skill `seo` (misalnya: meta tag hilang, keyword tidak sesuai SOP, poin persuasi hilang) dan terapkan perbaikan kode untuk memastikan kepatuhan 100% dengan checklist SEO.
