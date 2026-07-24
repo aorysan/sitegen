@@ -61,8 +61,8 @@ Setiap proses perencanaan dan pembuatan halaman WAJIB memverifikasi poin-poin be
 
 ## Workflow Eksekusi
 
-### GATE 0 — INTAKE & AUTOMATED EXTRACTION
-Sebelum *scaffolding*, gunakan dokumen **Company Profile (PDF)** dari pengguna. Gunakan pustaka `pdf-parse` (atau script pendukung) dan pedoman `reference/company_profile_intake.md` untuk mengekstrak teks persuasi, layanan, dan data perusahaan secara lengkap.
+### GATE 0 — PREREQUISITE: INTAKE DATA
+Gunakan data hasil ekstraksi dari skill `intake` (dokumen `intake_data.md` dan aset di `D:\AryokPunya\Magang\sitegen\assets`). DILARANG mengekstrak PDF secara manual di skill ini.
 
 ### GATE 1 — SEO RESEARCH & SITEMAP PLANNING
 Analisis data PDF dan lakukan riset keyword sesuai **SEO SOP Checklist**:

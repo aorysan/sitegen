@@ -1,11 +1,11 @@
 ---
 name: seo
-description: Validate generated site against SEO SOP Checklist.
+description: Validasi situs yang dihasilkan terhadap SOP Checklist SEO.
 ---
 
 # Sitegen SEO
 
-Check the generated website against the following SEO SOP Checklist. Ensure all points are met. If any points fail, report them clearly so the `debug` skill can fix them.
+Periksa website yang telah dibuat terhadap SOP Checklist SEO berikut. Pastikan seluruh poin terpenuhi. Jika ada poin yang gagal, laporkan secara jelas agar skill `debug` dapat memperbaikinya.
 
 | **Based Content from Company Profile** |
 | --- |
