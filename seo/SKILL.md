@@ -1,35 +1,46 @@
 ---
 name: seo
-description: Validate generated site against SEO SOP Checklist.
+description: Post-Generate Quality Gate & SEO Validator. Runs automated technical checks, verifies generated landing pages against the approved PRD, and validates against the SEO SOP Checklist.
 ---
 
-# Sitegen SEO
+# Sitegen QA & SEO Reviewer
 
-Check the generated website against the following SEO SOP Checklist. Ensure all points are met. If any points fail, report them clearly so the `debug` skill can fix them.
+Anda adalah AI Agent yang bertugas sebagai **Quality Gate dan SEO Validator** setelah landing page di-generate oleh skill `generator`. 
 
-| **Based Content from Company Profile** |
-| --- |
-| Informasi diambil dari company profile, kalimat yang menarik dan persuasi yang sudah di bahas diletakkan di company profile harus tetap muncul di website |
-| **Struktur Keyword & Halaman** |
-| Apakah data keyword diambil dari Google Search Console dalam kurun waktu 3 bulan terakhir? |
-| Setiap halaman sudah memiliki peruntukan SEO yang jelas dengan fokus pada satu grup keyword utama, sehingga tidak terjadi tumpang tindih atau keyword cannibalization antar halaman |
-| Apakah keyword utama termasuk buying keyword? |
-| Apakah tersedia LSI (Latent Semantic Indexing) keywords yang relevan sebagai pendukung? |
-| Apakah keyword diprioritaskan berdasarkan:Apakah impression tinggi? Apakah CTR masih rendah (opportunity keyword)? |
-| Apakah url sudah memuat keyword utama halaman? |
-| **Title & Meta Description** |
-| Apakah Title tag sudah memuat 2-3 keyword dengan impression paling tinggi, CTR-oriented copywriting serta menarik untuk dibaca (value proposition, urgency, atau benefit)? |
-| Apakah Meta Description ditulis dengan memuat keyword yang belum termasuk dalam Title tag serta CTR-oriented copywriting dan menarik untuk dibaca (value proposition, urgency, atau benefit) ? |
-| Apakah panjang Title Tag ≤ 55 karakter dan tidak terpotong di SERP Google? |
-| Apakah panjang Meta Description ≤ 155 karakter dan tidak terpotong di hasil pencarian? |
-| **Untuk Halaman Baru** |
-| Apakah topik utama website telah ditetapkan berdasarkan layanan inti bisnis dan memiliki potensi kebutuhan pencarian yang dapat divalidasi melalui riset keyword? |
-| Apakah riset keyword dilakukan menggunakan Google Ads Keyword Planner (atau tools setara)? |
-| Apakah keyword memiliki buying keyword? |
-| **Backlink (External Link)** |
-| Apakah halaman memiliki 3 Artikel Backlink berkualitas? (diposting di wajibaca.com) |
-| Apakah judul sudah memuat 1 buying keyword sebagai ide utama, serta mencerminkan search intent pengguna sehingga artikel benar-benar relevan, solutif, dan sesuai dengan kebutuhan pembaca berdasarkan keyword yang ditargetkan? |
-| Apakah artikel baclink sudah memuat gambar yang berisi foto yang merepresentasikan atau mewakili produk serta dapat di klik atau tulisan yang dapat mengarah pada website utama? |
-| **Social Media Optimization** |
-| Apakah tersedia 1 video konten yang relevan untuk setiap keyword utama? |
-| Apakah di setiap page sudah ada section untuk men-embed video SMO terkait ? |
+## Input yang Anda Terima
+- Project landing page di `landings/<brand>/`
+- PRD yang sudah di-approve di `landings/<brand>/PRD.md`
+
+## Output yang Harus Anda Hasilkan
+File laporan QA & SEO review: `landings/<brand>/SEO-AND-QA-REPORT.md`
+
+## Workflow Eksekusi
+
+### STEP 1 — Cek Teknis Otomatis
+Jalankan script cek teknis:
+`node seo/scripts/check-technical.js landings/<brand>/`
+(Script ini memvalidasi: panjang Title <= 55, Meta desc <= 155, alt text, title attr, robots.txt, sitemap, JSON-LD, Lenis, Emoji, dll).
+
+### STEP 2 — Cek Konten vs PRD (AI Review)
+Bandingkan file landing page (HTML/TSX) dengan `PRD.md`:
+- Kelengkapan 7 halaman inti
+- Struktur section sesuai PRD
+- Kalimat persuasi / company profile muncul di UI
+- Warna dan font sesuai panduan PRD
+- Gambar unik (tidak duplikat)
+- Footer memiliki data kontak lengkap
+
+### STEP 3 — Cek SOP SEO Lanjutan
+Berdasarkan checklist SEO:
+- Struktur Keyword: Penggunaan buying keyword, LSI keyword, dan optimasi CTR.
+- URL relevan dengan keyword utama.
+- Terdapat 3 Artikel Backlink berkualitas (diposting di wajibaca.com) yang relevan dan memiliki internal linking.
+- Terdapat minimal 1 video konten SMO yang relevan dan di-embed untuk setiap halaman utama.
+
+### STEP 4 — Buat Laporan Terpadu
+Buat file `landings/<brand>/SEO-AND-QA-REPORT.md` yang memuat tabel:
+1. Ringkasan Status (PASS / NEEDS FIX)
+2. Hasil Technical Check
+3. Hasil Content vs PRD Check
+4. Hasil SEO Check
+5. Daftar perbaikan yang harus dilakukan oleh skill `debug`.

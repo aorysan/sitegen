@@ -11,7 +11,6 @@ You are the master orchestrator for building a complete website. Execute these s
 2. Invoke `planner` to analyze intake data and generate PRD markdown.
 3. Invoke `qa-reviewer` to review and score the PRD (minimum 90/100). If < 90, loop back to step 2 for revision.
 4. Invoke `generator` to scaffold Next.js and generate the code based on the approved PRD.
-5. Invoke `checklist-reviewer` to review the generated landing page against the PRD.
-6. Invoke `seo` to check the generated site against SEO constraints.
-7. Invoke `debug` to run QA, visual debugging with Puppeteer, and SEO mismatch fixes.
-8. Invoke `deploy` to deploy the site to Vercel.
+5. Invoke `seo` to run technical checks, review the generated content against the PRD, and validate against SEO constraints.
+6. Invoke `debug` to run QA, visual debugging with Puppeteer, and SEO mismatch fixes.
+7. Invoke `deploy` to deploy the site to Vercel.
