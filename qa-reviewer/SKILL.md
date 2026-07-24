@@ -73,6 +73,7 @@ Untuk setiap kategori (7 kategori), cek setiap item satu per satu:
 - Cek setiap section punya data konten lengkap
 - Cek ada video SMO per halaman
 - Cek Schema.org JSON-LD tercantum per halaman
+- **Cek Aturan Carousel:** Pastikan setiap section yang memuat >= 10 item secara eksplisit direncanakan menggunakan layout "Carousel"
 
 **Kategori 5: Branding & Visual Plan (10 poin)**
 - Cek ada 3 warna (primary, secondary, dark) dengan hex code

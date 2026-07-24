@@ -7,9 +7,11 @@ description: Master orkestrator untuk pembuatan seluruh website. Menggunakan daf
 
 Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan langkah-langkah ini sesuai urutan yang tepat. Untuk setiap langkah, panggil sub-skill yang sesuai dan tunggu hingga selesai sebelum melanjutkan ke langkah berikutnya.
 
-1. Panggil `intake` untuk mengekstrak data PDF (teks, gambar, warna).
-2. (Langkah Eksternal) Pengguna atau rekan akan memberikan rencana website (site plan). Tunggu jika belum tersedia.
-3. Panggil `generator` untuk membuat struktur Next.js dan menghasilkan kode.
-4. Panggil `seo` untuk memeriksa situs yang dihasilkan terhadap aturan SEO.
-5. Panggil `debug` untuk menjalankan QA, debugging visual dengan Puppeteer, dan perbaikan SEO.
-6. Panggil `deploy` untuk menyebarkan (deploy) situs ke Vercel.
+1. Panggil `intake` untuk mengekstrak data PDF (teks, gambar, warna) ke `landings/<brand>/intake_data.md`.
+2. Panggil `planner` untuk membuat PRD (Product Requirements Document) berdasarkan hasil intake.
+3. Panggil `qa-reviewer` untuk me-review PRD. Jika skor < 90, minta `planner` melakukan revisi hingga PASS (skor >= 90).
+4. **[TUNGGU REVIEW USER]** Tampilkan PRD ke pengguna dan minta persetujuan. JANGAN lanjut sebelum pengguna menyetujui. Jika pengguna meminta revisi, ulangi langkah 2.
+5. Panggil `generator` untuk membuat struktur Next.js dan menghasilkan kode berdasarkan PRD yang disetujui.
+6. Panggil `seo` untuk memvalidasi situs terhadap SOP Checklist SEO dan menghasilkan laporan.
+7. Panggil `debug` untuk menjalankan visual debugging, analisis Lighthouse, perbaikan SEO, dan **Debugging Mandiri**. Pastikan tidak ada bug tersisa.
+8. Panggil `deploy` untuk menyebarkan situs ke Vercel. **WAJIB tampilkan URL GitHub dan URL Vercel ke pengguna di akhir proses.**
