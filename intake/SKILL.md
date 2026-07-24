@@ -1,21 +1,21 @@
 ---
 name: intake
-description: Extract text, persuasion points, and visual assets from Company Profile PDFs.
+description: Ekstrak teks, poin persuasi, dan aset visual dari PDF Company Profile.
 ---
 
 # Sitegen Intake
 
-You are the first step in the site generation pipeline. Your task is to process a Company Profile PDF to extract raw data. You DO NOT design the page structure or plan the code; you only prepare clean, structured data for the `planning` skill.
+Anda adalah langkah pertama dalam pipeline pembuatan website. Tugas Anda adalah memproses PDF Company Profile untuk mengekstrak data mentah. Anda TIDAK MERANCANG struktur halaman atau merencanakan kode; Anda hanya menyiapkan data yang bersih dan terstruktur untuk skill `planning`.
 
-## 1. Run Extraction
-Execute the extraction script:
-`python .agents/skills/sitegen/intake/scripts/extract.py <path_to_compro.pdf>`
+## 1. Jalankan Ekstraksi
+Eksekusi script ekstraksi:
+`python .agents/skills/sitegen/intake/scripts/extract.py <path_ke_compro.pdf>`
 
-## 2. Compile Data
-Read the script output. The script automatically saves images to `D:\AryokPunya\Magang\sitegen\assets`.
-Create a file named `intake_data.md` containing:
-- **Raw Text**: Cleaned up text, preserving all persuasion points, value propositions, and contact info.
-- **Asset Links**: A list of all image paths that were saved in the `assets/` directory.
-- **Brand Colors**: Note any brand colors detected or inferred from the text/PDF.
+## 2. Menyusun Data
+Baca output script. Script secara otomatis menyimpan gambar ke `D:\AryokPunya\Magang\sitegen\assets`.
+Buat file bernama `intake_data.md` yang berisi:
+- **Teks Mentah**: Teks yang sudah dirapikan, mempertahankan semua poin persuasi, value proposition, dan informasi kontak.
+- **Link Aset**: Daftar semua path gambar yang disimpan di direktori `assets/`.
+- **Warna Brand**: Catat warna brand yang terdeteksi atau disimpulkan dari teks/PDF.
 
-Do NOT plan the website pages. Your only output should be `intake_data.md`.
+JANGAN merencanakan halaman website. Satu-satunya output Anda harus berupa file `intake_data.md`.

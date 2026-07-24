@@ -1,10 +1,10 @@
 ---
 name: deploy
-description: Push code to GitHub and deploy Next.js project to Vercel.
+description: Push kode ke GitHub dan deploy proyek Next.js ke Vercel.
 ---
 
 # Sitegen Deploy
 
-1. Ensure all changes are committed and pushed to the remote GitHub repository.
-2. Deploy the Next.js project to Vercel (or another specified platform) using the Vercel CLI.
-3. Verify the deployment was successful and return the live URL.
+1. Pastikan semua perubahan telah di-commit dan di-push ke repositori GitHub remote.
+2. Deploy proyek Next.js ke Vercel (atau platform lain yang ditentukan) menggunakan Vercel CLI.
+3. Verifikasi bahwa penyebaran (deployment) berhasil dan kembalikan URL live-nya.
