@@ -100,6 +100,8 @@ Minimal 3 artikel backlink untuk dipublikasikan di `wajibaca.com`:
 
 ## 5. Struktur Halaman & Section Layout
 
+> **ATURAN CAROUSEL**: Jika suatu section memiliki **10 item atau lebih**, Anda WAJIB secara eksplisit menuliskan instruksi "Gunakan Auto-slide Carousel" pada data layout section tersebut.
+
 ### 5.1 Beranda (`/`)
 
 **Sections:**

@@ -12,10 +12,10 @@ Eksekusi script ekstraksi:
 `python .agents/skills/sitegen/intake/scripts/extract.py <path_ke_compro.pdf>`
 
 ## 2. Menyusun Data
-Baca output script. Script secara otomatis menyimpan gambar ke `D:\AryokPunya\Magang\sitegen\assets`.
-Buat file bernama `intake_data.md` yang berisi:
+Baca output script. Script secara otomatis menyimpan gambar ke direktori `assets/` (di `landings/<brand>/assets` atau direktori kerja).
+Buat file `intake_data.md` di folder `landings/<brand>/intake_data.md` yang berisi:
 - **Teks Mentah**: Teks yang sudah dirapikan, mempertahankan semua poin persuasi, value proposition, dan informasi kontak.
 - **Link Aset**: Daftar semua path gambar yang disimpan di direktori `assets/`.
 - **Warna Brand**: Catat warna brand yang terdeteksi atau disimpulkan dari teks/PDF.
 
-JANGAN merencanakan halaman website. Satu-satunya output Anda harus berupa file `intake_data.md`.
+JANGAN merencanakan halaman website. Satu-satunya output Anda harus berupa file `landings/<brand>/intake_data.md`.

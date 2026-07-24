@@ -1,6 +1,9 @@
 import sys
 import os
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 try:
     import fitz  # PyMuPDF
 except ImportError:
@@ -18,7 +21,8 @@ def extract_pdf(pdf_path):
     doc = fitz.open(pdf_path)
     text_content = []
     
-    asset_dir = r"D:\AryokPunya\Magang\sitegen\assets"
+    output_dir = sys.argv[2] if len(sys.argv) > 2 else os.getcwd()
+    asset_dir = os.path.join(output_dir, "assets")
     os.makedirs(asset_dir, exist_ok=True)
     
     img_count = 0

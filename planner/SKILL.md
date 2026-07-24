@@ -40,6 +40,7 @@ Satu file markdown bernama `PRD.md` yang disimpan di `landings/<brand>/PRD.md`.
 
 4. **Section Layout dari Generator.** Setiap halaman WAJIB dipetakan ke section types yang didukung oleh generator:
    - `hero`, `problem`, `solution`, `about`, `management`, `techstack`, `testimonial`, `pricing`, `faq`, `cta`, `video`
+   - **ATURAN CAROUSEL:** Jika suatu section (seperti grid layanan, list keunggulan, dll) memiliki **10 item atau lebih**, Anda WAJIB secara eksplisit menuliskan instruksi "Gunakan Auto-slide Carousel" pada data layout section tersebut di PRD.
 
 5. **SEO Strategy Wajib Per Halaman.** Setiap halaman harus memiliki:
    - 1 grup keyword utama (anti-kanibalisasi)

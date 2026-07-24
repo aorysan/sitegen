@@ -15,7 +15,7 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 4. **Gambar Unik, Responsif & Terverifikasi.** DILARANG KERAS menggunakan gambar berulang. Setiap gambar di setiap halaman harus unik, valid, dan dapat diakses (bukan 404). Utamakan mengambil/mengadaptasi gambar dari PDF Company Profile. Semua tag `<Image />` harus diberi styling responsif (`max-width: 100%`, `height: auto`) untuk mencegah gambar tidak muncul atau merusak layout mobile.
 5. **Preservasi Pesan & Persuasi PDF.** Teks persuasi, poin *value proposition*, dan kalimat berdaya pikat yang ada di PDF Company Profile DILARANG dihapus/dibuang. Teks tersebut harus diadaptasi secara alami dan diperkaya dengan kata kunci SEO.
 6. **Animasi Lenis Mandatory.** Setiap proyek WAJIB menginstal `lenis` (paket Lenis React/core terbaru) dan mengintegrasikannya secara global di `app/layout.tsx` untuk memastikan kelancaran *scrolling*.
-7. **SEO & Keywords Strict Compliance (SOP Checklist).** Setiap website yang digenerate WAJIB memenuhi seluruh kriteria SEO Analyze Checklist (lihat bagian khusus di bawah).
+7. **Kepatuhan Mutlak pada PRD.** Seluruh keyword SEO, metadata (Title/Description), konten, struktur halaman, layout section (seperti Grid vs Carousel), dan URL WAJIB diimplementasikan PERSIS seperti yang tertulis di PRD. Dilarang mengarang konten, melakukan riset ulang, atau melanggar spesifikasi PRD.
 8. **UI/UX Mobile Responsiveness & Layout Safety untuk tampilan mobile.** 
    - `html` dan `body` WAJIB memiliki `overflow-x: hidden` dan `max-width: 100vw` untuk mencegah bug konten keluar layar.
    - Semua elemen Grid/List dengan **2-9 item WAJIB dibungkus `<SwipeableCards>`** yang dilengkapi **indikator visual jelas** (*pagination dots*, *horizontal scrollbar*, atau *peek effect*).
@@ -25,57 +25,17 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 
 ---
 
-## SEO Analyze - SOP Checklist (MANDATORY)
 
-Setiap proses perencanaan dan pembuatan halaman WAJIB memverifikasi poin-poin berikut:
-
-### 1. Based Content from Company Profile
-- Informasi utama diambil murni dari Company Profile.
-- Kalimat persuasi, daya pikat, dan *value proposition* yang sudah dibahas di Company Profile WAJIB tetap muncul dan dipertahankan di lokasi strategis website.
-
-### 2. Struktur Keyword & Halaman
-- Data keyword dianalisis berdasarkan logis data Google Search Console (GSC) 3 bulan terakhir.
-- 1 Halaman = 1 Grup Keyword Utama (mencegah *keyword cannibalization*).
-- Memuat *Buying Keywords* utama dan *LSI (Latent Semantic Indexing) Keywords* pendukung.
-- Keyword diprioritaskan berdasarkan **Impression Tinggi** dan **CTR Masih Rendah** (*opportunity keyword*).
-- URL halaman memuat keyword utama (contoh: `/layanan-<keyword>`).
-
-### 3. Title Tag & Meta Description
-- **Title Tag (≤ 55 Karakter):** Memuat 2-3 keyword dengan impression paling tinggi, memakai copywriting berorientasi CTR (memuat *value proposition*, *urgency*, atau *benefit*), menarik dibaca, dan tidak terpotong di SERP.
-- **Meta Description (≤ 155 Karakter):** Memuat keyword relevan yang belum tercakup di Title Tag, copywriting berorientasi CTR (*benefit/urgency*), dan tidak terpotong di hasil pencarian.
-
-### 4. Untuk Halaman Baru
-- Topik utama divalidasi melalui riset keyword (Google Ads Keyword Planner / logic setara) berdasarkan layanan inti bisnis.
-- Memiliki *buying keyword* yang valid.
-
-### 5. Backlink (External Link)
-- Halaman Blog/Edukasi memuat minimal 3 Artikel Backlink berkualitas (persiapan diposting di `wajibaca.com`).
-- Judul artikel memuat 1 *buying keyword* sebagai ide utama, sesuai dengan *search intent* pengguna (solutif & relevan).
-- Artikel memuat gambar foto produk/layanan yang representatif dan *clickable* (mengarah kembali ke website utama / landing page layanan).
-
-### 6. Social Media Optimization (SMO)
-- Tersedia minimal 1 video konten yang relevan untuk setiap keyword utama.
-- Setiap halaman memuat 1 *section embed video* SMO (YouTube/Video Sosmed) terkait.
 
 ---
 
 ## Workflow Eksekusi
 
-### GATE 0 — PREREQUISITE: INTAKE DATA
-Gunakan data hasil ekstraksi dari skill `intake` (dokumen `intake_data.md` dan aset di `D:\AryokPunya\Magang\sitegen\assets`). DILARANG mengekstrak PDF secara manual di skill ini.
+### GATE 0 — PREREQUISITE: PRD & INTAKE DATA
+BACA dan GUNAKAN dokumen `landings/<brand>/PRD.md` yang telah LULUS QA (disetujui oleh skill `qa-reviewer`) beserta `intake_data.md` dan aset gambar dari skill `intake`. DILARANG membuat asumsi atau perencanaan ulang di luar PRD.
 
-### GATE 1 — SEO RESEARCH & SITEMAP PLANNING
-Analisis data PDF dan lakukan riset keyword sesuai **SEO SOP Checklist**:
-1. Tentukan *Buying Keywords* & *LSI Keywords* (fokus pada high impression, low CTR opportunity).
-2. Petakan konten ke **7 Halaman Inti** dengan URL ber-keyword:
-   - Beranda (`/`)
-   - Tentang Kami (`/about`)
-   - Layanan/Produk (`/services` atau `/layanan-<keyword>`)
-   - Portofolio/Studi Kasus (`/portfolio`)
-   - Blog/Edukasi (`/blog`) — minimal 3 artikel backlink untuk `wajibaca.com` dengan gambar clickable.
-   - Karir (`/careers`)
-   - Kontak Kami (`/contact`)
-3. Susun rancangan *JSON Site Structure* sesuai `reference/schema.json`.
+### GATE 1 — BACA DAN PAHAMI PRD
+Gunakan pemetaan 7 halaman inti, keyword, Title Tag, Meta Description, struktur section, dan instruksi spesifik (seperti Auto-slide Carousel) yang sudah ada di `landings/<brand>/PRD.md`. JANGAN membuat file JSON terpisah. JANGAN melakukan riset keyword atau merencanakan ulang konten. Langsung gunakan PRD sebagai referensi cetak biru untuk tahap selanjutnya.
 
 ### GATE 2 — SCAFFOLDING (TypeScript)
 Beralihlah ke folder `landings/` di root workspace, dan buat folder `<brand>` jika belum ada.

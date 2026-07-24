@@ -73,20 +73,23 @@ Cek apakah PRD memuat section untuk semua 7 halaman berikut:
 
 ## Kategori 4: Section Layout Completeness (20 poin)
 
-### 4.1 Section Types Valid (5 poin)
-- [ ] Semua section types yang dipakai ada dalam daftar: hero, problem, solution, about, management, techstack, testimonial, pricing, faq, cta, video — 5 poin
+### 4.1 Section Types Valid (4 poin)
+- [ ] Semua section types yang dipakai ada dalam daftar: hero, problem, solution, about, management, techstack, testimonial, pricing, faq, cta, video — 4 poin
 
-### 4.2 Data Konten Lengkap (8 poin)
+### 4.2 Data Konten Lengkap (7 poin)
 - [ ] Setiap section hero punya: headline, cta — 2 poin
 - [ ] Setiap section problem/solution punya: title, items/benefits — 2 poin
 - [ ] Setiap section cta punya: headline — 1 poin
-- [ ] Semua field wajib per section type terisi — 3 poin
+- [ ] Semua field wajib per section type terisi — 2 poin
 
-### 4.3 Video SMO (4 poin)
-- [ ] Setiap halaman punya minimal 1 section video atau embed SMO — 4 poin
+### 4.3 Video SMO (3 poin)
+- [ ] Setiap halaman punya minimal 1 section video atau embed SMO — 3 poin
 
 ### 4.4 Schema.org (3 poin)
 - [ ] Schema.org type tercantum untuk setiap halaman — 3 poin
+
+### 4.5 Aturan Carousel (3 poin)
+- [ ] Setiap section dengan >= 10 item secara eksplisit dipetakan menggunakan layout "Carousel" — 3 poin
 
 ---
 

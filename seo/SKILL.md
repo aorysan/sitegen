@@ -5,7 +5,7 @@ description: Validasi situs yang dihasilkan terhadap SOP Checklist SEO.
 
 # Sitegen SEO
 
-Periksa website yang telah dibuat terhadap SOP Checklist SEO berikut. Pastikan seluruh poin terpenuhi. Jika ada poin yang gagal, laporkan secara jelas agar skill `debug` dapat memperbaikinya.
+Periksa website yang telah dibuat terhadap SOP Checklist SEO berikut. Pastikan seluruh poin terpenuhi. Tulis hasil analisis dan poin yang gagal/harus diperbaiki ke dalam file `landings/<brand>/SEO-REPORT.md` secara detail agar dapat dibaca dan diperbaiki oleh skill `debug`.
 
 | **Based Content from Company Profile** |
 | --- |
