@@ -5,14 +5,15 @@ description: QA Otomatis, Visual Debugging (Puppeteer), dan Analisis Performa/SE
 
 # Sitegen Debug
 
-Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam 2 tahap wajib:
+Skill ini dipanggil setelah server berjalan di background. Jalankan QA otomatis dalam 3 tahap wajib:
 
 ## Tahap 1: Visual Debugging (Puppeteer)
 1. Jalankan skrip screenshot crawler:
    `node .agents/skills/sitegen/scripts/render.js http://localhost:3000 / /about /services /portfolio /blog /careers /contact`
 2. Periksa log console untuk error React/Next.js (hydration, dll) dan segera perbaiki kode.
-3. Periksa semua gambar screenshot di folder `landings/<brand>/.preview/`.
-4. Jika ada layout rusak (overflow, SwipeableCards rusak di mobile, gambar terpotong), perbaiki komponen lalu **ulangi skrip screenshot (loop)** sampai 100% sempurna.
+3. Periksa apakah ada Swipeable Cards yang gagal menampilkan data, tidak sesuai dengan SOP atau rusak saat mode mobile/tablet view.
+4. Periksa semua gambar screenshot di folder `landings/<brand>/.preview/`.
+5. Jika ada layout rusak (overflow, gambar terpotong, tipografi error, atau SwipeableCards rusak), perbaiki komponen lalu **ulangi skrip screenshot** sampai 100% sempurna.
 
 ## Tahap 2: Performance & SEO (Lighthouse)
 1. Setelah Tahap 1 hijau sempurna, jalankan Lighthouse CLI terpisah:
