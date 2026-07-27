@@ -5,7 +5,7 @@ description: QA Otomatis, Visual Debugging (Puppeteer), dan Analisis Performa/SE
 
 # Sitegen Debug
 
-Skill ini dipanggil setelah server berjalan di background. Jalankan QA otomatis dalam 3 tahap wajib:
+Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam 2 tahap wajib:
 
 ## Tahap 1: Visual Debugging (Puppeteer)
 1. Jalankan skrip screenshot crawler:
