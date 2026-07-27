@@ -37,7 +37,7 @@ File laporan review markdown: `landings/<brand>/QA-REVIEW.md`
 
 5. **Feedback Revisi Harus Spesifik.** Jika skor < 90, jangan hanya bilang "kurang lengkap". Sebutkan PERSIS apa yang kurang, di section mana, dan apa yang harus ditambahkan/diubah.
 
-6. **Loop Revision.** Jika PRD tidak lolos (skor < 90), feedback dikirim kembali ke skill `planner` untuk revisi. Setelah revisi, PRD di-review ulang. Loop ini berjalan hingga skor >= 90.
+6. **Loop Revision dengan Batasan.** Jika PRD tidak lolos (skor < 90), feedback dikirim kembali ke skill `planner` untuk revisi. Setelah revisi, PRD di-review ulang. **BATAS MAKSIMAL REVISI ADALAH 3 KALI.** Jika setelah 3 kali putaran revisi skor PRD masih di bawah 90, HENTIKAN proses otomatis ini. Eskalasikan masalah kepada pengguna (User) dengan menanyakan: *"Revisi maksimal telah tercapai, skor masih < 90. Apakah Anda ingin menyetujuinya (Force Pass) atau memberi instruksi manual?"*
 
 ## Workflow Eksekusi
 

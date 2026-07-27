@@ -56,10 +56,10 @@ Either file means the project is linked. Check for both.
 
 This is the ideal state. The project is linked and has git integration.
 
-1. **Ask the user before pushing.** Never push without explicit approval:
+1. **Ask the user before pushing.** Never push without explicit approval. **PENTING:** Anda WAJIB menghentikan seluruh pemanggilan tool (stop tool execution) setelah mengajukan pertanyaan ini dan serahkan kembali giliran *chat* kepada pengguna. Tunggu sampai pengguna membalas dengan "Ya" atau "Lanjut":
    ```
    This project is connected to Vercel via git. I can commit and push to
-   trigger a deployment. Want me to proceed?
+   trigger a deployment. Want me to proceed? (Tolong balas Ya/Lanjut)
    ```
 
 2. **Commit and push:**
