@@ -14,4 +14,4 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
 5. Panggil `generator` untuk membuat struktur Next.js dan menghasilkan kode berdasarkan PRD yang disetujui.
 6. Panggil `seo` untuk memvalidasi situs terhadap SOP Checklist SEO dan menghasilkan laporan.
 7. Panggil `debug` untuk menjalankan visual debugging, analisis Lighthouse, perbaikan SEO, dan **Debugging Mandiri**. Pastikan tidak ada bug tersisa.
-8. Panggil `deploy` untuk menyebarkan situs ke Vercel. **WAJIB tampilkan URL GitHub dan URL Vercel ke pengguna di akhir proses.**
+8. Panggil `deploy` untuk menyebarkan situs ke Vercel. **[TUNGGU KONFIRMASI USER]** karena deploy membutuhkan persetujuan manual. Hentikan eksekusi sementara dan tunggu balasan pengguna jika skill deploy bertanya (misal persetujuan git push). Lanjutkan hanya setelah pengguna menyetujui. **WAJIB tampilkan URL GitHub dan URL Vercel ke pengguna di akhir proses.**
