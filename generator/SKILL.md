@@ -75,6 +75,7 @@ Setelah Next.js siap:
    - Semua `<Image />` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style.
    - Di Halaman Blog: 3 artikel backlink dengan gambar clickable mengarah ke situs utama.
 
-### GATE 4 — SELESAI
-1. Pastikan seluruh kode Next.js berhasil di-generate.
-2. Eksekusi generator selesai. Kembalikan kontrol ke master `sitegen` untuk proses selanjutnya (SEO & Debug).
+### GATE 4 — QC & DELEGASI DEBUGGING
+1. Jalankan dev server di background: `cd landings/<brand> && npm run dev` (WAJIB gunakan fitur background task agent atau operator eksekusi background agar tidak memblokir proses selanjutnya).
+2. Setelah server berjalan di background, **PANGGIL SKILL `debug`** untuk mengeksekusi iterasi pengecekan visual (Puppeteer) dan performa (Lighthouse).
+3. Setelah skill `debug` menyatakan semua indikator hijau, eksekusi generator selesai.
