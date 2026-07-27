@@ -41,10 +41,10 @@ Gunakan pemetaan 7 halaman inti, keyword, Title Tag, Meta Description, struktur 
 Beralihlah ke folder `landings/` di root workspace, dan buat folder `<brand>` jika belum ada.
 Jalankan perintah inisialisasi Next.js TypeScript secara non-interaktif:
 ```bash
-npx create-next-app@latest ./landings/<brand> --use-npm --eslint --tailwind=false --src-dir=false --app --ts --import-alias="@/*"
+npx -y create-next-app@latest ./landings/<brand> --use-npm --eslint --tailwind=false --src-dir=false --app --ts --import-alias="@/*"
 ```
 - Jika ada warning Turbopack/lockfile, atur `next.config.ts`.
-- Instal dependensi animasi Lenis & Ikon: `cd landings/<brand> && npm install lenis lucide-react`.
+- Instal dependensi animasi Lenis & Ikon: `cd landings/<brand> && npm install -y --no-fund lenis lucide-react`.
 
 ### GATE 3 — DEVELOPMENT, MOBILE UX & SEO INTEGRATION
 Setelah Next.js siap:
