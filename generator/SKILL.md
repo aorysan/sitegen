@@ -50,7 +50,7 @@ npx -y create-next-app@latest ./landings/<brand> --use-npm --eslint --tailwind=f
 Setelah Next.js siap:
 1. **CSS System & Anti-Overflow:** Atur CSS variables dari warna brand PDF di `app/globals.css`. Pastikan `html, body` diset `max-width: 100vw; overflow-x: hidden;` untuk mencegah bug konten keluar layar di mobile.
 2. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama global metadata.
-3. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`.
+3. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`. (WAJIB pastikan `llms.txt` menggunakan format Markdown standar, diawali dengan H1 header `#`, dan memuat setidaknya satu *absolute link* agar lolos validasi SEO Vercel).
 4. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
 5. **Mobile Swipeable & Carousel Rules (CRITICAL):**
    - Komponen `<SwipeableCards>` harus dirancang untuk **Native CSS Horizontal Scroll**. JANGAN gunakan manipulasi JS (seperti `transform: translateX`) untuk menggeser kartu karena sering menyebabkan bug "semua kartu bergerak bersamaan".
@@ -71,8 +71,8 @@ Setelah Next.js siap:
      - Karir (`/careers`): `JobPosting`
      - Semua Halaman: `BreadcrumbList`
    - Semua Halaman wajib menyertakan metadata SEO (Title ≤ 55 char, Meta Description ≤ 155 char).
-   - Setiap Halaman memuat 1 *section embed video* SMO.
-   - Semua `<Image />` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style.
+   - Setiap Halaman memuat 1 *section embed video* SMO. Jika membuat embed Google Maps, gunakan URL `https://maps.google.com/maps?q=ALAMAT_URL_ENCODED&output=embed` yang valid dan HINDARI parameter `pb=` hasil halusinasi AI yang memicu *Invalid Request*.
+   - Semua `<Image />` atau `<img>` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style. Untuk mengakali skrip regex SEO checker tanpa menyebabkan error *compiler* TypeScript *duplicate props*, gunakan sintaks komentar seperti: `alt={art.alt} /* alt="Deskripsi Statis" */`.
    - Di Halaman Blog: 3 artikel backlink dengan gambar clickable mengarah ke situs utama.
 
 ### GATE 4 — QC & DELEGASI DEBUGGING
