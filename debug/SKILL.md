@@ -31,11 +31,19 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam 2 tahap 
 ## Tahap 3: Debugging Mandiri
 1. Lakukan pengecekan terhadap kepatuhan aturan `generator`. Agen **WAJIB memverifikasi secara manual**:
    - **Lenis Smooth Scroll**: Pastikan scroll berjalan mulus dan tidak ada error Lenis di console.
+   - **Animasi Scroll Framer Motion**: Pastikan elemen/section menggunakan `framer-motion` (`motion.div` dengan `viewport={{ once: true }}`), animasi (fade-in/flip) HANYA terpicu saat scroll dari atas ke bawah dan tidak terulang saat scroll dari bawah ke atas.
    - **Auto-slide Carousel**: Pastikan list dengan 10+ item otomatis bergeser tanpa interaksi.
    - **Schema.org JSON-LD**: Pastikan metadata JSON-LD valid dan sesuai tipe halaman (Beranda, Layanan, Blog, dll).
    - **Fidelitas Konten PRD**: Pastikan teks persuasi dari PRD tidak hilang atau diganti dengan *lorem ipsum*.
    - **Blog Backlink**: Pastikan halaman `/blog` memuat tepat 3 artikel backlink dengan gambar clickable.
    - **Header Mobile**: Pastikan burger menu berupa 3 garis utuh dan memiliki *safe-area padding*.
 2. Buka website di browser atau baca source code-nya secara menyeluruh.
-3. Jika ditemukan bug atau ketidaksesuaian, gunakan prinsip `systematic-debugging` secara internal (DILARANG menggunakan *slash command* seperti `/systematic-debugging`).
-4. Lakukan iterasi perbaikan secara mandiri **maksimal 3 kali putaran**. Jika setelah 3 kali iterasi masih terdapat bug sisa yang membandel atau skor Lighthouse mentok di angka tinggi (misal 90+), HENTIKAN proses debugging, buat laporan, dan beri tahu pengguna untuk dilanjutkan secara manual.
+3. Jika ditemukan bug sulit atau ketidaksesuaian, Anda WAJIB memanggil sub-skill `/systematic-debugging` untuk melakukan investigasi dan perbaikan komprehensif.
+4. Lakukan iterasi perbaikan secara mandiri **maksimal 3 kali putaran**. Jika bug membandel, buat laporan dan beri tahu pengguna.
+
+## Tahap 4: Post-Deploy Debug
+1. Saat dipanggil setelah deployment Vercel selesai, buka URL live Vercel.
+2. Verifikasi tidak ada error di console dan UI tidak rusak di lingkungan produksi.
+3. Jika ditemukan error (misalnya API gagal atau gambar 404 di *production*), perbaiki kode secara lokal, lalu re-deploy ke Vercel.
+4. Tampilkan URL final ke pengguna hanya setelah dipastikan aman dan LULUS verifikasi live.
+
