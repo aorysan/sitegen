@@ -17,5 +17,6 @@ Buat file `intake_data.md` di folder `landings/<brand>/intake_data.md` yang beri
 - **Teks Mentah**: Teks yang sudah dirapikan, mempertahankan semua poin persuasi, value proposition, dan informasi kontak.
 - **Link Aset**: Daftar semua path gambar yang disimpan di direktori `assets/`.
 - **Warna Brand**: Catat warna brand yang terdeteksi atau disimpulkan dari teks/PDF.
+- **Tujuan & Nilai Bisnis**: Ekstrak tujuan dibuatnya Compro, audiens target, manfaat utama, dan nilai bisnis dari teks PDF.
 
 JANGAN merencanakan halaman website. Satu-satunya output Anda harus berupa file `landings/<brand>/intake_data.md`.
