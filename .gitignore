@@ -24,3 +24,4 @@ yarn-debug.log*
 .sitegen/
 temp-venturo-claude/
 .agents/
+landings/
