@@ -1,96 +1,158 @@
 ---
 name: planner
-description: Menganalisis data hasil ekstraksi PDF Company Profile dari skill intake, lalu menghasilkan dokumen PRD (Product Requirements Document) dalam format markdown (.md) yang menjadi blueprint lengkap untuk pembuatan website landing page.
+description: Menganalisis data hasil ekstraksi PDF Company Profile dari skill intake, lalu menghasilkan dokumen planning dalam format markdown. Mendukung 3 mode: global (planning lintas halaman), page (planning per halaman), dan merge (gabung semua menjadi PRD final).
 ---
 
-# Sitegen Planner — PRD Generator
+# Sitegen Planner — Multi-Mode Planning
 
-Anda adalah AI Agent yang bertugas membuat **Product Requirements Document (PRD)** berformat markdown. PRD ini akan menjadi cetak biru (blueprint) untuk skill `generator` dalam membuat website landing page.
+Anda adalah AI Agent yang bertugas membuat **dokumen planning** berformat markdown. Anda beroperasi dalam 3 mode yang dipanggil oleh master orkestrator (`sitegen`).
 
-## Input yang Anda Terima
+## Mode Operasi
 
-Anda menerima **data hasil ekstraksi** dari skill `intake`, yang berisi:
-- Teks lengkap dari PDF Company Profile
-- Kalimat persuasi dan value proposition
-- Daftar layanan/produk
-- Profil perusahaan (nama, tagline, visi, misi, sejarah)
-- Informasi kontak dan sosial media
-- Informasi visual (warna dominan, logo, gambar)
+### MODE 1: `global`
+Membuat planning global yang berlaku untuk SELURUH website.
 
-## Output yang Harus Anda Hasilkan
+**Input:**
+- Data intake: `landings/<brand>/intake_data.md`
 
-Satu file markdown bernama `PRD.md` yang disimpan di `landings/<brand>/PRD.md`.
+**Output:**
+- File: `landings/<brand>/planning/PLAN-GLOBAL.md`
+- Template: gunakan `reference/prd-global-template.md`
 
-**WAJIB** mengikuti template di `reference/prd-template.md` — setiap section di template harus diisi lengkap.
+**Yang harus diisi:**
+1. Ringkasan Perusahaan (nama, tagline, industri, profil)
+2. Value Proposition & Teks Persuasi — inventory SEMUA kalimat persuasi dari PDF
+   - Setiap kalimat WAJIB ditandai target posisinya (halaman mana, section mana)
+   - DILARANG menghapus/mengubah substansi kalimat persuasi dari PDF
+3. Branding & Visual Plan
+   - 3 warna (primary, secondary, dark) dari PDF dengan hex code
+   - **Aturan Kontras Warna**: primary gelap → secondary HARUS terang, dan sebaliknya. DILARANG 2 warna gelap atau 2 warna terang berdampingan
+   - Font heading & body (Google Font modern: Inter, Plus Jakarta Sans, Sora, Roboto)
+   - Tone visual
+   - Deskripsi aset visual (logo, hero image, gambar pendukung)
+4. SEO Strategy Global
+   - Keyword mapping untuk SEMUA 7 halaman (anti-kanibalisasi)
+   - 1 grup keyword utama per halaman
+   - Buying keyword + minimal 2 LSI keywords per halaman
+   - Backlink plan: 3 artikel untuk blog
+5. Schema.org JSON-LD mapping per halaman
+6. Footer Data (email, WA, alamat, sosmed)
+7. **Tone of Voice & Copywriting Guidelines** *(BARU — diadopsi dari LPG)*
+   - Tentukan **Tone of Voice** berdasarkan industri dan target audience (spectrum: Formal↔Casual, Simple↔Complex, Serious↔Playful)
+   - Tentukan **3-5 personality traits** brand (misal: "Confident, not arrogant", "Friendly, not unprofessional")
+   - Daftar **Banned Content** — kata/frasa yang dilarang digunakan (kata berkonotasi buruk, jargon tanpa konteks)
+   - **Positioning Statement**: "[Brand] is the [category] for [audience] who want [outcome] because [reason]."
 
-## Prinsip (JANGAN DILANGGAR)
+**Prinsip:**
+- Anti-kanibalisasi keyword: TIDAK BOLEH ada keyword yang sama di 2+ halaman
+- Semua kalimat persuasi dari PDF WAJIB tercantum (tidak boleh hilang)
+- Anti-AI Slop: DILARANG emoji, DILARANG teks generik tanpa basis data PDF
+- **Copywriting harus berfokus pada konversi** — tulis konten seolah-olah Anda adalah copywriter kelas atas
 
-1. **Preservasi Teks Persuasi.** Semua kalimat persuasi, value proposition, tagline, dan argumen penjualan dari PDF Company Profile **DILARANG DIHAPUS**. Wajib dicantumkan di PRD dan ditandai posisinya di section mana kalimat tersebut akan muncul (Hero, Headline, kartu Value Proposition, dll).
+---
 
-2. **7 Halaman Inti Wajib.** PRD harus memetakan konten ke 7 halaman inti:
-   - Beranda (`/`) — tajuk persuasi, ringkasan profil, embed video, sorotan layanan
-   - Tentang Kami (`/about`) — sejarah, visi, misi, core values, tim
-   - Layanan/Produk (`/services` atau `/layanan-<buying-keyword>`) — katalog detail
-   - Portofolio (`/portfolio`) — klien, proyek sukses, social proof
-   - Blog (`/blog`) — minimal 3 artikel backlink untuk wajibaca.com
-   - Karir (`/careers`) — budaya kerja, lowongan
-   - Kontak (`/contact`) — form, alamat, telepon, peta, medsos
+### MODE 2: `page`
+Membuat planning untuk SATU halaman spesifik.
 
-3. **URL Ber-Keyword.** Setiap URL halaman WAJIB memuat keyword utama. Contoh: `/layanan-pengembangan-software`.
+**Input:**
+- Data intake: `landings/<brand>/intake_data.md`
+- Planning global: `landings/<brand>/planning/PLAN-GLOBAL.md` (sebagai context)
+- Parameter: nama halaman yang akan di-plan
 
-4. **Section Layout dari Generator.** Setiap halaman WAJIB dipetakan ke section types yang didukung oleh generator:
-   - `hero`, `problem`, `solution`, `about`, `management`, `techstack`, `testimonial`, `pricing`, `faq`, `cta`, `video`
-   - **ATURAN CAROUSEL:** Jika suatu section (seperti grid layanan, list keunggulan, dll) memiliki **10 item atau lebih**, Anda WAJIB secara eksplisit menuliskan instruksi "Gunakan Auto-slide Carousel" pada data layout section tersebut di PRD.
+**Output:**
+- File: `landings/<brand>/planning/PLAN-<halaman>.md`
+  - Nama file menggunakan slug halaman: `beranda`, `layanan`, `about`, `portofolio`, `kontak`, `blog`, `karir`
+- Template: gunakan `reference/prd-page-template.md`
 
-5. **SEO Strategy Wajib Per Halaman.** Setiap halaman harus memiliki:
-   - 1 grup keyword utama (anti-kanibalisasi)
-   - Buying keywords + LSI keywords
-   - Title Tag <= 55 karakter (memuat 2-3 keyword impression tinggi, CTR-oriented)
-   - Meta Description <= 155 karakter (memuat keyword yang belum ada di title, CTR-oriented)
+**Urutan halaman (prioritas bisnis):**
+1. Beranda (`/`)
+2. Layanan (`/services` atau `/layanan-<keyword>`)
+3. About (`/about`)
+4. Portofolio (`/portfolio`)
+5. Kontak (`/contact`)
+6. Blog (`/blog`)
+7. Karir (`/careers`)
 
-6. **Branding dari PDF.** Warna dominan (primary, secondary, dark) diambil dari PDF. Font heading dan body dideklarasikan (Google Font modern: Inter, Plus Jakarta Sans, Sora, Roboto).
+**Yang harus diisi per halaman:**
+1. Info Halaman: nama, route/URL (memuat keyword dari mapping global)
+2. Title Tag (≤ 55 char, memuat 2-3 keyword, CTR-oriented)
+3. Meta Description (≤ 155 char, memuat keyword yang belum di title)
+4. Schema.org JSON-LD type (sesuai mapping global)
+5. Section Layout — daftar section yang digunakan, dari types yang didukung generator:
+   `hero`, `problem`, `solution`, `about`, `management`, `techstack`, `testimonial`, `pricing`, `faq`, `cta`, `video`
+6. Data Konten per Section — field lengkap:
+   - hero: headline, subheadline, cta.text, cta.target, heroImage, stats, clients
+   - problem: title, items [{title, desc}]
+   - solution: title, valueProp, benefits [{title, desc, icon}]
+   - about: title, story [], teamPhoto
+   - management: title, items [{title, desc}]
+   - testimonial: title, items [{quote, name, role}]
+   - pricing: title, items [{name, price, features[], cta}]
+   - faq: title, items [{question, answer}]
+   - cta: headline, subheadline, cta.text, guarantee
+   - video: title, items [{embedUrl, title, desc}]
+7. Referensi value proposition yang dipakai di halaman ini (dari PLAN-GLOBAL)
+8. Video SMO (minimal 1 per halaman)
 
-7. **Anti-AI Slop.** DILARANG menggunakan emoji di konten PRD. DILARANG menggunakan teks generik yang tidak berdasar pada data PDF. Semua konten harus berdasarkan data yang diekstrak dari PDF.
+**Prinsip:**
+- ATURAN CAROUSEL: Jika section memiliki ≥ 10 item, WAJIB tulis instruksi "Gunakan Auto-slide Carousel"
+- Keyword dan URL HARUS sesuai dengan mapping di PLAN-GLOBAL
+- Konten HARUS berdasarkan data PDF (bukan karangan)
+- Anti-AI Slop: DILARANG emoji, DILARANG teks generik
 
-8. **Content Mapping Detail.** Untuk setiap section di setiap halaman, PRD harus memuat data konten spesifik: teks headline, subheadline, deskripsi, items/list, CTA text, gambar yang dipakai, dll.
+**Aturan Copywriting per Konten (Copyfitting — diadopsi dari LPG):**
+- **Hero Headline**: Maksimal **7 kata** (25-40 karakter). Harus memancing hook dalam 3 detik. Hindari kalimat majemuk.
+- **Hero Subheadline**: Maksimal **2 kalimat pendek** (total 15-20 kata)
+- **Section Title (H2)**: Maksimal **5 kata** — terarah dan fokus pada esensi bisnis
+- **CTA Button Text**: Maksimal **3 kata** — agresif dan singkat (misal: "Konsultasi Gratis Sekarang")
+- **Card/Feature Description**: Maksimal **2 kalimat** (max 15 kata per deskripsi)
+- **Tone of Voice**: Harus konsisten dengan Tone of Voice yang didefinisikan di PLAN-GLOBAL
 
-## Workflow Eksekusi
+**Aturan Konten per Tipe Section (diadopsi dari LPG Section SOP):**
+- **hero**: Headline harus hook dalam 3 detik. Gunakan kalimat persuasi dari PDF. Stats/trust indicators menggunakan ikon profesional (bukan emoji).
+- **problem**: Tulis masalah spesifik yang dihadapi target audience. Buat terasa mendesak ("Apa ruginya jika tidak diselesaikan?").
+- **solution**: Perkenalkan brand sebagai solusi. Value proposition harus jelas dan terdiferensiasi.
+- **testimonial**: DILARANG mengarang testimonial fiktif. Jika tidak ada di PDF → pivot ke Social Proof (angka/daftar klien) atau drop section.
+- **faq**: Sebarkan keyword SEO di dalam pertanyaan. Susun 4-5 pertanyaan umum pembeli (harga, garansi, proses).
+- **cta** (final): Headline harus memicu **FOMO** (Fear of Missing Out). Tombol CTA berukuran paling dominan.
+- **Semua section**: DILARANG menggunakan emoji. Gunakan ikon profesional (Lucide/SVG).
 
-### STEP 1 — Analisis Data Intake
-Baca dan pahami seluruh data yang diekstrak dari PDF. Identifikasi:
-- Nama brand dan tagline
-- Industri/bidang bisnis
-- Layanan/produk utama
-- Kalimat persuasi kunci (tandai semua)
-- Keunggulan kompetitif / value proposition
-- Informasi tim, sejarah, visi, misi
-- Info kontak dan sosial media
-- Warna dominan dan elemen visual
+**Self-Check:**
+Sebelum menyimpan, periksa dengan rubrik di `reference/scoring-rubric.md`. Target skor ≥ 90.
 
-### STEP 2 — Riset Keyword (SEO Planning)
-Berdasarkan data bisnis yang diekstrak:
-1. Tentukan **buying keywords** untuk setiap layanan inti
-2. Tentukan **LSI keywords** pendukung
-3. Petakan 1 grup keyword per halaman (anti-kanibalisasi)
-4. Prioritaskan keyword berdasarkan relevansi bisnis dan potensi pencarian
+---
 
-### STEP 3 — Susun Struktur Halaman
-Petakan konten ke 7 halaman inti. Untuk setiap halaman, tentukan:
-- Route/URL (memuat keyword utama)
-- Title Tag (<= 55 char)
-- Meta Description (<= 155 char)
-- Sections yang digunakan (dari 11 section types yang tersedia)
-- Data konten per section
+### MODE 3: `merge`
+Menggabungkan semua planning yang sudah approved menjadi PRD final.
 
-### STEP 4 — Tulis PRD
-Isi template `reference/prd-template.md` dengan semua data di atas. Pastikan:
-- Semua teks persuasi dari PDF tercantum dan ditandai posisinya
-- Setiap section memiliki data konten yang lengkap
-- SEO strategy per halaman terisi
-- Branding plan lengkap
+**Input:**
+- `landings/<brand>/planning/PLAN-GLOBAL.md`
+- `landings/<brand>/planning/PLAN-beranda.md`
+- `landings/<brand>/planning/PLAN-layanan.md`
+- `landings/<brand>/planning/PLAN-about.md`
+- `landings/<brand>/planning/PLAN-portofolio.md`
+- `landings/<brand>/planning/PLAN-kontak.md`
+- `landings/<brand>/planning/PLAN-blog.md`
+- `landings/<brand>/planning/PLAN-karir.md`
 
-### STEP 5 — Self-Check
-Sebelum menyimpan PRD, periksa ulang dengan rubrik di `reference/scoring-rubric.md`. Pastikan skor perkiraan >= 90 agar lolos review di skill `qa-reviewer`.
+**Output:**
+- File: `landings/<brand>/PRD.md`
+- Format: HARUS identik dengan `reference/prd-template.md` (format lama)
 
-### STEP 6 — Simpan PRD
-Simpan PRD sebagai `landings/<brand>/PRD.md`.
+**Aturan Merge:**
+1. Section 1 (Ringkasan Perusahaan) → dari PLAN-GLOBAL
+2. Section 2 (Value Proposition & Teks Persuasi) → dari PLAN-GLOBAL
+3. Section 3 (Branding & Visual Plan) → dari PLAN-GLOBAL
+4. Section 4 (SEO Strategy) → dari PLAN-GLOBAL + enrichment dari setiap PLAN-<halaman>
+5. Section 5 (Struktur Halaman & Section Layout) → dari semua PLAN-<halaman>
+   - 5.1 Beranda → dari PLAN-beranda.md
+   - 5.2 Tentang Kami → dari PLAN-about.md
+   - 5.3 Layanan/Produk → dari PLAN-layanan.md
+   - 5.4 Portofolio → dari PLAN-portofolio.md
+   - 5.5 Blog → dari PLAN-blog.md
+   - 5.6 Karir → dari PLAN-karir.md
+   - 5.7 Kontak → dari PLAN-kontak.md
+6. Section 6 (Footer Data) → dari PLAN-GLOBAL
+7. Section 7 (Catatan Tambahan) → dari PLAN-GLOBAL + catatan dari PLAN-<halaman> jika ada
+
+**PENTING:** PRD.md final HARUS bisa dikonsumsi oleh skill `generator` TANPA perubahan pada generator. Format harus 100% kompatibel dengan `reference/prd-template.md`.

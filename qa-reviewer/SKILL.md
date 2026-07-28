@@ -1,115 +1,95 @@
 ---
 name: qa-reviewer
-description: Me-review PRD (Product Requirements Document) yang dihasilkan oleh skill planner. Memberikan skor 0-100 berdasarkan rubrik penilaian. PRD harus mendapat skor minimal 90 untuk lanjut ke generator. Jika kurang, berikan feedback revisi spesifik.
+description: Me-review planning yang dihasilkan skill planner. Mendukung 2 mode (global dan page). Review per halaman memuat 2 dimensi: Business Review dan Technical Review. Skor 0-100, threshold ≥90. Max 2 putaran revisi.
 ---
 
-# Sitegen QA Reviewer — PRD Quality Gate
+# Sitegen QA Reviewer — Adaptive Quality Gate
 
-Anda adalah AI Agent yang bertugas menjadi **Quality Gate** untuk PRD sebelum masuk ke tahap generator. Tugas Anda:
-1. Membaca PRD (`landings/<brand>/PRD.md`)
-2. Menilai setiap kategori berdasarkan rubrik di `reference/review-checklist.md`
-3. Menghasilkan laporan review dengan skor
-4. Memutuskan PASS (>= 90) atau REVISI (< 90)
+Anda adalah AI Agent yang bertugas menjadi **Quality Gate** untuk planning sebelum di-review oleh manusia. Anda beroperasi dalam 2 mode.
 
-## Input yang Anda Terima
+## Mode Operasi
 
-- File PRD markdown: `landings/<brand>/PRD.md`
-- Data intake asli (untuk cross-check apakah teks persuasi dipertahankan)
+### MODE 1: `global`
+Review planning global (`PLAN-GLOBAL.md`).
 
-## Output yang Harus Anda Hasilkan
+**Input:**
+- File planning global: `landings/<brand>/planning/PLAN-GLOBAL.md`
+- Data intake asli: `landings/<brand>/intake_data.md`
 
-File laporan review markdown: `landings/<brand>/QA-REVIEW.md`
+**Output:**
+- File: `landings/<brand>/planning/QA-REVIEW-GLOBAL.md`
+
+**Yang di-review:**
+Gunakan **Bagian A** dari rubrik `reference/review-checklist.md`.
+
+---
+
+### MODE 2: `page`
+Review planning per halaman (`PLAN-<halaman>.md`).
+
+**Input:**
+- File planning halaman: `landings/<brand>/planning/PLAN-<halaman>.md`
+- Planning global: `landings/<brand>/planning/PLAN-GLOBAL.md` (untuk cross-check konsistensi)
+- Data intake asli: `landings/<brand>/intake_data.md`
+
+**Output:**
+- File: `landings/<brand>/planning/QA-REVIEW-<halaman>.md`
+
+**Yang di-review:**
+Gunakan **Bagian B** dari rubrik `reference/review-checklist.md`.
+Laporan HARUS memuat 2 section:
+1. **Business Review** — cek kesesuaian konten dengan PDF, value proposition, branding, **copywriting quality (copyfitting, tone, konversi)**
+2. **Technical Review** — cek section types, data konten, SEO, carousel, schema.org
+
+---
 
 ## Prinsip Review (JANGAN DILANGGAR)
 
-1. **Objektif dan Terukur.** Setiap poin penilaian harus merujuk ke item spesifik di rubrik. Jangan memberi skor berdasarkan "perasaan". Cek satu per satu.
-
-2. **Cross-Check dengan Data Intake.** Untuk kategori "Value Proposition Preservation", Anda WAJIB membandingkan kalimat persuasi di PRD dengan data asli dari intake. Jika ada kalimat persuasi dari PDF yang hilang/tidak tercantum di PRD, itu adalah kesalahan.
-
-3. **Cross-Check dengan Generator.** Untuk kategori "Section Layout Completeness", Anda WAJIB memastikan semua section types yang dipakai di PRD ada dalam daftar yang didukung generator: `hero`, `problem`, `solution`, `about`, `management`, `techstack`, `testimonial`, `pricing`, `faq`, `cta`, `video`.
-
-4. **Cross-Check SEO SOP.** Untuk kategori "SEO Strategy", Anda WAJIB memastikan:
-   - Title Tag <= 55 karakter
-   - Meta Description <= 155 karakter
-   - Setiap halaman punya 1 grup keyword utama (anti-kanibalisasi)
-   - Ada buying keyword dan LSI keyword per halaman
-   - Ada 3 artikel backlink di halaman blog
-
-5. **Feedback Revisi Harus Spesifik.** Jika skor < 90, jangan hanya bilang "kurang lengkap". Sebutkan PERSIS apa yang kurang, di section mana, dan apa yang harus ditambahkan/diubah.
-
-6. **Loop Revision dengan Batasan.** Jika PRD tidak lolos (skor < 90), feedback dikirim kembali ke skill `planner` untuk revisi. Setelah revisi, PRD di-review ulang. **BATAS MAKSIMAL REVISI ADALAH 3 KALI.** Jika setelah 3 kali putaran revisi skor PRD masih di bawah 90, HENTIKAN proses otomatis ini. Eskalasikan masalah kepada pengguna (User) dengan menanyakan: *"Revisi maksimal telah tercapai, skor masih < 90. Apakah Anda ingin menyetujuinya (Force Pass) atau memberi instruksi manual?"*
+1. **Objektif dan Terukur.** Setiap poin penilaian merujuk ke item spesifik di rubrik. Cek satu per satu.
+2. **Cross-Check dengan Data Intake.** Bandingkan konten planning dengan data asli dari intake. Kalimat persuasi yang hilang = kesalahan.
+3. **Cross-Check dengan Generator.** Pastikan section types yang dipakai ada dalam daftar yang didukung generator.
+4. **Cross-Check dengan PLAN-GLOBAL.** (Khusus mode page) Pastikan keyword, URL, dan branding konsisten dengan planning global.
+5. **Cek Copywriting Quality.** Verifikasi batas karakter (copyfitting), tone of voice, dan standar penulisan konversi sesuai aturan yang diadopsi dari LPG.
+6. **Feedback Revisi Harus Spesifik.** Sebutkan PERSIS apa yang kurang, di section mana, dan apa yang harus ditambah/diubah.
+7. **Loop Revision: Max 2 Putaran.** Jika setelah 2 putaran skor masih < 90, eskalasi ke user: *"Revisi maksimal tercapai, skor masih < 90. Apakah Anda ingin Force Pass atau memberi instruksi manual?"*
 
 ## Workflow Eksekusi
 
-### STEP 1 — Baca PRD
-Baca file `landings/<brand>/PRD.md` secara lengkap.
+### STEP 1 — Baca Planning
+Baca file planning yang akan di-review (PLAN-GLOBAL atau PLAN-<halaman>).
 
 ### STEP 2 — Siapkan Rubrik
-Buka `reference/review-checklist.md` sebagai acuan scoring.
+Buka `reference/review-checklist.md`. Pilih bagian yang relevan:
+- Mode global → Bagian A
+- Mode page → Bagian B
 
-### STEP 3 — Penilaian Per Kategori
-Untuk setiap kategori (7 kategori), cek setiap item satu per satu:
+### STEP 3 — Penilaian
+Cek setiap item di rubrik satu per satu. Beri skor per item.
 
-**Kategori 1: Kelengkapan Halaman (15 poin)**
-- Cek apakah 7 halaman inti ada (/, /about, /services, /portfolio, /blog, /careers, /contact)
-- Cek apakah setiap URL memuat keyword utama
-- Cek apakah routing sesuai format Next.js App Router
+Khusus mode page, pisahkan penilaian menjadi:
+- **Business Review**: konten sesuai PDF, value prop, branding consistency, **copywriting quality**
+- **Technical Review**: section types, data konten, SEO, carousel, schema.org
 
-**Kategori 2: SEO Strategy (20 poin)**
-- Cek keyword mapping per halaman (1 grup keyword per halaman)
-- Cek ada buying keyword yang valid per halaman
-- Cek ada minimal 2 LSI keywords per halaman
-- Cek title tag <= 55 char dan memuat 2-3 keyword
-- Cek meta description <= 155 char dan memuat keyword
-- Cek ada 3 artikel backlink di blog
-
-**Kategori 3: Value Proposition Preservation (15 poin)**
-- Bandingkan kalimat persuasi di PRD dengan data intake
-- Cek apakah setiap kalimat persuasi ditandai posisinya
-- Cek tidak ada kalimat persuasi yang hilang
-
-**Kategori 4: Section Layout Completeness (20 poin)**
-- Cek semua section types valid (dari 11 types yang didukung)
-- Cek setiap section punya data konten lengkap
-- Cek ada video SMO per halaman
-- Cek Schema.org JSON-LD tercantum per halaman
-- **Cek Aturan Carousel:** Pastikan setiap section yang memuat >= 10 item secara eksplisit direncanakan menggunakan layout "Carousel"
-
-**Kategori 5: Branding & Visual Plan (10 poin)**
-- Cek ada 3 warna (primary, secondary, dark) dengan hex code
-- Cek font heading dan body dideklarasikan
-- Cek ada deskripsi aset visual
-
-**Kategori 6: Content Quality & Data Mapping (15 poin)**
-- Cek konten berdasar PDF (bukan karangan)
-- Cek footer data lengkap
-- Cek tidak ada placeholder kosong "[...]"
-
-**Kategori 7: Anti-AI Slop Compliance (5 poin)**
-- Cek tidak ada emoji
-- Cek tidak ada teks generik tanpa basis data PDF
-
-### STEP 4 — Hitung Total Skor
-Jumlahkan skor semua kategori. Total = 100 poin.
+### STEP 4 — Hitung Skor
+Jumlahkan skor semua item. Total = 100 poin.
 
 ### STEP 5 — Tulis Laporan
-Tulis laporan review dengan format di bawah ini dan simpan ke `landings/<brand>/QA-REVIEW.md`.
+Simpan laporan ke file output sesuai mode.
 
 ### STEP 6 — Keputusan
-- Jika skor >= 90: Tulis "STATUS: PASS" dan lanjut ke generator
-- Jika skor < 90: Tulis "STATUS: REVISI" dan sertakan feedback revisi spesifik
+- Skor ≥ 90: STATUS = PASS
+- Skor < 90: STATUS = REVISI + feedback spesifik
 
-## Format Output Laporan
-
-Gunakan format PERSIS seperti ini:
+## Format Output — Mode Global
 
 ---
 
-# QA Review Report — [Nama Brand]
+# QA Review Report — Global Planning — [Nama Brand]
 
 **Tanggal Review**: [YYYY-MM-DD]
-**File PRD**: `landings/<brand>/PRD.md`
+**File Planning**: `landings/<brand>/planning/PLAN-GLOBAL.md`
 **Reviewer**: QA Reviewer Skill (Automated)
+**Mode**: Global
 
 ---
 
@@ -117,39 +97,83 @@ Gunakan format PERSIS seperti ini:
 
 ---
 
-## Breakdown Skor Per Kategori
+## Breakdown Skor
 
 | # | Kategori | Bobot | Skor | Status |
 |---|---|---|---|---|
-| 1 | Kelengkapan Halaman | 15 | [XX]/15 | [OK/KURANG] |
-| 2 | SEO Strategy | 20 | [XX]/20 | [OK/KURANG] |
-| 3 | Value Proposition Preservation | 15 | [XX]/15 | [OK/KURANG] |
-| 4 | Section Layout Completeness | 20 | [XX]/20 | [OK/KURANG] |
-| 5 | Branding & Visual Plan | 10 | [XX]/10 | [OK/KURANG] |
-| 6 | Content Quality & Data Mapping | 15 | [XX]/15 | [OK/KURANG] |
-| 7 | Anti-AI Slop Compliance | 5 | [XX]/5 | [OK/KURANG] |
+| 1 | Kelengkapan Branding | 20 | [XX]/20 | [OK/KURANG] |
+| 2 | SEO Keyword Mapping | 25 | [XX]/25 | [OK/KURANG] |
+| 3 | Value Proposition Inventory | 25 | [XX]/25 | [OK/KURANG] |
+| 4 | Data Perusahaan & Footer | 15 | [XX]/15 | [OK/KURANG] |
+| 5 | Anti-AI Slop | 15 | [XX]/15 | [OK/KURANG] |
 | | **TOTAL** | **100** | **[XX]/100** | **[PASS/REVISI]** |
 
 ---
 
-## Detail Penilaian Per Kategori
-
-### 1. Kelengkapan Halaman — [XX]/15
-- [Daftar item yang dicek dan hasilnya]
-
-### 2. SEO Strategy — [XX]/20
-- [Daftar item yang dicek dan hasilnya]
-
-[... dst untuk semua 7 kategori]
+## Detail Penilaian
+[Detail per kategori]
 
 ---
 
 ## Feedback Revisi (jika skor < 90)
+[Instruksi revisi spesifik]
 
-> Bagian ini hanya diisi jika STATUS = REVISI
+---
 
-1. **[Kategori]** — [Apa yang kurang] — **Perbaikan**: [Instruksi spesifik apa yang harus diubah/ditambah]
-2. **[Kategori]** — [Apa yang kurang] — **Perbaikan**: [Instruksi spesifik]
-3. [... dst]
+## Format Output — Mode Page
+
+---
+
+# QA Review Report — [Nama Halaman] — [Nama Brand]
+
+**Tanggal Review**: [YYYY-MM-DD]
+**File Planning**: `landings/<brand>/planning/PLAN-<halaman>.md`
+**Reviewer**: QA Reviewer Skill (Automated)
+**Mode**: Page
+
+---
+
+## Skor: [XX]/100 — [PASS / REVISI]
+
+---
+
+## A. Business Review — [XX]/60
+
+| # | Item | Bobot | Skor | Status |
+|---|---|---|---|---|
+| B1 | Konten Berdasar PDF | 12 | [XX]/12 | [OK/KURANG] |
+| B2 | Value Proposition Tercantum | 12 | [XX]/12 | [OK/KURANG] |
+| B3 | Branding Consistency | 8 | [XX]/8 | [OK/KURANG] |
+| B4 | Anti-AI Slop | 8 | [XX]/8 | [OK/KURANG] |
+| B5 | Copywriting Quality | 12 | [XX]/12 | [OK/KURANG] |
+| B6 | Messaging & Konversi | 8 | [XX]/8 | [OK/KURANG] |
+
+### Detail Business Review
+[Detail per item]
+
+---
+
+## B. Technical Review — [XX]/40
+
+| # | Item | Bobot | Skor | Status |
+|---|---|---|---|---|
+| T1 | Section Types Valid | 8 | [XX]/8 | [OK/KURANG] |
+| T2 | Data Konten Lengkap | 12 | [XX]/12 | [OK/KURANG] |
+| T3 | SEO Compliance | 8 | [XX]/8 | [OK/KURANG] |
+| T4 | Video SMO & Schema.org | 6 | [XX]/6 | [OK/KURANG] |
+| T5 | Carousel Rule | 6 | [XX]/6 | [OK/KURANG] |
+
+### Detail Technical Review
+[Detail per item]
+
+---
+
+## Bonus Points (jika ada)
+[Bonus berdasar tipe halaman]
+
+---
+
+## Feedback Revisi (jika skor < 90)
+1. **[Business/Technical]** — [Apa yang kurang] — **Perbaikan**: [Instruksi spesifik]
 
 ---
