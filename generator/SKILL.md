@@ -9,12 +9,12 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 
 ## Prinsip (JANGAN DILANGGAR)
 
-1. **Estetika Profesional, Rasa Dinamis.** Desain WAJIB 100% profesional dan elegan (Corporate/Business style). Namun, animasi dan fluiditasnya harus mengambil standar kualitas tinggi (*smooth scrolling* via Lenis, efek paralaks, transisi mulus, *hover* taktil) seperti referensi website interaktif (contoh: *Zenless Zone Zero*), *TANPA meniru gaya gaming/kartunnya*.
+1. **Estetika Profesional, Rasa Dinamis.** Desain WAJIB 100% profesional dan elegan (Corporate/Business style). Animasi WAJIB menggunakan `framer-motion` (untuk efek *fade-in/flip*) dengan komponen `motion.div`. WAJIB gunakan properti `viewport={{ once: true }}` agar animasi HANYA terpicu saat scroll turun dan tidak berulang saat scroll naik (*smooth scrolling* via Lenis tetap diaktifkan).
 2. **Framework & Styling Wajib.** Hanya gunakan **Next.js (App Router)** dengan **TypeScript (`.tsx`)** dan **Vanilla CSS Modules** (`.module.css`). **DILARANG KERAS menggunakan Tailwind CSS**.
 3. **Anti-AI Slop & Dilarang Emoji.** DILARANG KERAS menggunakan EMOJI (seperti 🚀, 💡, 🛡️) di elemen UI mana pun karena merusak tingkat profesionalisme korporat. Anda WAJIB hanya menggunakan *iconography* modern berbasis SVG murni atau *library* ikon profesional seperti `lucide-react`.
-4. **Gambar Unik, Responsif & Terverifikasi.** DILARANG KERAS menggunakan gambar berulang. Setiap gambar di setiap halaman harus unik, valid, dan dapat diakses (bukan 404). Utamakan mengambil/mengadaptasi gambar dari PDF Company Profile. Semua tag `<Image />` harus diberi styling responsif (`max-width: 100%`, `height: auto`) untuk mencegah gambar tidak muncul atau merusak layout mobile.
+4. **Gambar Unik, Responsif & Terverifikasi.** DILARANG KERAS menggunakan gambar berulang atau asal pasang. Sebelum menyisipkan gambar dan memoles tampilan, Anda WAJIB memanggil sub-skill `ui-ux-pro-max` dan `impeccable` untuk mengkurasi, mencocokkan gambar dari `assets/` dengan tema website, serta memastikan desain tingkat lanjut. Setiap gambar harus unik, valid, dan dapat diakses (bukan 404). Semua tag `<Image />` harus diberi styling responsif (`max-width: 100%`, `height: auto`) untuk mencegah gambar tidak muncul.
 5. **Preservasi Pesan & Persuasi PDF.** Teks persuasi, poin *value proposition*, dan kalimat berdaya pikat yang ada di PDF Company Profile DILARANG dihapus/dibuang. Teks tersebut harus diadaptasi secara alami dan diperkaya dengan kata kunci SEO.
-6. **Animasi Lenis Mandatory.** Setiap proyek WAJIB menginstal `lenis` (paket Lenis React/core terbaru) dan mengintegrasikannya secara global di `app/layout.tsx` untuk memastikan kelancaran *scrolling*.
+6. **Animasi Lenis & Framer Motion Mandatory.** Setiap proyek WAJIB menginstal `lenis` dan `framer-motion`. Integrasikan Lenis secara global di `app/layout.tsx` untuk *smooth scrolling*, dan gunakan `framer-motion` (`motion.div` dengan `viewport={{ once: true }}`) pada section/komponen untuk animasi interaktif saat scroll.
 7. **Kepatuhan Mutlak pada PRD.** Seluruh keyword SEO, metadata (Title/Description), konten, struktur halaman, layout section (seperti Grid vs Carousel), dan URL WAJIB diimplementasikan PERSIS seperti yang tertulis di PRD. Dilarang mengarang konten, melakukan riset ulang, atau melanggar spesifikasi PRD.
 8. **UI/UX Mobile Responsiveness & Layout Safety untuk tampilan mobile.** 
    - `html` dan `body` WAJIB memiliki `overflow-x: hidden` dan `max-width: 100vw` untuk mencegah bug konten keluar layar.
@@ -44,7 +44,7 @@ Jalankan perintah inisialisasi Next.js TypeScript secara non-interaktif:
 npx -y create-next-app@latest ./landings/<brand> --use-npm --eslint --tailwind=false --src-dir=false --app --ts --import-alias="@/*"
 ```
 - Jika ada warning Turbopack/lockfile, atur `next.config.ts`.
-- Instal dependensi animasi Lenis & Ikon: `cd landings/<brand> && npm install -y --no-fund lenis lucide-react`.
+- Instal dependensi animasi Lenis, Framer Motion, & Ikon: `cd landings/<brand> && npm install -y --no-fund lenis framer-motion lucide-react`.
 
 ### GATE 3 — DEVELOPMENT, MOBILE UX & SEO INTEGRATION
 Setelah Next.js siap:
