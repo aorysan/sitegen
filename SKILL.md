@@ -11,10 +11,12 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
 2. **Brainstorming & Global Design**:
    a. Panggil sub-skill `brainstorming` untuk diskusi dengan user dan menentukan rencana global berdasarkan intake.
    b. Panggil `ui-ux-pro-max` untuk menentukan warna, font, dan komponen global. Hasilkan `PLAN-GLOBAL.md`.
-3. **Planning per Halaman**: Untuk setiap halaman (Beranda, Layanan, dll), panggil `planner` mode=page untuk membuat `PLAN-<halaman>.md` berdasar global plan.
+3. **Planning per Halaman**: Untuk setiap halaman (WAJIB 7 HALAMAN: Beranda, Layanan, About, Portofolio, Kontak, Blog, Karir), panggil `planner` mode=page untuk membuat `PLAN-<halaman>.md` berdasar global plan.
 4. **Review Plan**: Panggil `qa-reviewer` dan tampilkan hasil plan per halaman kepada user. **[CRITICAL STOP]**: Anda WAJIB MENGHENTIKAN EKSEKUSI di titik ini dan MENUNGGU konfirmasi/persetujuan balasan dari user secara eksplisit. Jangan panggil tools atau lanjut ke langkah berikutnya tanpa izin user. Jika user meminta revisi, ulangi ke planning.
 5. **Generate & Polish per Halaman**:
    Untuk setiap halaman:
+   - **Check Assets**: Periksa folder `public/assets/` untuk mengidentifikasi logo resmi (`extracted_img_*`, `logo.*`, dll).
+   - **Header & Footer**: Pasang logo resmi hasil ekstraksi menggunakan `next/image` alih-alih teks placeholder.
    a. Panggil `generator` untuk membuat struktur/kode satu halaman.
    b. Panggil `impeccable` untuk memoles UI jika secara visual kurang bagus.
    c. Panggil `systematic-debugging` jika ada error saat generate.
