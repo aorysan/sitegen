@@ -11,16 +11,17 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
 2. **Brainstorming [CRITICAL STOP - TUNGGU REVIEW USER]**:
    a. Berdasarkan data hasil intake, berikan saran kepada user apa saja yang bagus untuk dimasukkan ke PRD nantinya. Lakukan brainstorming secara natural dengan user.
    b. **TUNGGU BALASAN USER**. Jangan buat PRD global sebelum user setuju dengan arah desain dan konten.
-3. **Global Design**: Panggil sub-skill `planner` mode=global (dan `ui-ux-pro-max` jika perlu) untuk menghasilkan `PLAN-GLOBAL.md`.
+3. **Global Design**: Panggil sub-skill `planner` mode=global (dan `ui-ux-pro-max` jika perlu) untuk menghasilkan `PLAN-GLOBAL.md`. Pastikan juga untuk menginisialisasi Playwright di dalam project Next.js (misal: `npm init playwright@latest --yes`).
 4. **Iterasi Per Halaman (Lakukan berurutan untuk setiap halaman dari Beranda hingga akhir):**
    Untuk setiap halaman:
    a. **Detail Halaman (PRD):** Panggil `planner` mode=page untuk halaman target.
    b. **Review QA:** Panggil `qa-reviewer` untuk menilai `PLAN-<halaman>.md`.
    c. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan detail halaman (PRD) kepada user. Tampilkan dalam format rapi atau link ke dokumen agar mudah dibaca. **TUNGGU BALASAN USER.** Jika ada revisi, perbaiki detail halamannya. JANGAN LANJUT ke generate sebelum user setuju.
    d. **Generate Halaman:** Setelah detail disetujui, panggil `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js.
-   e. **Debugging Mandiri:** Lakukan debugging mandiri (cek error console, UI/UX consistency, compliance to PRD). Jika ada bug atau tidak sesuai PRD, perbaiki secara mandiri maksimal 3 iterasi.
-   f. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Tampilkan hasil halaman yang sudah di-generate ke user (berikan link screenshot atau instruksi cek localhost). **TUNGGU BALASAN USER.** Jika tidak sesuai kemauan user, perbaiki (generate ulang/edit kode), debugging mandiri lagi, dan tampilkan ulang.
-   g. Lanjut ke halaman berikutnya, ulangi dari langkah 4a.
+   e. **Generate Playwright Spec:** Buat file test `tests/<halaman>.spec.ts` yang berisi validasi End-to-End berdasarkan PRD (misal keberadaan tombol, teks, layout responsif).
+   f. **Debugging Mandiri (Test):** Jalankan test Playwright (`npx playwright test tests/<halaman>.spec.ts`). Lakukan debugging mandiri (cek error console test, UI/UX consistency, compliance to PRD). Jika ada bug/test gagal, perbaiki kode dan jalankan ulang maksimal 3 iterasi.
+   g. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Tampilkan hasil halaman yang sudah lulus test ke user (berikan screenshot test passing atau instruksi cek localhost). **TUNGGU BALASAN USER.** Jika tidak sesuai kemauan user, perbaiki (generate ulang/edit kode), test ulang, dan tampilkan ulang.
+   h. Lanjut ke halaman berikutnya, ulangi dari langkah 4a.
 5. **Penggabungan (Integration):** Setelah semua halaman di-generate dan disetujui satu per satu, gabungkan (merge PRD jika perlu) dan pastikan navigasi antar halaman berfungsi sempurna.
 6. **SEO Validation:** Panggil `seo` untuk validasi SEO sebelum deploy.
 7. **Debug Lokal Final:** Jalankan dev server di background: `cd landings/<brand> && npm run dev -- -p 3000`. Panggil `debug` untuk QA menyeluruh (Lighthouse & final Puppeteer).
