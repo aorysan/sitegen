@@ -109,6 +109,7 @@ Membuat planning untuk SATU halaman spesifik.
 - **Tone of Voice**: Harus konsisten dengan Tone of Voice yang didefinisikan di PLAN-GLOBAL
 
 **Aturan Konten per Tipe Section (diadopsi dari LPG Section SOP):**
+- **ATURAN HERO PAGES:** Secara *default*, komponen `hero` dengan gambar besar (`heroImage`) HANYA BOLEH digunakan untuk halaman Beranda (`/`). Untuk seluruh halaman dalam (Inner Pages), Anda WAJIB merancang header berbasis teks murni tanpa `heroImage`. **PENGECUALIAN:** Jika User (manusia) memberikan instruksi revisi yang secara eksplisit meminta adanya gambar hero di halaman dalam, Anda WAJIB mematuhi User dan menambahkan `heroImage` pada rancangan halaman tersebut.
 - **hero**: Headline harus hook dalam 3 detik. Gunakan kalimat persuasi dari PDF. Stats/trust indicators menggunakan ikon profesional (bukan emoji).
 - **problem**: Tulis masalah spesifik yang dihadapi target audience. Buat terasa mendesak ("Apa ruginya jika tidak diselesaikan?").
 - **solution**: Perkenalkan brand sebagai solusi. Value proposition harus jelas dan terdiferensiasi.

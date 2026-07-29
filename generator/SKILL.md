@@ -48,11 +48,12 @@ npx -y create-next-app@latest ./landings/<brand> --use-npm --eslint --tailwind=f
 
 ### GATE 3 — DEVELOPMENT, MOBILE UX & SEO INTEGRATION
 Setelah Next.js siap:
-1. **CSS System & Anti-Overflow:** Atur CSS variables dari warna brand PDF di `app/globals.css`. Pastikan `html, body` diset `max-width: 100vw; overflow-x: hidden;` untuk mencegah bug konten keluar layar di mobile.
-2. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama global metadata.
-3. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`. (WAJIB pastikan `llms.txt` menggunakan format Markdown standar, diawali dengan H1 header `#`, dan memuat setidaknya satu *absolute link* agar lolos validasi SEO Vercel).
-4. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
-5. **Mobile Swipeable & Carousel Rules (CRITICAL):**
+1. **MANAJEMEN ASET GAMBAR (CRITICAL):** Anda WAJIB memindahkan atau menyalin seluruh isi folder `landings/<brand>/assets/` ke dalam folder statis Next.js yaitu `landings/<brand>/public/assets/`. Pastikan pemanggilan komponen `<Image src="/assets/..." />` merujuk tepat ke path tersebut. Jika Anda menggunakan gambar dari URL eksternal, Anda WAJIB mendaftarkan domain eksternal tersebut ke dalam properti `images.remotePatterns` pada file `next.config.ts`.
+2. **CSS System & Anti-Overflow:** Atur CSS variables dari warna brand PDF di `app/globals.css`. Pastikan `html, body` diset `max-width: 100vw; overflow-x: hidden;` untuk mencegah bug konten keluar layar di mobile.
+3. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama global metadata.
+4. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`. (WAJIB pastikan `llms.txt` menggunakan format Markdown standar, diawali dengan H1 header `#`, dan memuat setidaknya satu *absolute link* agar lolos validasi SEO Vercel).
+5. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
+6. **Mobile Swipeable & Carousel Rules (CRITICAL):**
    - Komponen `<SwipeableCards>` harus dirancang untuk **Native CSS Horizontal Scroll**. JANGAN gunakan manipulasi JS (seperti `transform: translateX`) untuk menggeser kartu karena sering menyebabkan bug "semua kartu bergerak bersamaan".
    - **Struktur CSS Wajib untuk SwipeableCards:**
      1. Parent container WAJIB memiliki `display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;` pada saat aktif (mobile ≤ 768px, atau all screens untuk carousel).
@@ -63,7 +64,7 @@ Setelah Next.js siap:
    - **Aturan Penggunaan Berdasarkan Jumlah Item:**
      - **< 10 Item:** Tampilkan sebagai **Grid biasa di Desktop**, dan jadikan **SwipeableCards di Mobile**. Pastikan pagination dots/counter HANYA MUNCUL DI MOBILE (saat layout menjadi flex-scroll), jangan sampai counter muncul berantakan di desktop.
      - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna.
-6. **Page Implementation & Schema.org (CRITICAL):**
+7. **Page Implementation & Schema.org (CRITICAL):**
    - Setiap Halaman WAJIB diinjeksi **Page-Specific Schema.org JSON-LD**:
      - Beranda (`/`): `Organization` / `LocalBusiness` + `WebSite`
      - Layanan (`/services`): `Service`
@@ -74,6 +75,7 @@ Setelah Next.js siap:
    - Setiap Halaman memuat 1 *section embed video* SMO. Jika membuat embed Google Maps, gunakan URL `https://maps.google.com/maps?q=ALAMAT_URL_ENCODED&output=embed` yang valid dan HINDARI parameter `pb=` hasil halusinasi AI yang memicu *Invalid Request*.
    - Semua `<Image />` atau `<img>` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style. Untuk mengakali skrip regex SEO checker tanpa menyebabkan error *compiler* TypeScript *duplicate props*, gunakan sintaks komentar seperti: `alt={art.alt} /* alt="Deskripsi Statis" */`.
    - Di Halaman Blog: 3 artikel backlink dengan gambar clickable mengarah ke situs utama.
+8. **ATURAN LAYOUT HERO/HEADER TANPA GAMBAR:** Jika Anda men-generate komponen Hero (khususnya pada halaman dalam) yang **tidak memiliki `heroImage`**, Anda WAJIB mengubah struktur layout CSS-nya menjadi satu kolom penuh (single column, DILARANG memakai grid 2 kolom). Seluruh teks (Headline, Subheadline, CTA) WAJIB ditata rata tengah (`text-align: center`, `align-items: center`, `justify-content: center`) agar terlihat elegan dan simetris di tengah layar.
 
 ### GATE 4 — GIT INITIALIZATION
 Lakukan inisialisasi Git di dalam folder Next.js yang baru dibuat.
