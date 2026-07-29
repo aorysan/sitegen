@@ -3,14 +3,15 @@ import fs from 'fs';
 import path from 'path';
 
 const args = process.argv.slice(2);
-if (args.length < 2) {
-  console.error('Usage: node render.mjs <baseUrl> <route1> [route2...]');
+if (args.length < 3) {
+  console.error('Usage: node render.mjs <brandName> <baseUrl> <route1> [route2...]');
   process.exit(1);
 }
 
-const baseUrl = args[0].replace(/\/$/, '');
-const routes = args.slice(1);
-const outDir = path.resolve('landings/rtonline/.preview');
+const brandName = args[0];
+const baseUrl = args[1].replace(/\/$/, '');
+const routes = args.slice(2);
+const outDir = path.resolve(`landings/${brandName}/.preview`);
 
 if (!fs.existsSync(outDir)) {
   fs.mkdirSync(outDir, { recursive: true });
@@ -19,7 +20,7 @@ if (!fs.existsSync(outDir)) {
 console.log(`Rendering ${routes.length} routes -> ${outDir}\n`);
 
 const browser = await puppeteer.launch({
-  headless: "new",
+  headless: true,
   args: ['--no-sandbox', '--disable-setuid-sandbox']
 });
 
