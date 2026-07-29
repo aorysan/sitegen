@@ -75,7 +75,12 @@ Setelah Next.js siap:
    - Semua `<Image />` atau `<img>` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style. Untuk mengakali skrip regex SEO checker tanpa menyebabkan error *compiler* TypeScript *duplicate props*, gunakan sintaks komentar seperti: `alt={art.alt} /* alt="Deskripsi Statis" */`.
    - Di Halaman Blog: 3 artikel backlink dengan gambar clickable mengarah ke situs utama.
 
-### GATE 4 — QC & DELEGASI DEBUGGING
-1. Jalankan dev server di background: `cd landings/<brand> && npm run dev` (WAJIB gunakan fitur background task agent atau operator eksekusi background agar tidak memblokir proses selanjutnya).
-2. Setelah server berjalan di background, **PANGGIL SKILL `debug`** untuk mengeksekusi iterasi pengecekan visual (Puppeteer) dan performa (Lighthouse).
-3. Setelah skill `debug` menyatakan semua indikator hijau, eksekusi generator selesai.
+### GATE 4 — GIT INITIALIZATION
+Lakukan inisialisasi Git di dalam folder Next.js yang baru dibuat.
+```bash
+cd landings/<brand>
+git init
+git add .
+git commit -m "Initial commit: Next.js project scaffolded by generator"
+```
+Eksekusi generator selesai di sini. Master orchestrator akan mengambil alih untuk tahap selanjutnya.
