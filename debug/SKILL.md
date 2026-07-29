@@ -5,11 +5,14 @@ description: QA Otomatis, Visual Debugging (Puppeteer), dan Analisis Performa/SE
 
 # Sitegen Debug
 
-Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam 2 tahap wajib:
+Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wajib berikut:
+
+## Tahap 0: Pahami PRD
+**WAJIB EKSTRAK & BACA**: Agen wajib membaca file `landings/<brand>/PRD.md` terlebih dahulu untuk memahami spesifikasi desain, konten, dan tata letak sebelum memulai proses debugging.
 
 ## Tahap 1: Visual Debugging (Puppeteer)
 1. Jalankan skrip screenshot crawler:
-   `node .agents/skills/sitegen/scripts/render.js http://localhost:3000 / /about /services /portfolio /blog /careers /contact`
+   `node .agents/skills/sitegen/scripts/render.js http://localhost:3000 <brand> / /about /services /portfolio /blog /careers /contact`
 2. **STRICT AUTO-FAIL**: Skrip Puppeteer di atas WAJIB menangkap dan memunculkan error hard-fail jika mendeteksi:
    - Penggunaan Emoji di dalam DOM.
    - Adanya class TailwindCSS.
@@ -30,11 +33,14 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam 2 tahap 
 
 ## Tahap 3: Debugging Mandiri
 1. Lakukan pengecekan terhadap kepatuhan aturan `generator`. Agen **WAJIB memverifikasi secara manual**:
+   - **Kesesuaian Layout**: Pastikan struktur tampilan mengikuti aturan spesifik dari PRD (misal: aturan *Carousel*).
+   - **Integritas Konten**: Pastikan teks persuasi dari PRD tidak terpotong, hilang, atau diganti dengan *lorem ipsum*.
+   - **Kesesuaian Visual**: Pastikan elemen menggunakan Warna Brand dan Font yang ditetapkan dari PRD.
+   - **PENEKANAN KUAT**: Jika hasil *render* melenceng dari PRD, meskipun tidak ada error sintaks/kode, agen **WAJIB** memperbaikinya kembali sesuai PRD.
    - **Lenis Smooth Scroll**: Pastikan scroll berjalan mulus dan tidak ada error Lenis di console.
    - **Animasi Scroll Framer Motion**: Pastikan elemen/section menggunakan `framer-motion` (`motion.div` dengan `viewport={{ once: true }}`), animasi (fade-in/flip) HANYA terpicu saat scroll dari atas ke bawah dan tidak terulang saat scroll dari bawah ke atas.
    - **Auto-slide Carousel**: Pastikan list dengan 10+ item otomatis bergeser tanpa interaksi.
    - **Schema.org JSON-LD**: Pastikan metadata JSON-LD valid dan sesuai tipe halaman (Beranda, Layanan, Blog, dll).
-   - **Fidelitas Konten PRD**: Pastikan teks persuasi dari PRD tidak hilang atau diganti dengan *lorem ipsum*.
    - **Blog Backlink**: Pastikan halaman `/blog` memuat tepat 3 artikel backlink dengan gambar clickable.
    - **Header Mobile**: Pastikan burger menu berupa 3 garis utuh dan memiliki *safe-area padding*.
 2. Buka website di browser atau baca source code-nya secara menyeluruh.

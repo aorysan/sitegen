@@ -4,11 +4,12 @@ const path = require('path');
 
 async function renderScreenshots() {
   const baseUrl = process.argv[2] || 'http://localhost:3000';
-  const routes = process.argv.slice(3).length > 0
-    ? process.argv.slice(3)
+  const brand = process.argv[3] || 'pawitra';
+  const routes = process.argv.slice(4).length > 0
+    ? process.argv.slice(4)
     : ['/', '/about', '/layanan-aplikasi-rt-digital', '/portfolio', '/blog', '/careers', '/contact'];
 
-  const previewDir = path.join(process.cwd(), 'landings', 'pawitra', '.preview');
+  const previewDir = path.join(process.cwd(), 'landings', brand, '.preview');
   if (!fs.existsSync(previewDir)) {
     fs.mkdirSync(previewDir, { recursive: true });
   }
