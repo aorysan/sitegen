@@ -23,6 +23,16 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 9. **Aksesibilitas & Attributes (A11y).** Semua tag `<a>` (link) dan `<img>` / `<Image />` WAJIB memiliki atribut `title` dan `alt`. Seluruh elemen interaktif (seperti tombol Carousel, kartu Swipeable, modal, burger menu) WAJIB dilengkapi `aria-label` yang deskriptif, `tabindex="0"` (jika bukan elemen input/button bawaan), serta mendukung penuh navigasi keyboard (akses via tombol `Tab`, `Enter`, `Space`, dan tombol panah `ArrowLeft`/`ArrowRight`).
 10. **LOKASI OUTPUT.** Hasil akhir (proyek Next.js) DILARANG ditaruh di dalam folder skill `.agents/skills/sitegen/`. Harus selalu di-*scaffold* di root `landings/<brand>/`.
 11. **Generasi Kode Bertahap (Chunking & Reliability).** DILARANG KERAS menghasilkan atau melempar seluruh kode proyek/file sekaligus dalam satu langkah besar untuk menghindari batas token (token limit) atau respon terpotong (*truncated output*). Proses eksekusi WAJIB dilakukan secara bertahap (chunking): scaffold -> setup styling & utility -> buat komponen pendukung -> buat halaman satu per satu -> validasi build.
+12. ** Aturan Wajib Penanganan Logo & Aset Visual (Mandatory Asset Inspection):**
+    - **Pemeriksaan Aset Ekstraksi Wajib**: Sebelum membuat atau memperbarui komponen `Header.tsx` dan `Footer.tsx`, Agent WAJIB memeriksa ketersediaan file gambar di folder `public/assets/` atau `assets/`. Cari file gambar hasil ekstraksi (misal `extracted_img_*`, `logo.*`, `brand-logo.*`).
+    - **Penggunaan Logo Resmi**: Jika ditemukan file logo hasil ekstraksi dari PDF intake (misal `extracted_img_0_5.jpeg`), Agent WAJIB menggunakannya pada `Header.tsx` dan `Footer.tsx` menggunakan komponen `<Image />` dari `next/image`. **DILARANG** mengganti logo asli dengan badge teks/CSS generik (seperti `<div className="bg-primary">RT</div>`) kecuali jika folder `public/assets/` benar-benar kosong atau tidak berisi file gambar.
+    - **Styling Logo pada Layout**:
+      - **Header**: Gunakan `<Image src="..." alt="Logo" width={...} height={...} className="h-9 w-auto object-contain" priority />`.
+      - **Footer**: Jika footer berlatar gelap, bungkus logo dalam kontainer bersih/terang agar kontras dan mudah dibaca.
+
+---
+
+
 
 ---
 
@@ -48,10 +58,16 @@ Setelah Next.js siap:
 1. **MANAJEMEN ASET GAMBAR (CRITICAL):** Anda WAJIB memindahkan atau menyalin seluruh isi folder `landings/<brand>/assets/` ke dalam folder statis Next.js yaitu `landings/<brand>/public/assets/`. Pastikan pemanggilan komponen `<Image src="/assets/..." />` merujuk tepat ke path tersebut. Jika Anda menggunakan gambar dari URL eksternal, Anda WAJIB mendaftarkan domain eksternal tersebut ke dalam properti `images.remotePatterns` pada file `next.config.ts`.
 2. **CSS System & Anti-Overflow:** Atur CSS variables dari warna brand PDF di `app/globals.css`. Pastikan `html, body` diset `max-width: 100vw; overflow-x: hidden;` untuk mencegah bug konten keluar layar di mobile.
 3. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama global metadata.
+<<<<<<< HEAD
 4. **Komponen Animasi `AnimatedSection.tsx` (Anime.js HOC Standard):** Buat komponen `AnimatedSection.tsx` sebagai Client Component (`'use client'`). Gunakan `useRef` untuk mereferensikan elemen DOM dan `IntersectionObserver` untuk mendeteksi kapan elemen masuk ke viewport. Ketika elemen terlihat (intersecting), jalankan animasi Anime.js via `anime({ targets: elementRef.current, opacity: [0, 1], translateY: [30, 0], duration: 800, easing: 'easeOutCubic', ... })`. WAJIB menyertakan fungsi *cleanup* (panggil `animation.pause()`) pada return `useEffect` saat unmount atau saat elemen keluar dari observasi untuk mencegah memory leak dan glitch animasi. Skema Asymmetric Reset: reset state elemen HANYA jika scroll posisi melewati batas bawah viewport.
 5. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`. (WAJIB pastikan `llms.txt` menggunakan format Markdown standar, diawali dengan H1 header `#`, dan memuat setidaknya satu *absolute link* agar lolos validasi SEO Vercel).
 6. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
 7. **Mobile Swipeable & Carousel Rules (CRITICAL):**
+=======
+4. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`. (WAJIB pastikan `llms.txt` menggunakan format Markdown standar, diawali dengan H1 header `#`, dan memuat setidaknya satu *absolute link* agar lolos validasi SEO Vercel).
+5. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`. **PENTING UNTUK HEADER:** Anda WAJIB membaca file Logo dari daftar aset di PRD dan merendernya menggunakan tag `<Image />` di pojok kiri atas Navbar. DILARANG KERAS hanya menggunakan teks polos sebagai logo jika URL gambar logo tersedia.
+6. **Mobile Swipeable & Carousel Rules (CRITICAL):**
+>>>>>>> 43d3bdeb9b8cd01a29e44c90a89e1bd8e8b4b5bd
    - Komponen `<SwipeableCards>` harus dirancang untuk **Native CSS Horizontal Scroll**. JANGAN gunakan manipulasi JS (seperti `transform: translateX`) untuk menggeser kartu karena sering menyebabkan bug "semua kartu bergerak bersamaan".
    - **Struktur CSS Wajib untuk SwipeableCards:**
      1. Parent container WAJIB memiliki `display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;` pada saat aktif (mobile ≤ 768px, atau all screens untuk carousel).
