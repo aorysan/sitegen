@@ -9,12 +9,12 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 
 ## Prinsip (JANGAN DILANGGAR)
 
-1. **Estetika Profesional, Rasa Dinamis.** Desain WAJIB 100% profesional dan elegan (Corporate/Business style). Animasi WAJIB menggunakan **CSS murni + `IntersectionObserver`** via komponen `AnimatedSection.tsx` (Vike Flow). **DILARANG MENGGUNAKAN `framer-motion`**. Animasi harus mematuhi Asymmetric Reset (hanya ter-reset jika elemen keluar dari bawah layar). (*smooth scrolling* via Lenis tetap diaktifkan).
+1. **Estetika Profesional, Rasa Dinamis (Anime.js Standard).** Desain WAJIB 100% profesional dan elegan (Corporate/Business style). Animasi WAJIB menggunakan **Anime.js (`animejs`) + `IntersectionObserver`** via komponen HOC `AnimatedSection.tsx`. **DILARANG KERAS MENGGUNAKAN `framer-motion` ATAU CSS Animation Murni (Vike Flow)** untuk animasi scroll/enter section. Animasi harus mematuhi Asymmetric Reset (hanya ter-reset jika elemen keluar dari bawah layar). (*smooth scrolling* via Lenis tetap diaktifkan).
 2. **Framework & Styling Wajib.** Hanya gunakan **Next.js (App Router)** dengan **TypeScript (`.tsx`)** dan **Vanilla CSS Modules** (`.module.css`). **DILARANG KERAS menggunakan Tailwind CSS**.
 3. **Anti-AI Slop & Dilarang Emoji.** DILARANG KERAS menggunakan EMOJI (seperti 🚀, 💡, 🛡️) di elemen UI mana pun karena merusak tingkat profesionalisme korporat. Anda WAJIB hanya menggunakan *iconography* modern berbasis SVG murni atau *library* ikon profesional seperti `lucide-react`.
 4. **Gambar Unik, Responsif & Terverifikasi.** DILARANG KERAS menggunakan gambar berulang atau asal pasang. Sebelum menyisipkan gambar dan memoles tampilan, Anda WAJIB memanggil sub-skill `ui-ux-pro-max` dan `impeccable` untuk mengkurasi, mencocokkan gambar dari `assets/` dengan tema website, serta memastikan desain tingkat lanjut. Setiap gambar harus unik, valid, dan dapat diakses (bukan 404). Semua tag `<Image />` harus diberi styling responsif (`max-width: 100%`, `height: auto`) untuk mencegah gambar tidak muncul.
 5. **Preservasi Pesan & Persuasi PDF.** Teks persuasi, poin *value proposition*, dan kalimat berdaya pikat yang ada di PDF Company Profile DILARANG dihapus/dibuang. Teks tersebut harus diadaptasi secara alami dan diperkaya dengan kata kunci SEO.
-6. **Animasi Lenis & CSS Vike Flow Mandatory.** Setiap proyek WAJIB menginstal `lenis`. Integrasikan Lenis secara global di `app/layout.tsx` untuk *smooth scrolling*, dan gunakan class CSS animasi (seperti `anim-fade-up`) yang di-trigger via komponen `AnimatedSection.tsx` untuk interaksi saat scroll.
+6. **Animasi Lenis & Anime.js Mandatory.** Setiap proyek WAJIB menginstal `lenis` dan `animejs`. Integrasikan Lenis secara global di `app/layout.tsx` untuk *smooth scrolling*, dan gunakan komponen `AnimatedSection.tsx` (berbasis Anime.js) untuk animasi interaksi saat scroll.
 7. **Kepatuhan Mutlak pada PRD.** Seluruh keyword SEO, metadata (Title/Description), konten, struktur halaman, layout section (seperti Grid vs Carousel), dan URL WAJIB diimplementasikan PERSIS seperti yang tertulis di PRD. Dilarang mengarang konten, melakukan riset ulang, atau melanggar spesifikasi PRD.
 8. **UI/UX Mobile Responsiveness & Layout Safety untuk tampilan mobile.** 
    - `html` dan `body` WAJIB memiliki `overflow-x: hidden` dan `max-width: 100vw` untuk mencegah bug konten keluar layar.
@@ -44,16 +44,17 @@ Jalankan perintah inisialisasi Next.js TypeScript secara non-interaktif:
 npx -y create-next-app@latest ./landings/<brand> --use-npm --eslint --tailwind=false --src-dir=false --app --ts --import-alias="@/*"
 ```
 - Jika ada warning Turbopack/lockfile, atur `next.config.ts`.
-- Instal dependensi animasi Lenis & Ikon: `cd landings/<brand> && npm install -y --no-fund lenis lucide-react`.
+- Instal dependensi animasi Lenis, Anime.js & Ikon: `cd landings/<brand> && npm install -y --no-fund lenis lucide-react animejs @types/animejs`.
 
 ### GATE 3 — DEVELOPMENT, MOBILE UX & SEO INTEGRATION
 Setelah Next.js siap:
 1. **MANAJEMEN ASET GAMBAR (CRITICAL):** Anda WAJIB memindahkan atau menyalin seluruh isi folder `landings/<brand>/assets/` ke dalam folder statis Next.js yaitu `landings/<brand>/public/assets/`. Pastikan pemanggilan komponen `<Image src="/assets/..." />` merujuk tepat ke path tersebut. Jika Anda menggunakan gambar dari URL eksternal, Anda WAJIB mendaftarkan domain eksternal tersebut ke dalam properti `images.remotePatterns` pada file `next.config.ts`.
 2. **CSS System & Anti-Overflow:** Atur CSS variables dari warna brand PDF di `app/globals.css`. Pastikan `html, body` diset `max-width: 100vw; overflow-x: hidden;` untuk mencegah bug konten keluar layar di mobile.
 3. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama global metadata.
-4. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`. (WAJIB pastikan `llms.txt` menggunakan format Markdown standar, diawali dengan H1 header `#`, dan memuat setidaknya satu *absolute link* agar lolos validasi SEO Vercel).
-5. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
-6. **Mobile Swipeable & Carousel Rules (CRITICAL):**
+4. **Komponen Animasi `AnimatedSection.tsx` (Anime.js HOC Standard):** Buat komponen `AnimatedSection.tsx` sebagai Client Component (`'use client'`). Gunakan `useRef` untuk mereferensikan elemen DOM dan `IntersectionObserver` untuk mendeteksi kapan elemen masuk ke viewport. Ketika elemen terlihat (intersecting), jalankan animasi Anime.js via `anime({ targets: elementRef.current, opacity: [0, 1], translateY: [30, 0], duration: 800, easing: 'easeOutCubic', ... })`. WAJIB menyertakan fungsi *cleanup* (panggil `animation.pause()`) pada return `useEffect` saat unmount atau saat elemen keluar dari observasi untuk mencegah memory leak dan glitch animasi. Skema Asymmetric Reset: reset state elemen HANYA jika scroll posisi melewati batas bawah viewport.
+5. **File SEO Wajib:** Buat `app/sitemap.ts`, `app/robots.ts`, dan `public/llms.txt`. (WAJIB pastikan `llms.txt` menggunakan format Markdown standar, diawali dengan H1 header `#`, dan memuat setidaknya satu *absolute link* agar lolos validasi SEO Vercel).
+6. **Header & Footer:** Buat `components/Header.tsx` (dengan burger menu mobile 3 garis utuh, safe-area padding) & `components/Footer.tsx`.
+7. **Mobile Swipeable & Carousel Rules (CRITICAL):**
    - Komponen `<SwipeableCards>` harus dirancang untuk **Native CSS Horizontal Scroll**. JANGAN gunakan manipulasi JS (seperti `transform: translateX`) untuk menggeser kartu karena sering menyebabkan bug "semua kartu bergerak bersamaan".
    - **Struktur CSS Wajib untuk SwipeableCards:**
      1. Parent container WAJIB memiliki `display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;` pada saat aktif (mobile ≤ 768px, atau all screens untuk carousel).
@@ -64,7 +65,7 @@ Setelah Next.js siap:
    - **Aturan Penggunaan Berdasarkan Jumlah Item:**
      - **< 10 Item:** Tampilkan sebagai **Grid biasa di Desktop**, dan jadikan **SwipeableCards di Mobile**. Pastikan pagination dots/counter HANYA MUNCUL DI MOBILE (saat layout menjadi flex-scroll), jangan sampai counter muncul berantakan di desktop.
      - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna.
-7. **Page Implementation & Schema.org (CRITICAL):**
+8. **Page Implementation & Schema.org (CRITICAL):**
    - Setiap Halaman WAJIB diinjeksi **Page-Specific Schema.org JSON-LD**:
      - Beranda (`/`): `Organization` / `LocalBusiness` + `WebSite`
      - Layanan (`/services`): `Service`
@@ -75,7 +76,7 @@ Setelah Next.js siap:
    - Setiap Halaman memuat 1 *section embed video* SMO. Jika membuat embed Google Maps, gunakan URL `https://maps.google.com/maps?q=ALAMAT_URL_ENCODED&output=embed` yang valid dan HINDARI parameter `pb=` hasil halusinasi AI yang memicu *Invalid Request*.
    - Semua `<Image />` atau `<img>` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style. Untuk mengakali skrip regex SEO checker tanpa menyebabkan error *compiler* TypeScript *duplicate props*, gunakan sintaks komentar seperti: `alt={art.alt} /* alt="Deskripsi Statis" */`.
    - Di Halaman Blog: 3 artikel backlink dengan gambar clickable mengarah ke situs utama.
-8. **ATURAN LAYOUT HERO/HEADER TANPA GAMBAR:** Jika Anda men-generate komponen Hero (khususnya pada halaman dalam) yang **tidak memiliki `heroImage`**, Anda WAJIB mengubah struktur layout CSS-nya menjadi satu kolom penuh (single column, DILARANG memakai grid 2 kolom). Seluruh teks (Headline, Subheadline, CTA) WAJIB ditata rata tengah (`text-align: center`, `align-items: center`, `justify-content: center`) agar terlihat elegan dan simetris di tengah layar.
+9. **ATURAN LAYOUT HERO/HEADER TANPA GAMBAR:** Jika Anda men-generate komponen Hero (khususnya pada halaman dalam) yang **tidak memiliki `heroImage`**, Anda WAJIB mengubah struktur layout CSS-nya menjadi satu kolom penuh (single column, DILARANG memakai grid 2 kolom). Seluruh teks (Headline, Subheadline, CTA) WAJIB ditata rata tengah (`text-align: center`, `align-items: center`, `justify-content: center`) agar terlihat elegan dan simetris di tengah layar.
 
 ### GATE 4 — GIT INITIALIZATION
 Lakukan inisialisasi Git di dalam folder Next.js yang baru dibuat.
