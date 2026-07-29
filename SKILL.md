@@ -19,7 +19,8 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
    b. Panggil `impeccable` untuk memoles UI jika secara visual kurang bagus.
    c. Panggil `systematic-debugging` jika ada error saat generate.
    d. Minta review user untuk halaman tersebut, lalu lanjut ke halaman berikutnya.
-6. **Global Debug & SEO**:
-   a. Panggil `systematic-debugging` secara menyeluruh mandiri jika ada fitur/navigasi antar-halaman yang rusak (tidak sesuai plan).
-   b. Panggil `seo` untuk validasi SEO sebelum deploy.
-7. **Deploy**: Deploy web (misal ke Vercel) dan pastikan live.
+6. **SEO**: Panggil `seo` untuk validasi SEO sebelum deploy.
+7. **Debug Lokal**: Jalankan dev server di background dengan perintah `cd landings/<brand> && npm run dev -- -p 3000`. Setelah server berjalan, panggil `debug` untuk menjalankan visual debugging, analisis Lighthouse, perbaikan SEO, dan **Debugging Mandiri**. Pastikan tidak ada bug tersisa.
+8. **Deploy**: Panggil `deploy` untuk deploy web (misal ke Vercel) dan pastikan live.
+9. **Post-Deploy Debug**: Panggil `debug` untuk **Post-Deploy Debug**. Jika bug/error muncul, perbaiki lokal lalu re-deploy (Maksimal 2 iterasi). Jika masih error, laporkan ke user.
+10. **Cleanup**: Setelah semua proses selesai, cari dan matikan (kill) proses Node.js yang berjalan di port 3000 (contoh: `npx kill-port 3000`).
