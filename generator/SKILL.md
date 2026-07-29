@@ -20,8 +20,10 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
    - `html` dan `body` WAJIB memiliki `overflow-x: hidden` dan `max-width: 100vw` untuk mencegah bug konten keluar layar.
    - Semua elemen Grid/List dengan **2-9 item WAJIB dibungkus `<SwipeableCards>`** yang dilengkapi **indikator visual jelas** (*pagination dots*, *horizontal scrollbar*, atau *peek effect*).
    - Elemen Grid/List dengan **10 item atau lebih WAJIB diubah menjadi Auto-slide Carousel** dengan indikator visual dan kontrol gesture agar pengguna tidak lelah/bingung melakukan swipe manual terlalu banyak.
-9. **Aksesibilitas & Attributes.** Semua tag `<a>` (link) dan `<img>` / `<Image />` WAJIB memiliki atribut `title` dan `alt`.
+9. **Aksesibilitas & Attributes (A11y).** Semua tag `<a>` (link) dan `<img>` / `<Image />` WAJIB memiliki atribut `title` dan `alt`. Seluruh elemen interaktif (seperti tombol Carousel, kartu Swipeable, modal, burger menu) WAJIB dilengkapi `aria-label` yang deskriptif, `tabindex="0"` (jika bukan elemen input/button bawaan), serta mendukung penuh navigasi keyboard (akses via tombol `Tab`, `Enter`, `Space`, dan tombol panah `ArrowLeft`/`ArrowRight`).
 10. **LOKASI OUTPUT.** Hasil akhir (proyek Next.js) DILARANG ditaruh di dalam folder skill `.agents/skills/sitegen/`. Harus selalu di-*scaffold* di root `landings/<brand>/`.
+11. **Generasi Kode Bertahap (Chunking & Reliability).** DILARANG KERAS menghasilkan atau melempar seluruh kode proyek/file sekaligus dalam satu langkah besar untuk menghindari batas token (token limit) atau respon terpotong (*truncated output*). Proses eksekusi WAJIB dilakukan secara bertahap (chunking): scaffold -> setup styling & utility -> buat komponen pendukung -> buat halaman satu per satu -> validasi build.
+
 
 ---
 
@@ -64,7 +66,8 @@ Setelah Next.js siap:
    - **Larangan Keras:** DILARANG menambahkan media query CSS Grid (contoh: `.gridClass { grid-template-columns: 1fr; }`) dari CSS luar yang menimpa elemen SwipeableCards pada mode mobile.
    - **Aturan Penggunaan Berdasarkan Jumlah Item:**
      - **< 10 Item:** Tampilkan sebagai **Grid biasa di Desktop**, dan jadikan **SwipeableCards di Mobile**. Pastikan pagination dots/counter HANYA MUNCUL DI MOBILE (saat layout menjadi flex-scroll), jangan sampai counter muncul berantakan di desktop.
-     - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna.
+      - **≥ 10 Item:** Wajib gunakan **Auto-slide Carousel** yang aktif di **Desktop DAN Mobile**. Slider harus otomatis bergerak (`setInterval` mengubah `scrollLeft`) tanpa interaksi pengguna.
+   - **Aksesibilitas & Navigasi Keyboard (A11y):** Setiap komponen Carousel dan SwipeableCards WAJIB menyertakan atribut `aria-label` pada tombol penjelajah/pagination, `tabindex="0"` pada container/kartu interaktif, serta mendukung navigasi panah keyboard (`ArrowLeft` dan `ArrowRight` untuk berpindah slide/kartu).
 8. **Page Implementation & Schema.org (CRITICAL):**
    - Setiap Halaman WAJIB diinjeksi **Page-Specific Schema.org JSON-LD**:
      - Beranda (`/`): `Organization` / `LocalBusiness` + `WebSite`
@@ -72,11 +75,21 @@ Setelah Next.js siap:
      - Blog (`/blog`): `Article` / `BlogPosting`
      - Karir (`/careers`): `JobPosting`
      - Semua Halaman: `BreadcrumbList`
+   - **Optimasi Performa & Lazy Loading (`next/dynamic`):** Komponen berat seperti **Auto-slide Carousel**, **embedded Maps**, atau section interaktif berukuran besar WAJIB di-import menggunakan `next/dynamic` (Lazy Loading, contoh: `const MapSection = dynamic(() => import('@/components/MapSection'), { ssr: false })`) untuk mengurangi ukuran JS bundle awal dan meningkatkan skor Core Web Vitals.
    - Semua Halaman wajib menyertakan metadata SEO (Title ≤ 55 char, Meta Description ≤ 155 char).
    - Setiap Halaman memuat 1 *section embed video* SMO. Jika membuat embed Google Maps, gunakan URL `https://maps.google.com/maps?q=ALAMAT_URL_ENCODED&output=embed` yang valid dan HINDARI parameter `pb=` hasil halusinasi AI yang memicu *Invalid Request*.
    - Semua `<Image />` atau `<img>` memuat atribut `title` & `alt`, gambar unik/tidak duplikat, dan responsive style. Untuk mengakali skrip regex SEO checker tanpa menyebabkan error *compiler* TypeScript *duplicate props*, gunakan sintaks komentar seperti: `alt={art.alt} /* alt="Deskripsi Statis" */`.
    - Di Halaman Blog: 3 artikel backlink dengan gambar clickable mengarah ke situs utama.
 9. **ATURAN LAYOUT HERO/HEADER TANPA GAMBAR:** Jika Anda men-generate komponen Hero (khususnya pada halaman dalam) yang **tidak memiliki `heroImage`**, Anda WAJIB mengubah struktur layout CSS-nya menjadi satu kolom penuh (single column, DILARANG memakai grid 2 kolom). Seluruh teks (Headline, Subheadline, CTA) WAJIB ditata rata tengah (`text-align: center`, `align-items: center`, `justify-content: center`) agar terlihat elegan dan simetris di tengah layar.
+
+### GATE 3.5 — VALIDASI BUILD & ERROR HANDLING (CRITICAL)
+Sebelum melakukan inisialisasi Git pada GATE 4, Anda WAJIB menjalankan perintah validasi build di folder `landings/<brand>`:
+```bash
+cd landings/<brand> && npm run build
+```
+- Periksa output build untuk memastikan tidak ada error TypeScript (`TS2304`, `TS2322`, dsb.), *broken imports*, kesalahan sintaks, atau error Next.js build.
+- Jika ditemukan error atau kegagalan build, Anda WAJIB langsung memperbaiki error tersebut dan menjalankan `npm run build` kembali hingga seluruh proses build berhasil tanpa error (*clean build*).
+- DILARANG KERAS melanjut ke GATE 4 (Git Initialization) atau mengklaim eksekusi selesai sebelum build terverifikasi 100% sukses.
 
 ### GATE 4 — GIT INITIALIZATION
 Lakukan inisialisasi Git di dalam folder Next.js yang baru dibuat.
