@@ -16,11 +16,13 @@ Alur kerja Sitegen terdiri dari tahapan-tahapan yang terstruktur dan wajib dijal
    *Tahap tunggu (Blocking).* PRD akan ditampilkan kepada pengguna. Proses tidak akan masuk ke tahap pemrograman sebelum mendapat persetujuan eksplisit dari pengguna.
 5. **Pembuatan Kode (`/generator`)**
    Membuat struktur aplikasi **Next.js** dan men-generate seluruh kode sumber berdasarkan spesifikasi dalam PRD yang disetujui.
-6. **SEO Validation (`/seo`)**
+6. **Per-Page Playwright Testing (`/debug`)**
+   Membuat test Playwright (`.spec.ts`) otomatis per halaman berdasarkan PRD, menjalankannya secara headless, dan melakukan *auto-fix* hingga lolos sebelum lanjut ke halaman berikutnya.
+7. **SEO Validation (`/seo`)**
    Memvalidasi situs yang baru dibuat terhadap SOP Checklist SEO dan membuat laporan status optimasinya.
-7. **Debugging & QA Final (`/debug`)**
+8. **Debugging & QA Final (`/debug`)**
    Menjalankan pengetesan komprehensif: visual debugging, analisis Lighthouse, injeksi perbaikan SEO, serta melakukan iterasi *Debugging Mandiri*. Tujuannya agar tidak ada satupun *bug* layout, hydration, atau responsivitas yang tersisa.
-8. **Deployment (`/deploy`)**
+9. **Deployment (`/deploy`)**
    Mendeploy situs secara otomatis ke **Vercel** dan memberikan *repository* GitHub serta URL Vercel yang sudah live kepada pengguna.
 
 ## 📁 Struktur Direktori Repositori
