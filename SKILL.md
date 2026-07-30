@@ -19,7 +19,9 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
    b. **Review QA:** Panggil `qa-reviewer` untuk menilai `PLAN-<halaman>.md`.
    c. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan detail halaman (PRD) kepada user. **HARD STOP**: Anda WAJIB berhenti bekerja dan menunggu balasan user. JANGAN LANJUT ke generate sebelum user setuju.
    d. **Persiapan Visual:** WAJIB panggil `ui-ux-pro-max` dan `impeccable` untuk mendapatkan pedoman layout dan animasi yang memukau.
-   e. **Generate Halaman:** Setelah persiapan visual selesai, panggil `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js.
+   e. **Generate Halaman:** Setelah persiapan visual selesai, panggil `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js. **ATURAN WAJIB UI:**
+      - Gunakan BANYAK gambar (minimal 1-2 gambar per section) dari direktori assets. Jangan hanya 1 gambar per halaman.
+      - Pastikan animasi on-scroll HANYA berjalan saat user scroll ke bawah (masuk viewport dari bawah) dan TIDAK reset/hilang saat user scroll ke atas. Gunakan IntersectionObserver `top > 0` threshold.
    f. **Generate Playwright Spec:** Buat file test `tests/<halaman>.spec.ts` yang berisi validasi End-to-End berdasarkan PRD.
    g. **Debugging Mandiri (Test):** Jalankan test Playwright (`npx playwright test tests/<halaman>.spec.ts`). Jika gagal karena browser/Chrome tidak ada, berikan peringatan dan minta user cek manual. Jika ada bug UI/UX, perbaiki kode.
    h. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Tampilkan hasil halaman. **HARD STOP**: BERHENTI MENGEKSEKUSI TOOL. Tunggu user mengecek localhost:3000 dan memberikan persetujuan. JANGAN lanjut ke halaman berikutnya.
