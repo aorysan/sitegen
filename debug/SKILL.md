@@ -8,7 +8,7 @@ description: QA Otomatis, Visual Debugging (Puppeteer), dan Analisis Performa/SE
 Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wajib berikut:
 
 ## Tahap 0: Pahami PRD
-**WAJIB EKSTRAK & BACA**: Agen wajib membaca file `landings/<brand>/PRD.md` terlebih dahulu untuk memahami spesifikasi desain, konten, dan tata letak sebelum memulai proses debugging.
+**WAJIB EKSTRAK & BACA**: Agen wajib membaca file `landings/<brand>/PRD.md` dan `landings/<brand>/final_intake.md` terlebih dahulu untuk memahami Visi, Misi, Tema Font, UI/UX preferensi user
 
 ## Tahap 1: Visual Debugging (Puppeteer)
 1. Jalankan skrip screenshot crawler:
@@ -20,6 +20,7 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
    - Elemen `<SwipeableCards>` (container flex) yang tidak memiliki `flex-shrink: 0` pada *children*-nya atau gagal menjadi `flex-direction: row` di mobile.
    - Tag `<img>` atau `<Image>` yang tidak memiliki `alt`, `title`, atau tidak responsif (`max-width: 100%`).
    - 404 network error pada pemuatan gambar.
+   - Ketiadaan animasi (elemen gagal muncul/ter-render) atau layout yang keluar batas (overflow-x).
 3. Periksa log console untuk error React/Next.js (hydration, dll) dan segera perbaiki kode.
 4. Periksa semua gambar screenshot di folder `landings/<brand>/.preview/`.
 5. Jika ada layout rusak (overflow, gambar terpotong, tipografi error, atau SwipeableCards rusak), perbaiki komponen lalu **ulangi skrip screenshot** sampai 100% sempurna.
@@ -44,7 +45,7 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
    - **Blog Backlink**: Pastikan halaman `/blog` memuat tepat 3 artikel backlink dengan gambar clickable.
    - **Header Mobile**: Pastikan burger menu berupa 3 garis utuh dan memiliki *safe-area padding*.
 2. Buka website di browser atau baca source code-nya secara menyeluruh.
-3. Jika ditemukan bug sulit atau ketidaksesuaian, Anda WAJIB memanggil sub-skill `/systematic-debugging` untuk melakukan investigasi dan perbaikan komprehensif.
+3. Jika terdeteksi bug visual, animasi hilang, atau layout aneh yang gagal diperbaiki dalam 2 iterasi, Anda WAJIB memanggil sub-skill `/systematic-debugging` untuk melakukan investigasi mendalam dan tidak boleh lanjut halaman.
 4. Lakukan iterasi perbaikan secara mandiri **maksimal 3 kali putaran**. Jika bug membandel, buat laporan dan beri tahu pengguna.
 
 ## Tahap 4: Post-Deploy Debug
