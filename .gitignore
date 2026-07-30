@@ -3,6 +3,19 @@ __pycache__/
 .pytest_cache/
 node_modules/
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Build & Test
+dist/
+build/
+out/
+.next/
+.vercel/
+coverage/
+playwright-report/
+test-results/
 
 # OS Files
 .DS_Store
