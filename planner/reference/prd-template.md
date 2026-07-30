@@ -273,3 +273,57 @@ Gunakan section types: `hero`, `about` (budaya kerja), `solution` (benefit beker
 ## 7. Catatan Tambahan
 
 [Catatan atau instruksi khusus yang perlu diperhatikan oleh generator]
+
+---
+
+## 8. User Needs Summary
+
+> Dirangkum dari `PLAN-USER-NEEDS.md`. Skill `generator` menggunakan bagian ini untuk memastikan konten website menjawab kebutuhan nyata target user — bukan sekadar menampilkan informasi perusahaan.
+
+### Pain Points yang Di-address Website Ini
+1. [Pain point terpenting — dari PLAN-USER-NEEDS Bagian 2]
+2. [Pain point 2]
+3. [Pain point 3]
+
+### Objection yang Harus Di-counter di Website
+| Objection | Halaman/Section yang Menjawab |
+|---|---|
+| [Objection 1] | [Halaman/section] |
+| [Objection 2] | [Halaman/section] |
+| [Objection 3] | [Halaman/section] |
+
+---
+
+## 9. Competitive Intelligence
+
+> Dirangkum dari `PLAN-COMPETITOR.md`. Insight kompetitor yang mempengaruhi keputusan copywriting, pemilihan section, dan strategi diferensiasi.
+
+### Gap yang Dieksploitasi di Website Ini
+| # | Gap | Cara Eksploitasi |
+|---|---|---|
+| 1 | [Gap dari analisis kompetitor] | [Section/halaman yang mengeksploitasi gap ini] |
+| 2 | [...] | [...] |
+| 3 | [...] | [...] |
+
+### Diferensiasi Utama vs Kompetitor
+- [Poin diferensiasi 1 — spesifik, bukan generik]
+- [Poin diferensiasi 2]
+- [Poin diferensiasi 3]
+
+---
+
+## 10. Design System Reference
+
+> Referensi ke `PLAN-DESIGN-SYSTEM.md`. Skill `generator` WAJIB membaca file ini sebelum menulis kode halaman manapun. Pastikan semua token konsisten.
+
+**File lengkap:** `landings/<brand>/planning/PLAN-DESIGN-SYSTEM.md`
+
+| Token Kunci | Value |
+|---|---|
+| `--color-primary` | [Hex — dari PLAN-DESIGN-SYSTEM Section 1] |
+| `--color-secondary` | [Hex — dari PLAN-DESIGN-SYSTEM Section 1] |
+| `--color-dark` | [Hex — dari PLAN-DESIGN-SYSTEM Section 1] |
+| Font Heading | [Nama Google Font — dari PLAN-DESIGN-SYSTEM Section 2] |
+| Font Body | [Nama Google Font — dari PLAN-DESIGN-SYSTEM Section 2] |
+| Spacing Base | 4px grid |
+| Container Desktop | [Max-width px — dari PLAN-DESIGN-SYSTEM Section 5] |

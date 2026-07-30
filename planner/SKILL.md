@@ -157,3 +157,35 @@ Menggabungkan semua planning yang sudah approved menjadi PRD final.
 7. Section 7 (Catatan Tambahan) → dari PLAN-GLOBAL + catatan dari PLAN-<halaman> jika ada
 
 **PENTING:** PRD.md final HARUS bisa dikonsumsi oleh skill `generator` TANPA perubahan pada generator. Format harus 100% kompatibel dengan `reference/prd-template.md`.
+
+---
+
+### MODE 4: `design-system`
+Membuat spesifikasi design system teknis berdasarkan PLAN-GLOBAL.md. Dipanggil segera setelah PLAN-GLOBAL.md selesai dibuat.
+
+**Input:**
+- `landings/<brand>/planning/PLAN-GLOBAL.md`
+
+**Output:**
+- File: `landings/<brand>/planning/PLAN-DESIGN-SYSTEM.md`
+- Template: gunakan `reference/prd-design-system-template.md`
+
+**Yang harus diisi:**
+1. Color System — primary (3 shade), secondary (3 shade), neutral (5 shade), semantic (4 warna) — dengan CSS token name + hex code + use case spesifik
+2. Typography Scale — H1, H2, H3, H4, body-lg, body, body-sm, caption — dengan font family, size (rem + px), weight, dan line-height
+3. Spacing Scale — sistem berbasis 4px grid, minimal 9 step dari `--space-1` (4px) hingga `--space-24` (96px)
+4. Border Radius System — 6 level: sm, md, lg, xl, 2xl, full
+5. Grid & Layout System — 4 breakpoints (mobile/tablet/desktop/wide) dengan container max-width dan jumlah kolom
+6. Component Specs:
+   - Button variants: primary, secondary, ghost — dengan background, text color, border, padding, dan hover state
+   - Card style: background, border radius, shadow default, padding, hover shadow + transform, transition
+   - Navbar style: background (glassmorphism), position, z-index, height per breakpoint, aturan logo
+   - Form/input style: border, border radius, padding, focus state, error state, placeholder color
+
+**Prinsip:**
+- Semua color token HARUS konsisten dengan warna di PLAN-GLOBAL.md (Section 3 Branding)
+- Semua font token HARUS menggunakan font yang sama dengan PLAN-GLOBAL.md (heading & body)
+- Nilai HARUS spesifik: angka px, hex code, weight numerik — DILARANG kalimat ambigu
+- Component specs HARUS mencakup semua komponen yang digunakan di section types generator
+- DILARANG mendefinisikan komponen atau token yang tidak digunakan di generator
+- Anti-AI Slop: DILARANG emoji, DILARANG placeholder `[...]`

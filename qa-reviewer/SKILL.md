@@ -43,6 +43,104 @@ Laporan HARUS memuat 2 section:
 
 ---
 
+### MODE 3: `global-extended`
+Review semua dokumen planning sekaligus, termasuk 3 dokumen baru dari skill `research` dan planner mode `design-system`.
+
+**Input:**
+- `landings/<brand>/planning/PLAN-GLOBAL.md`
+- `landings/<brand>/planning/PLAN-USER-NEEDS.md`
+- `landings/<brand>/planning/PLAN-COMPETITOR.md`
+- `landings/<brand>/planning/PLAN-DESIGN-SYSTEM.md`
+- `landings/<brand>/intake_data.md`
+
+**Output:**
+- File: `landings/<brand>/planning/QA-REVIEW-EXTENDED.md`
+
+**Yang di-review:**
+- Bagian A (existing) untuk `PLAN-GLOBAL.md` — threshold ≥ 90/100
+- Bagian C (baru) untuk `PLAN-USER-NEEDS.md`
+- Bagian D (baru) untuk `PLAN-COMPETITOR.md`
+- Bagian E (baru) untuk `PLAN-DESIGN-SYSTEM.md`
+- Subtotal Bagian C+D+E — threshold ≥ 60/75
+
+**Cross-Check Konsistensi antar Dokumen (wajib dicek semuanya):**
+1. Apakah pain points dari `PLAN-USER-NEEDS` ter-address di section halaman yang relevan (problem/faq/cta)?
+2. Apakah gap dari `PLAN-COMPETITOR` dieksploitasi dalam copywriting atau pemilihan section halaman?
+3. Apakah color token di `PLAN-DESIGN-SYSTEM` konsisten (hex sama) dengan `PLAN-GLOBAL` Section 3?
+4. Apakah font heading & body di `PLAN-DESIGN-SYSTEM` sama dengan `PLAN-GLOBAL`?
+5. Apakah objection user dari `PLAN-USER-NEEDS` ter-cover oleh FAQ section atau counter-messaging di halaman relevan?
+
+**Format Output tambahan untuk mode ini — QA-REVIEW-EXTENDED.md:**
+
+```
+# QA Review Report — Global Extended — [Nama Brand]
+
+**Tanggal Review**: [YYYY-MM-DD]
+**Reviewer**: QA Reviewer Skill (Automated)
+**Mode**: Global Extended
+
+---
+
+## A. Review PLAN-GLOBAL — [XX]/100 — [PASS/REVISI]
+[Gunakan format output Mode Global yang sudah ada]
+
+---
+
+## C. Review User Needs (PLAN-USER-NEEDS.md) — [XX]/25
+| # | Kategori | Bobot | Skor | Status |
+|---|---|---|---|---|
+| C1 | Kelengkapan Struktur | 10 | [XX]/10 | [OK/KURANG] |
+| C2 | Kedalaman Insight | 10 | [XX]/10 | [OK/KURANG] |
+| C3 | Anti-Generik | 5 | [XX]/5 | [OK/KURANG] |
+
+[Detail per item]
+
+---
+
+## D. Review Competitor Analysis (PLAN-COMPETITOR.md) — [XX]/25
+| # | Kategori | Bobot | Skor | Status |
+|---|---|---|---|---|
+| D1 | Kelengkapan Kompetitor | 10 | [XX]/10 | [OK/KURANG] |
+| D2 | Kedalaman Analisis | 10 | [XX]/10 | [OK/KURANG] |
+| D3 | Akurasi Data | 5 | [XX]/5 | [OK/KURANG] |
+
+[Detail per item]
+
+---
+
+## E. Review Design System (PLAN-DESIGN-SYSTEM.md) — [XX]/25
+| # | Kategori | Bobot | Skor | Status |
+|---|---|---|---|---|
+| E1 | Color System | 8 | [XX]/8 | [OK/KURANG] |
+| E2 | Typography & Spacing | 7 | [XX]/7 | [OK/KURANG] |
+| E3 | Layout & Component | 10 | [XX]/10 | [OK/KURANG] |
+
+[Detail per item]
+
+---
+
+## F. Cross-Check Konsistensi antar Dokumen
+1. Pain points ter-address di halaman: [OK/KURANG — sebutkan yang belum]
+2. Gap kompetitor dieksploitasi: [OK/KURANG — sebutkan yang terlewat]
+3. Color token konsisten: [OK/KURANG — sebutkan perbedaan hex jika ada]
+4. Font konsisten: [OK/KURANG]
+5. Objection user ter-cover: [OK/KURANG — sebutkan yang belum]
+
+---
+
+## Keputusan Final
+| Dokumen | Skor | Threshold | Status |
+|---|---|---|---|
+| PLAN-GLOBAL | [XX]/100 | ≥ 90 | [PASS/REVISI] |
+| Subtotal C+D+E | [XX]/75 | ≥ 60 | [PASS/REVISI] |
+| **STATUS KESELURUHAN** | | | **[PASS / REVISI]** |
+
+## Feedback Revisi (jika ada yang REVISI)
+[Instruksi revisi spesifik per dokumen yang tidak lolos]
+```
+
+---
+
 ## Prinsip Review (JANGAN DILANGGAR)
 
 1. **Objektif dan Terukur.** Setiap poin penilaian merujuk ke item spesifik di rubrik. Cek satu per satu.
@@ -52,6 +150,8 @@ Laporan HARUS memuat 2 section:
 5. **Cek Copywriting Quality.** Verifikasi batas karakter (copyfitting), tone of voice, dan standar penulisan konversi sesuai aturan yang diadopsi dari LPG.
 6. **Feedback Revisi Harus Spesifik.** Sebutkan PERSIS apa yang kurang, di section mana, dan apa yang harus ditambah/diubah.
 7. **Loop Revision: Max 2 Putaran.** Jika setelah 2 putaran skor masih < 90, eskalasi ke user: *"Revisi maksimal tercapai, skor masih < 90. Apakah Anda ingin Force Pass atau memberi instruksi manual?"*
+8. **Cross-Check Konsistensi (mode global-extended).** Verifikasi bahwa pain points, gap kompetitor, token warna, dan objection user saling terhubung secara kohesif antar semua dokumen planning.
+
 
 ## Workflow Eksekusi
 
