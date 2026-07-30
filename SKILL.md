@@ -25,7 +25,7 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
    h. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Tampilkan hasil halaman. **HARD STOP**: BERHENTI MENGEKSEKUSI TOOL. Tunggu user mengecek localhost:3000 dan memberikan persetujuan. JANGAN lanjut ke halaman berikutnya.
    i. Lanjut ke halaman berikutnya, ulangi dari langkah 4a.
 5. **Penggabungan (Integration):** Setelah semua halaman di-generate dan disetujui satu per satu, gabungkan (merge PRD jika perlu) dan pastikan navigasi antar halaman berfungsi sempurna.
-6. **SEO Validation:** Panggil skill SEO eksternal (dari github.com/affaan-m/everything-claude-code) untuk validasi struktur SEO terhadap `final_intake.md` dan PRD sebelum deploy.
+6. **SEO Validation:** Panggil sub-skill `seo` untuk melakukan audit SEO (Crawlability, Indexability, Performance, Structured Data) dan memvalidasi struktur SEO terhadap `final_intake.md` dan PRD sebelum deploy. Tulis hasilnya ke `landings/<brand>/SEO-REPORT.md`.
 7. **Debug Lokal Final:** Jalankan dev server di background: `cd landings/<brand> && npm run dev -- -p 3000`. Panggil `debug` untuk QA menyeluruh (Lighthouse & final Puppeteer).
 8. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan keseluruhan website ke user untuk persetujuan akhir. **HARD STOP**: BERHENTI TOTAL. Jangan panggil tool deploy sebelum user bilang "Ya/Deploy".
 9. **Deploy**: Jika user setuju, panggil `deploy` ke Vercel.
