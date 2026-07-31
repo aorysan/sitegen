@@ -22,26 +22,23 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
    d. Setelah disetujui, panggil `ui-ux-pro-max` untuk menentukan warna, font, dan komponen global. Hasilkan `PLAN-GLOBAL.md`. Pastikan juga untuk menginisialisasi Playwright di dalam project Next.js (misal: `npm init playwright@latest --yes` dan `npx playwright install --with-deps`).
    e. Segera setelah `PLAN-GLOBAL.md` selesai, panggil `planner` mode=design-system untuk menghasilkan `PLAN-DESIGN-SYSTEM.md`.
 
-4. **Iterasi Per Halaman (Lakukan berurutan untuk setiap halaman yang terdaftar di `landings/<brand>/planning/PAGES-LIST.md`):**
-   Baca file `landings/<brand>/planning/PAGES-LIST.md` dan lakukan iterasi secara berurutan untuk setiap halaman yang terdaftar di dalamnya:
-   a. **Detail Halaman (PRD):** Panggil `planner` mode=page untuk halaman target. Cross-reference dengan `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md` untuk memastikan pain points dan gap kompetitor ter-address.
-   b. **Review QA:** Panggil `qa-reviewer` untuk menilai `PLAN-<halaman>.md`.
-   c. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan detail halaman (PRD) kepada user. **HARD STOP**: Anda WAJIB berhenti bekerja dan menunggu balasan user. JANGAN LANJUT ke generate sebelum user setuju.
-   d. **Persiapan Visual & Aset:** 
-      - Periksa folder `public/assets/` untuk mengidentifikasi logo resmi. Pasang logo hasil ekstraksi menggunakan `next/image` di header/footer.
-      - WAJIB panggil `ui-ux-pro-max` dan `impeccable` untuk mendapatkan pedoman layout dan animasi yang memukau.
-   e. **Generate Halaman:** Setelah persiapan visual selesai, panggil `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js. Generator WAJIB membaca pedoman visual dan `PLAN-DESIGN-SYSTEM.md`.
-   f. **Polish & Debug:** Panggil `impeccable` untuk memoles UI jika kurang memukau, lalu panggil `systematic-debugging` jika ada error saat generate.
-   g. **Generate Playwright Spec:** Buat file test `tests/<halaman>.spec.ts` yang berisi validasi End-to-End berdasarkan PRD.
-   h. **Debugging Mandiri (Test):** Jalankan test Playwright (`npx playwright test tests/<halaman>.spec.ts`). Jika gagal karena browser/Chrome tidak ada, berikan peringatan dan minta user cek manual. Jika ada bug UI/UX, perbaiki kode.
-   i. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Tampilkan hasil halaman. **HARD STOP**: BERHENTI MENGEKSEKUSI TOOL. Tunggu user mengecek dev server pada port aktif (misal `localhost:<port>`) dan memberikan persetujuan. JANGAN lanjut ke halaman berikutnya.
-   j. Lanjut ke halaman berikutnya, ulangi dari langkah 4a.
+4. **SDD Plan Generation**: Buat rencana implementasi utama (`landings/<brand>/planning/SDD-PAGES-PLAN.md`) yang mendetailkan pembuatan semua halaman (dari `PAGES-LIST.md`) sebagai task terpisah.
 
-5. **Penggabungan (Integration):** Setelah semua halaman di-generate dan disetujui satu per satu, gabungkan (merge PRD jika perlu) dan pastikan navigasi antar halaman berfungsi sempurna.
+5. **Execute SDD (Subagent-Driven Development)**: Panggil sub-skill `subagent-driven-development` lokal (dari folder `subagent-driven-development` di dalam sitegen) menggunakan `SDD-PAGES-PLAN.md`.
+    - SDD akan memanggil subagent `generator` untuk setiap task halaman.
+    - SDD akan memanggil subagent `qa-reviewer` untuk memverifikasi halaman terhadap PRD.
+    - SDD akan menangani fix loop secara otomatis (maksimal 5 iterasi) menggunakan `impeccable` atau `systematic-debugging`.
 
-6. **SEO Validation**: Panggil skill SEO eksternal (dari github.com/affaan-m/everything-claude-code) untuk validasi struktur SEO terhadap `final_intake.md` dan PRD sebelum deploy.
-7. **Debug Lokal Final**: Jalankan dev server di background dengan perintah `cd landings/<brand> && npm run dev` (biarkan Next.js memilih port secara otomatis). Baca output terminal untuk menentukan port yang aktif (misal: 3000, 3001, dst.) yang digunakan untuk Playwright testing dan visual debugging. Setelah server berjalan, panggil `debug` untuk menjalankan visual debugging, analisis Lighthouse, perbaikan SEO, dan **Debugging Mandiri**. Pastikan tidak ada bug tersisa.
-8. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan keseluruhan website ke user untuk persetujuan akhir. **HARD STOP**: BERHENTI TOTAL. Jangan panggil tool deploy sebelum user bilang "Ya/Deploy".
-9. **Deploy**: Jika user setuju, panggil `deploy` ke Vercel.
-10. **Post-Deploy Debug**: Panggil `debug` untuk **Post-Deploy Debug**. Jika bug/error muncul, perbaiki lokal lalu re-deploy (Maksimal 2 iterasi). Jika masih error, laporkan ke user.
-11. **Cleanup**: Setelah semua proses selesai, matikan (kill) proses dev server Node.js yang berjalan pada port aktif yang digunakan sebelumnya.
+6. **Playwright E2E & Final QA**: Generate file test `tests/<halaman>.spec.ts` untuk memvalidasi secara End-to-End berdasarkan PRD setiap halaman, dan jalankan secara bersamaan.
+
+7. **SEO Validation**: Panggil skill SEO eksternal (dari github.com/affaan-m/everything-claude-code) untuk validasi struktur SEO terhadap `final_intake.md` dan PRD sebelum deploy.
+
+8. **Debug Lokal Final**: Jalankan dev server di background dengan perintah `cd landings/<brand> && npm run dev` (biarkan Next.js memilih port secara otomatis). Baca output terminal untuk menentukan port yang aktif (misal: 3000, 3001, dst.) yang digunakan untuk Playwright testing dan visual debugging. Setelah server berjalan, panggil `debug` untuk menjalankan visual debugging, analisis Lighthouse, perbaikan SEO, dan **Debugging Mandiri**. Pastikan tidak ada bug tersisa.
+
+9. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan keseluruhan website ke user untuk persetujuan akhir. **HARD STOP**: BERHENTI TOTAL. Jangan panggil tool deploy sebelum user bilang "Ya/Deploy".
+
+10. **Deploy**: Jika user setuju, panggil `deploy` ke Vercel.
+
+11. **Post-Deploy Debug**: Panggil `debug` untuk **Post-Deploy Debug**. Jika bug/error muncul, perbaiki lokal lalu re-deploy (Maksimal 2 iterasi). Jika masih error, laporkan ke user.
+
+12. **Cleanup**: Setelah semua proses selesai, matikan (kill) proses dev server Node.js yang berjalan pada port aktif yang digunakan sebelumnya.
