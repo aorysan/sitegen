@@ -8,15 +8,16 @@ description: Menganalisis data hasil ekstraksi PDF Company Profile dari skill in
 Anda adalah AI Agent yang bertugas membuat **dokumen planning** berformat markdown. Anda beroperasi dalam 3 mode yang dipanggil oleh master orkestrator (`sitegen`).
 
 ## Mode Operasi
-
 ### MODE 1: `global`
 Membuat planning global yang berlaku untuk SELURUH website.
 
 **Input:**
 - Data intake: `landings/<brand>/intake_data.md`
+- Data riset: `landings/<brand>/planning/PLAN-USER-NEEDS.md` & `landings/<brand>/planning/PLAN-COMPETITOR.md`
 
 **Output:**
 - File: `landings/<brand>/planning/PLAN-GLOBAL.md`
+- File: `landings/<brand>/planning/PAGES-LIST.md` (hanya daftar nama halaman berdasarkan `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md`)
 - Template: gunakan `reference/prd-global-template.md`
 
 **Yang harus diisi:**
@@ -31,7 +32,7 @@ Membuat planning global yang berlaku untuk SELURUH website.
    - Tone visual
    - Deskripsi aset visual (logo, hero image, gambar pendukung)
 4. SEO Strategy Global
-   - Keyword mapping untuk SEMUA 7 halaman (anti-kanibalisasi)
+   - Keyword mapping untuk SEMUA halaman di `PAGES-LIST.md` (anti-kanibalisasi)
    - 1 grup keyword utama per halaman
    - Buying keyword + minimal 2 LSI keywords per halaman
    - Backlink plan: 3 artikel untuk blog
@@ -42,6 +43,7 @@ Membuat planning global yang berlaku untuk SELURUH website.
    - Tentukan **3-5 personality traits** brand (misal: "Confident, not arrogant", "Friendly, not unprofessional")
    - Daftar **Banned Content** — kata/frasa yang dilarang digunakan (kata berkonotasi buruk, jargon tanpa konteks)
    - **Positioning Statement**: "[Brand] is the [category] for [audience] who want [outcome] because [reason]."
+8. **Output `PAGES-LIST.md`**: File `landings/<brand>/planning/PAGES-LIST.md` WAJIB dihasilkan, berisi daftar nama halaman saja hasil sintesis dari `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md`.
 
 **Prinsip:**
 - Anti-kanibalisasi keyword: TIDAK BOLEH ada keyword yang sama di 2+ halaman
@@ -57,11 +59,12 @@ Membuat planning untuk SATU halaman spesifik.
 **Input:**
 - Data intake: `landings/<brand>/intake_data.md`
 - Planning global: `landings/<brand>/planning/PLAN-GLOBAL.md` (sebagai context)
+- Daftar halaman: `landings/<brand>/planning/PAGES-LIST.md`
 - Parameter: nama halaman yang akan di-plan
 
 **Output:**
 - File: `landings/<brand>/planning/PLAN-<halaman>.md`
-  - Nama file menggunakan slug halaman: `beranda`, `layanan`, `about`, `portofolio`, `kontak`, `blog`, `karir`
+  - Nama file menggunakan slug halaman dari `PAGES-LIST.md`: (misal `beranda`, `layanan`, `about`, `portofolio`, `kontak`, `blog`, `karir`)
 - Template: gunakan `reference/prd-page-template.md`
 
 **Urutan halaman (prioritas bisnis):**
@@ -93,6 +96,7 @@ Membuat planning untuk SATU halaman spesifik.
    - video: title, items [{embedUrl, title, desc}]
 7. Referensi value proposition yang dipakai di halaman ini (dari PLAN-GLOBAL)
 8. Video SMO (minimal 1 per halaman)
+9. **Deklarasi Kebutuhan Gambar (Image Requirements) per Section**: Planner WAJIB menyatakan secara eksplisit apakah setiap section dalam PRD memerlukan gambar (`Membutuhkan Gambar: Ya/Tidak` beserta deskripsi visual aset), HANYA jika secara konseptual section tersebut cocok memerlukan gambar (misal: `hero` pada Beranda, `about`, `portfolio`, `feature showcase`). Section murni teks/struktur seperti `pricing` atau `faq` TIDAK memerlukan gambar (`Membutuhkan Gambar: Tidak`).
 
 **Prinsip:**
 - ATURAN CAROUSEL: Jika section memiliki ≥ 10 item, WAJIB tulis instruksi "Gunakan Auto-slide Carousel"
@@ -110,6 +114,7 @@ Membuat planning untuk SATU halaman spesifik.
 
 **Aturan Konten per Tipe Section (diadopsi dari LPG Section SOP):**
 - **ATURAN HERO PAGES:** Secara *default*, komponen `hero` dengan gambar besar (`heroImage`) HANYA BOLEH digunakan untuk halaman Beranda (`/`). Untuk seluruh halaman dalam (Inner Pages), Anda WAJIB merancang header berbasis teks murni tanpa `heroImage`. **PENGECUALIAN:** Jika User (manusia) memberikan instruksi revisi yang secara eksplisit meminta adanya gambar hero di halaman dalam, Anda WAJIB mematuhi User dan menambahkan `heroImage` pada rancangan halaman tersebut.
+- **ATURAN DEKLARASI GAMBAR PER SECTION:** Setiap section dalam PRD halaman WAJIB mencantumkan status kebutuhan gambar secara eksplisit (misal: `Membutuhkan Gambar: Ya` / `Membutuhkan Gambar: Tidak`). Deklarasi gambar HANYA dilakukan jika secara konseptual section tersebut cocok menggunakan gambar.
 - **hero**: Headline harus hook dalam 3 detik. Gunakan kalimat persuasi dari PDF. Stats/trust indicators menggunakan ikon profesional (bukan emoji).
 - **problem**: Tulis masalah spesifik yang dihadapi target audience. Buat terasa mendesak ("Apa ruginya jika tidak diselesaikan?").
 - **solution**: Perkenalkan brand sebagai solusi. Value proposition harus jelas dan terdiferensiasi.
@@ -128,13 +133,8 @@ Menggabungkan semua planning yang sudah approved menjadi PRD final.
 
 **Input:**
 - `landings/<brand>/planning/PLAN-GLOBAL.md`
-- `landings/<brand>/planning/PLAN-beranda.md`
-- `landings/<brand>/planning/PLAN-layanan.md`
-- `landings/<brand>/planning/PLAN-about.md`
-- `landings/<brand>/planning/PLAN-portofolio.md`
-- `landings/<brand>/planning/PLAN-kontak.md`
-- `landings/<brand>/planning/PLAN-blog.md`
-- `landings/<brand>/planning/PLAN-karir.md`
+- `landings/<brand>/planning/PAGES-LIST.md`
+- Semua file `landings/<brand>/planning/PLAN-<halaman>.md` berdasarkan daftar di `PAGES-LIST.md`
 
 **Output:**
 - File: `landings/<brand>/PRD.md`
@@ -145,14 +145,7 @@ Menggabungkan semua planning yang sudah approved menjadi PRD final.
 2. Section 2 (Value Proposition & Teks Persuasi) → dari PLAN-GLOBAL
 3. Section 3 (Branding & Visual Plan) → dari PLAN-GLOBAL
 4. Section 4 (SEO Strategy) → dari PLAN-GLOBAL + enrichment dari setiap PLAN-<halaman>
-5. Section 5 (Struktur Halaman & Section Layout) → dari semua PLAN-<halaman>
-   - 5.1 Beranda → dari PLAN-beranda.md
-   - 5.2 Tentang Kami → dari PLAN-about.md
-   - 5.3 Layanan/Produk → dari PLAN-layanan.md
-   - 5.4 Portofolio → dari PLAN-portofolio.md
-   - 5.5 Blog → dari PLAN-blog.md
-   - 5.6 Karir → dari PLAN-karir.md
-   - 5.7 Kontak → dari PLAN-kontak.md
+5. Section 5 (Struktur Halaman & Section Layout) → dari semua PLAN-<halaman> yang terdaftar di `PAGES-LIST.md`
 6. Section 6 (Footer Data) → dari PLAN-GLOBAL
 7. Section 7 (Catatan Tambahan) → dari PLAN-GLOBAL + catatan dari PLAN-<halaman> jika ada
 
