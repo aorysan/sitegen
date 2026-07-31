@@ -23,5 +23,6 @@ The new flow will modify `SKILL.md` in the `sitegen` masterskill.
 11. **Cleanup**: Terminate processes.
 
 ## Changes Required
+- Copy the global `subagent-driven-development` skill folder into `D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\subagent-driven-development`.
 - Modify `SKILL.md` to reflect the new Steps 4-5.
 - Update references to sequential iteration to instead point to SDD execution.
