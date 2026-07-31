@@ -22,9 +22,11 @@ Dokumen ini berisi standar teknis (Standard Operating Procedure) dan **Checklist
   import { ShieldCheck, Zap, BarChart } from 'lucide-react';
   ```
 
-## 3. Gambar: Unik, Terverifikasi & Tahan Mati (Anti-404)
+## 3. Gambar: Unik, Terverifikasi & Tahan Mati (Anti-404 / Dilarang Placeholder)
 - **DILARANG MENGGUNAKAN GAMBAR BERULANG**: Setiap kartu, latar belakang, atau gambar berita HARUS unik.
-- **Tahan Mati (Anti-404)**: DILARANG MENEBAK URL ID gambar Unsplash spesifik. Jika aset tidak tersedia dari PDF, WAJIB menggunakan sumber *placeholder* stabil seperti `https://picsum.photos/seed/{keyword}/{width}/{height}`.
+- **DILARANG PLACEHOLDER (`picsum.photos` dll)**: DILARANG KERAS menggunakan layanan gambar *placeholder* seperti `picsum.photos` atau sejenisnya.
+- **Verifikasi HTTP Status 200 OK**: Seluruh URL gambar eksternal WAJIB diverifikasi via HTTP Ping untuk memastikan status 200 OK (bukan 404).
+- **Prosedur Fallback jika Gambar Tidak Valid**: Jika tidak ditemukan gambar eksternal yang valid (200 OK), HENTIKAN proses (*halt*) dan minta pengguna untuk menempatkan file gambar di folder `public/assets/`.
 - Daftarkan domain gambar di `next.config.ts`:
   ```ts
   experimental: {
@@ -32,7 +34,6 @@ Dokumen ini berisi standar teknis (Standard Operating Procedure) dan **Checklist
   },
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "picsum.photos" },
       { protocol: "https", hostname: "images.unsplash.com" }
     ]
   }
@@ -60,32 +61,24 @@ Dokumen ini berisi standar teknis (Standard Operating Procedure) dan **Checklist
 3. **Responsive Block Table (Anti Horizontal Scroll)**: DILARANG MEMBIARKAN TABEL BISA DI-SCROLL KE SAMPING di mobile. Seluruh sel `<td data-label="...">` WAJIB disetel menjadi `display: block` dengan label judul (`data-label`) muncul di sisi kiri sel.
 4. **Infinite Marquee Carousel**: Untuk daftar panjang (misalnya 10+ nama klien, logo partner, atau lokasi terdaftar), agen WAJIB mengimplementasikan *Infinite CSS Marquee* (animasi geser dari kanan ke kiri yang berjalan otomatis) menggunakan array berulang `[...list, ...list]`.
 
-## 6. Scroll Reveal Animation (Vike Flow & DILARANG FRAMER-MOTION)
-- **DILARANG MENGGUNAKAN `framer-motion`**: Dilarang mengimpor atau menggunakan `framer-motion`. Semua animasi *scroll* WAJIB berbasis CSS murni + `IntersectionObserver` via komponen `AnimatedSection.tsx`.
-- **Aturan Vike Flow (Asymmetric Reset)**: Animasi HANYA Boleh ter-reset jika elemen keluar dari BAWAH layar (`entry.boundingClientRect.top > 0`). Jika elemen keluar dari ATAS layar saat di-scroll turun, ia WAJIB tetap dalam kondisi `.visible`.
-
-### Templat Wajib `globals.css` (Animasi Vike):
-```css
-.anim-fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.anim-fade-down { opacity: 0; transform: translateY(-40px); transition: opacity 0.8s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.anim-fade-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.anim-fade-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.anim-zoom-in { opacity: 0; transform: scale(0.85); transition: opacity 0.8s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.visible { opacity: 1 !important; transform: translate(0) scale(1) !important; }
-```
+## 6. Scroll Reveal Animation (Anime.js Standard & DILARANG FRAMER-MOTION / CSS MURNI)
+- **DILARANG MENGGUNAKAN `framer-motion` ATAU ANIMASI SCROLL CSS MURNI**: Seluruh animasi *scroll* WAJIB berbasis Anime.js (`animejs`) + `IntersectionObserver` via komponen `AnimatedSection.tsx`.
+- **React Strict Mode Cleanup (MANDATORY)**: Untuk mencegah glitch animasi akibat double-mount di React Strict Mode, fungsi cleanup `useEffect` pada `AnimatedSection.tsx` WAJIB memanggil `anime.remove(elementRef.current)`.
+- **Aturan Vike Flow (Asymmetric Reset)**: Animasi HANYA Boleh ter-reset jika elemen keluar dari BAWAH layar (`entry.boundingClientRect.top > 0`). Jika elemen keluar dari ATAS layar saat di-scroll turun, ia WAJIB tetap dalam kondisi terlihat.
 
 ### Templat Wajib Komponen `components/AnimatedSection.tsx`:
 ```tsx
 "use client";
 import React, { useEffect, useRef } from "react";
+import anime from "animejs";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
-  direction?: "up" | "left" | "right" | "zoom";
+  delay?: number;
   className?: string;
 }
 
-export default function AnimatedSection({ children, direction = "up", className = "" }: AnimatedSectionProps) {
+export default function AnimatedSection({ children, delay = 0, className = "" }: AnimatedSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -96,25 +89,35 @@ export default function AnimatedSection({ children, direction = "up", className 
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            anime({
+              targets: el,
+              opacity: [0, 1],
+              translateY: [30, 0],
+              duration: 800,
+              delay: delay,
+              easing: "easeOutCubic",
+            });
           } else if (entry.boundingClientRect.top > 0) {
-            entry.target.classList.remove("visible");
+            // Asymmetric Reset
+            anime.set(el, { opacity: 0, translateY: 30 });
           }
         });
       },
-      { threshold: 0, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      if (el) anime.remove(el);
+    };
+  }, [delay]);
 
-  const animationClass =
-    direction === "left" ? "anim-fade-left" :
-    direction === "right" ? "anim-fade-right" :
-    direction === "zoom" ? "anim-zoom-in" : "anim-fade-up";
-
-  return <div ref={ref} className={`${animationClass} ${className}`}>{children}</div>;
+  return (
+    <div ref={ref} style={{ opacity: 0, transform: "translateY(30px)" }} className={className}>
+      {children}
+    </div>
+  );
 }
 ```
 
