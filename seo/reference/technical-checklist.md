@@ -32,7 +32,7 @@ Berikut item yang dicek oleh AI agent dengan membandingkan landing page vs PRD:
 
 | # | Item | Cara Cek | Acuan |
 |---|---|---|---|
-| 1 | 7 halaman inti lengkap | Cek folder `app/` ada 7 route | PRD §5 |
+| 1 | Rute inti sesuai PAGES-LIST.md | Cek folder `app/` memiliki rute sesuai PRD | PRD §5 |
 | 2 | Route/URL sesuai PRD | Bandingkan route di `app/` dengan PRD §4.1 | PRD §4.1 |
 | 3 | Sections per halaman sesuai | Baca TSX setiap halaman, bandingkan dengan PRD §5 | PRD §5.1-5.7 |
 | 4 | Kalimat persuasi muncul | Cari string kalimat persuasi dari PRD §2 di file TSX/HTML | PRD §2 |

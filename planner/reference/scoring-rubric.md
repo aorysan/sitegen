@@ -29,7 +29,7 @@ Digunakan saat me-review `PLAN-GLOBAL.md`.
 
 | Item | Poin | Kriteria |
 |---|---|---|
-| 7 halaman terpetakan | 5 | Semua 7 halaman ada di tabel keyword |
+| Seluruh halaman terpetakan | 5 | Semua halaman (dari intake) ada di tabel keyword |
 | Anti-kanibalisasi | 7 | Tidak ada buying keyword yang sama di 2+ halaman |
 | Buying keyword valid per halaman | 5 | Setiap halaman punya buying keyword relevan |
 | LSI keywords (min 2 per halaman) | 5 | Setiap halaman punya min 2 LSI keywords |

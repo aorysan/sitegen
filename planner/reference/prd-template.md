@@ -47,7 +47,7 @@
 ### Aset Visual
 - Logo: [WAJIB tuliskan path/URL lokal dari file logo secara spesifik. Jika User memberi instruksi nama file logo dari hasil rename manual di folder assets, Anda WAJIB menggunakan path tersebut, contoh: /assets/logo.png]
 - Hero Image: [Deskripsi gambar hero yang direkomendasikan]
-- Gambar pendukung: [Daftar gambar yang diekstrak dari PDF atau rekomendasi picsum.photos]
+- Gambar pendukung: [Daftar gambar yang diekstrak dari PDF atau aset eksternal yang valid]
 
 ---
 
