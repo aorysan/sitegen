@@ -211,5 +211,112 @@ Bonus berdasar tipe halaman:
 > **Perubahan bobot**: Business Review naik dari 50 → **60 poin**, Technical Review turun dari 50 → **40 poin**.
 > Alasan: adopsi aturan copywriting dari LPG menambah 2 kategori baru (B5, B6) yang merupakan aspek bisnis kritis untuk kualitas konten.
 
-**Skor minimum lolos: 90/100**
+### Mode Global Extended
+| Dokumen | Bagian Rubrik | Bobot | Threshold Lolos |
+|---|---|---|---|
+| PLAN-GLOBAL.md | Bagian A | 100 poin | ≥ 90 |
+| PLAN-USER-NEEDS.md | Bagian C | 25 poin | (lihat subtotal) |
+| PLAN-COMPETITOR.md | Bagian D | 25 poin | (lihat subtotal) |
+| PLAN-DESIGN-SYSTEM.md | Bagian E | 25 poin | (lihat subtotal) |
+| **Subtotal C+D+E** | | **75 poin** | **≥ 60** |
+
+> **Keputusan PASS**: PLAN-GLOBAL ≥ 90/100 **DAN** subtotal C+D+E ≥ 60/75. Jika salah satu tidak terpenuhi → STATUS = REVISI.
+> **Batas revisi**: 2 putaran per dokumen. Lebih dari itu, eskalasi ke user.
+
+**Skor minimum lolos: 90/100 (mode global & page) | 90 + 60/75 (mode global-extended)**
 **Batas revisi: 2 putaran**
+
+---
+
+## BAGIAN C — Review User Needs (25 poin)
+
+Digunakan saat me-review `PLAN-USER-NEEDS.md`.
+
+### C1. Kelengkapan Struktur (10 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| Profil psikografis terisi | 2 | Spesifik untuk industri ini, bukan generik |
+| Pain points min. 5 | 3 | Format lengkap: pain point + intensitas + relevansi ke layanan |
+| JTBD min. 3 statements | 2 | Format "Ketika...ingin...agar..." terpenuhi pada semua item |
+| Objection + counter-messaging min. 3 | 3 | Counter-messaging spesifik dan actionable — bukan kalimat umum |
+
+### C2. Kedalaman Insight (10 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| FAQ min. 5 pertanyaan | 3 | Pertanyaan realistis pra-pembelian, disertai jawaban + lokasi di website |
+| User journey 5 tahap | 3 | Semua tahap terisi: channel + konten yang dicari + section website relevan |
+| Trigger pembelian min. 3 | 2 | Spesifik dan kontekstual — bukan generik |
+| Insight berbasis data nyata / web search | 2 | Ada basis riil, bukan asumsi tanpa landasan |
+
+### C3. Anti-Generik (5 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| Tidak ada placeholder "[...]" | 2 | Semua field terisi dengan konten nyata |
+| Tidak ada insight generik | 3 | Tidak ada kalimat seperti "mereka ingin solusi yang baik" atau "kualitas terbaik" |
+
+---
+
+## BAGIAN D — Review Competitor Analysis (25 poin)
+
+Digunakan saat me-review `PLAN-COMPETITOR.md`.
+
+### D1. Kelengkapan Kompetitor (10 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| Min. 3 kompetitor teridentifikasi | 4 | Ada nama bisnis + URL yang valid atau dapat diverifikasi |
+| Setiap kompetitor ada analisis positioning | 3 | Tagline, target audience, kekuatan, kelemahan — semua terisi |
+| Setiap kompetitor ada data website | 3 | Section yang digunakan + fitur interaktif tercatat |
+
+### D2. Kedalaman Analisis (10 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| Tone of voice per kompetitor | 3 | Formal/casual + teknikal/sederhana + kata kunci dominan |
+| Keyword SEO yang mereka target | 3 | Dari observasi title tag dan/atau meta description nyata |
+| Gap analysis terisi | 4 | Min. 3 gap konkret dengan rekomendasi cara eksploitasi spesifik |
+
+### D3. Akurasi Data (5 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| Data bukan karangan | 3 | Kompetitor nyata, dapat diverifikasi secara online |
+| Keyword gap memuat rekomendasi konkret | 2 | Ada rekomendasi spesifik untuk brand ini — bukan hanya daftar keyword |
+
+---
+
+## BAGIAN E — Review Design System (25 poin)
+
+Digunakan saat me-review `PLAN-DESIGN-SYSTEM.md`.
+
+### E1. Color System (8 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| Primary palette (3 shade) | 2 | Hex code valid + CSS token name + use case spesifik |
+| Secondary palette (3 shade) | 2 | Hex code valid + CSS token name + use case spesifik |
+| Neutral palette (min. 5 shade) | 2 | Termasuk dark, minimal 2 gray variant, dan white |
+| Semantic colors (4 warna) | 2 | success, error, warning, info — hex code valid |
+
+> Cross-check: semua hex di Bagian E harus konsisten dengan Section 3 PLAN-GLOBAL.md.
+
+### E2. Typography & Spacing (7 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| Typography scale (8 level) | 3 | H1-H4 + body-lg + body + body-sm + caption — dengan size/weight/line-height semua terisi |
+| Spacing scale (min. 8 step) | 2 | Berbasis 4px grid, ada token name + value numerik |
+| Border radius system (min. 5 level) | 2 | Ada token name + px value + use case per level |
+
+### E3. Layout & Component (10 poin)
+
+| Item | Poin | Kriteria |
+|---|---|---|
+| Grid system (4 breakpoint) | 3 | Mobile/tablet/desktop/wide — container max-width + jumlah kolom |
+| Button variants (min. 3) | 3 | Primary/secondary/ghost — background, text, border, padding, hover state semua terisi |
+| Card style lengkap | 2 | Shadow, radius, padding, hover shadow + transform, transition — semua terisi |
+| Navbar style | 2 | Background glassmorphism, sticky, height per breakpoint, aturan logo tercantum |
+
