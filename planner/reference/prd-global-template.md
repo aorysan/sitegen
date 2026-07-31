@@ -52,7 +52,7 @@
 ### Aset Visual
 - Logo: [Tersedia dari PDF / perlu dibuat]
 - Hero Image: [Deskripsi rekomendasi]
-- Gambar pendukung: [Daftar gambar dari PDF atau rekomendasi picsum.photos]
+- Gambar pendukung: [Daftar gambar dari PDF atau aset yang valid]
 
 ---
 
