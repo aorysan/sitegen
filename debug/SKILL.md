@@ -11,15 +11,15 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
 **WAJIB EKSTRAK & BACA**: Agen wajib membaca file `landings/<brand>/PRD.md` dan `landings/<brand>/final_intake.md` terlebih dahulu untuk memahami Visi, Misi, Tema Font, UI/UX preferensi user
 
 ## Tahap 1: Visual Debugging (Puppeteer)
-1. Jalankan skrip screenshot crawler:
-   `node D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\scripts\render.js http://localhost:3000 <brand> / /about /services /portfolio /blog /careers /contact`
+1. Jalankan skrip screenshot crawler dengan membaca port aktif dan rute dinamis dari PAGES-LIST.md:
+   `node D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\scripts\render.js http://localhost:<port> <brand> <routes...>`
 2. **STRICT AUTO-FAIL**: Skrip Puppeteer di atas WAJIB menangkap dan memunculkan error hard-fail jika mendeteksi:
    - Penggunaan Emoji di dalam DOM.
    - Adanya class TailwindCSS.
    - Tag `html` atau `body` tidak memiliki `overflow-x: hidden` dan `max-width: 100vw`.
    - Elemen `<SwipeableCards>` (container flex) yang tidak memiliki `flex-shrink: 0` pada *children*-nya atau gagal menjadi `flex-direction: row` di mobile.
    - Tag `<img>` atau `<Image>` yang tidak memiliki `alt`, `title`, atau tidak responsif (`max-width: 100%`).
-   - 404 network error pada pemuatan gambar.
+   - 404 network error pada pemuatan gambar, atau penggunaan placeholder gambar (`picsum.photos`).
    - Ketiadaan animasi (elemen gagal muncul/ter-render) atau layout yang keluar batas (overflow-x).
 3. Periksa log console untuk error React/Next.js (hydration, dll) dan segera perbaiki kode.
 4. Periksa semua gambar screenshot di folder `landings/<brand>/.preview/`.
@@ -27,7 +27,7 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
 
 ## Tahap 2: Performance & SEO (Lighthouse)
 1. Setelah Tahap 1 hijau sempurna, jalankan Lighthouse CLI terpisah:
-   `npx -y lighthouse http://localhost:3000 --output html --output-path ./landings/<brand>/.preview/lighthouse-report.html --view`
+   `npx -y lighthouse http://localhost:<port> --output html --output-path ./landings/<brand>/.preview/lighthouse-report.html --view`
 2. Analisis skor *Performance*, *Accessibility*, *Best Practices*, dan *SEO*.
 3. Lakukan penyesuaian kode (optimasi gambar, aria-labels, dll) untuk meningkatkan skor, lalu jalankan ulang Lighthouse jika perlu.
 4. Baca file `landings/<brand>/SEO-REPORT.md` dari skill `seo`, perbaiki seluruh masalah meta tag, SOP keyword, dan checklist SEO hingga 100% patuh.
@@ -39,7 +39,7 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
    - **Kesesuaian Visual**: Pastikan elemen menggunakan Warna Brand dan Font yang ditetapkan dari PRD.
    - **PENEKANAN KUAT**: Jika hasil *render* melenceng dari PRD, meskipun tidak ada error sintaks/kode, agen **WAJIB** memperbaikinya kembali sesuai PRD.
    - **Lenis Smooth Scroll**: Pastikan scroll berjalan mulus dan tidak ada error Lenis di console.
-   - **Animasi Scroll Framer Motion**: Pastikan elemen/section menggunakan `framer-motion` (`motion.div` dengan `viewport={{ once: true }}`), animasi (fade-in/flip) HANYA terpicu saat scroll dari atas ke bawah dan tidak terulang saat scroll dari bawah ke atas.
+   - **Animasi Scroll Anime.js**: Pastikan elemen/section menggunakan `AnimatedSection.tsx` (Anime.js), animasi HANYA terpicu saat scroll dari atas ke bawah (menggunakan `IntersectionObserver`), dan status animasi ter-reset (`anime.remove()`) secara asimetris.
    - **Auto-slide Carousel**: Pastikan list dengan 10+ item otomatis bergeser tanpa interaksi.
    - **Schema.org JSON-LD**: Pastikan metadata JSON-LD valid dan sesuai tipe halaman (Beranda, Layanan, Blog, dll).
    - **Blog Backlink**: Pastikan halaman `/blog` memuat tepat 3 artikel backlink dengan gambar clickable.
