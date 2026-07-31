@@ -19,7 +19,7 @@ Alur kerja Sitegen terdiri dari tahapan-tahapan yang terstruktur dan wajib dijal
 6. **Per-Page Playwright Testing (`/debug`)**
    Membuat test Playwright (`.spec.ts`) otomatis per halaman berdasarkan PRD, menjalankannya secara headless, dan melakukan *auto-fix* hingga lolos sebelum lanjut ke halaman berikutnya.
 7. **SEO Validation (`/seo`)**
-   Memvalidasi situs yang baru dibuat terhadap SOP Checklist SEO dan membuat laporan status optimasinya.
+   Memvalidasi situs yang baru dibuat terhadap checklist SEO teknikal, performa, dan relevansi konten berdasarkan standar eksternal, lalu membuat laporan status optimasinya.
 8. **Debugging & QA Final (`/debug`)**
    Menjalankan pengetesan komprehensif: visual debugging, analisis Lighthouse, injeksi perbaikan SEO, serta melakukan iterasi *Debugging Mandiri*. Tujuannya agar tidak ada satupun *bug* layout, hydration, atau responsivitas yang tersisa.
 9. **Deployment (`/deploy`)**
