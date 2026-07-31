@@ -19,26 +19,36 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
    a. Berdasarkan data riset, panggil sub-skill `brainstorming` (Visi, Misi, Tema Font, UI/UX). Pastikan `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md` tersedia sebagai konteks agar diskusi berbasis data riset. Simpan masukan user sebagai `landings/<brand>/user_preferences.md`.
    b. Lakukan rekonsiliasi dengan menggabungkan `intake_compro.md` dan `user_preferences.md` menjadi `landings/<brand>/final_intake.md`.
    c. **ATURAN WAJIB (HARD STOP)**: Anda WAJIB memperlihatkan isi `final_intake.md` ke user. Berhenti bekerja dan JANGAN memanggil tool apa pun. Tunggu user setuju sebelum lanjut ke langkah berikutnya.
-   d. Setelah disetujui, panggil `ui-ux-pro-max` untuk menentukan warna, font, dan komponen global. Hasilkan `PLAN-GLOBAL.md`. Pastikan juga untuk menginisialisasi Playwright di dalam project Next.js (misal: `npm init playwright@latest --yes` dan `npx playwright install --with-deps`).
-   e. Segera setelah `PLAN-GLOBAL.md` selesai, panggil `planner` mode=design-system untuk menghasilkan `PLAN-DESIGN-SYSTEM.md`.
+   d. Setelah disetujui, inisialisasi project Next.js di dalam direktori `landings/<brand>` (misal: `npx create-next-app@latest ./` dengan aturan web framework) jika belum ada. Lalu panggil `ui-ux-pro-max` untuk menentukan warna, font, dan komponen global. Hasilkan `PLAN-GLOBAL.md`. Pastikan juga untuk menginisialisasi Playwright (misal: `npm init playwright@latest --yes` dan `npx playwright install --with-deps`).
+   e. Segera setelah `PLAN-GLOBAL.md` selesai, panggil `planner` mode=design-system untuk menghasilkan `PLAN-DESIGN-SYSTEM.md`. Berdasarkan `final_intake.md` dan kesepakatan user, buat juga dokumen sitemap di `landings/<brand>/planning/PAGES-LIST.md` yang berisi daftar halaman yang akan dieksekusi.
 
-4. **SDD Plan Generation**: Buat rencana implementasi utama (`landings/<brand>/planning/SDD-PAGES-PLAN.md`) yang mendetailkan pembuatan semua halaman (dari `PAGES-LIST.md`) sebagai task terpisah.
+4. **Fase Persiapan Batch (PRD & Visual):**
+   a. **Buat PRD Semua Halaman:** Baca `landings/<brand>/planning/PAGES-LIST.md`. Panggil sub-skill `planner` mode=page untuk men-generate PRD (`PLAN-<halaman>.md`) untuk **semua** halaman yang terdaftar sekaligus.
+   b. **Review QA PRD:** Panggil `qa-reviewer` untuk menilai kelayakan semua `PLAN-<halaman>.md` secara internal.
+   c. **Persiapan Visual & Aset:** Periksa folder `public/assets/` untuk logo. Panggil `ui-ux-pro-max` dan `impeccable` untuk mendapatkan pedoman layout dan animasi yang memukau.
+   d. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan semua PRD yang telah dibuat dan konsep visual kepada user. **HARD STOP**: Anda WAJIB berhenti bekerja dan menunggu persetujuan user sebelum lanjut.
 
-5. **Execute SDD (Subagent-Driven Development)**: Panggil sub-skill `subagent-driven-development` lokal (dari folder `subagent-driven-development` di dalam sitegen) menggunakan `SDD-PAGES-PLAN.md`.
-    - SDD akan memanggil subagent `generator` untuk setiap task halaman.
-    - SDD akan memanggil subagent `qa-reviewer` untuk memverifikasi halaman terhadap PRD.
-    - SDD akan menangani fix loop secara otomatis (maksimal 5 iterasi) menggunakan `impeccable` atau `systematic-debugging`.
+5. **Fase Eksekusi Halaman (Hybrid SDD Iteration):**
+   Jalankan dev server di background (misal: `cd landings/<brand> && npm run dev`) sebelum memulai iterasi agar Playwright dan user bisa memvalidasi halaman.
+   Lakukan loop berurutan untuk *setiap halaman* dari `PAGES-LIST.md`:
+   a. **AI-to-AI SDD Loop:**
+      - Panggil subagent `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js berdasarkan PRD-nya. Generator WAJIB membaca pedoman visual dan `PLAN-DESIGN-SYSTEM.md`.
+      - Setelah selesai, panggil subagent `qa-reviewer` untuk mengecek hasil kode terhadap PRD dan best practices.
+      - Jika ada bug, UI kurang memukau, atau tidak sesuai PRD, biarkan subagent saling berkoordinasi: panggil ulang `generator` (atau `systematic-debugging` / `impeccable`) untuk memperbaikinya secara otomatis. Batasi maksimal 5 iterasi (fix loop) tanpa interupsi user.
+   b. **Playwright Spec:** Setelah AI menganggap halaman sempurna, generate test `tests/<halaman>.spec.ts` berdasarkan PRD dan jalankan.
+   c. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Tampilkan hasil akhir halaman tersebut kepada user. **HARD STOP**: BERHENTI MENGEKSEKUSI TOOL. Tunggu user mengecek dev server (misal `localhost:3000`) dan memberikan persetujuan atau revisi. JANGAN lanjut ke halaman berikutnya sebelum disetujui.
+   d. Ulangi loop untuk halaman berikutnya dari langkah 5a.
 
-6. **Playwright E2E & Final QA**: Generate file test `tests/<halaman>.spec.ts` untuk memvalidasi secara End-to-End berdasarkan PRD setiap halaman, dan jalankan secara bersamaan.
+6. **Penggabungan (Integration):** Setelah semua halaman selesai dan disetujui, gabungkan navigasi antar halaman agar berfungsi sempurna.
 
-7. **SEO Validation**: Panggil skill SEO eksternal (dari github.com/affaan-m/everything-claude-code) untuk validasi struktur SEO terhadap `final_intake.md` dan PRD sebelum deploy.
+7. **SEO Validation & Debug Lokal Final**:
+   a. Panggil skill SEO eksternal (dari github.com/affaan-m/everything-claude-code) untuk validasi struktur SEO terhadap `final_intake.md` dan PRD.
+   b. Pastikan dev server masih berjalan, lalu panggil `debug` untuk visual debugging, Lighthouse, dan SEO fixing akhir.
 
-8. **Debug Lokal Final**: Jalankan dev server di background dengan perintah `cd landings/<brand> && npm run dev` (biarkan Next.js memilih port secara otomatis). Baca output terminal untuk menentukan port yang aktif (misal: 3000, 3001, dst.) yang digunakan untuk Playwright testing dan visual debugging. Setelah server berjalan, panggil `debug` untuk menjalankan visual debugging, analisis Lighthouse, perbaikan SEO, dan **Debugging Mandiri**. Pastikan tidak ada bug tersisa.
+8. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan keseluruhan website ke user untuk persetujuan akhir. **HARD STOP**: BERHENTI TOTAL.
 
-9. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan keseluruhan website ke user untuk persetujuan akhir. **HARD STOP**: BERHENTI TOTAL. Jangan panggil tool deploy sebelum user bilang "Ya/Deploy".
+9. **Deploy**: Jika user setuju, panggil `deploy` ke Vercel.
 
-10. **Deploy**: Jika user setuju, panggil `deploy` ke Vercel.
+10. **Post-Deploy Debug**: Panggil `debug` untuk **Post-Deploy Debug**. Jika ada bug/error, perbaiki lokal dan re-deploy (Maksimal 2 iterasi).
 
-11. **Post-Deploy Debug**: Panggil `debug` untuk **Post-Deploy Debug**. Jika bug/error muncul, perbaiki lokal lalu re-deploy (Maksimal 2 iterasi). Jika masih error, laporkan ke user.
-
-12. **Cleanup**: Setelah semua proses selesai, matikan (kill) proses dev server Node.js yang berjalan pada port aktif yang digunakan sebelumnya.
+11. **Cleanup**: Setelah selesai, matikan (kill) proses dev server Node.js.
