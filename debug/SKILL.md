@@ -12,7 +12,7 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
 
 ## Tahap 1: Visual Debugging (Puppeteer)
 1. Jalankan skrip screenshot crawler dengan membaca port aktif dan rute dinamis dari PAGES-LIST.md:
-   `node D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\scripts\render.js http://localhost:<port> <brand> <routes...>`
+   `node ../../scripts/render.js http://localhost:<port> <brand> <routes...>`
 2. **STRICT AUTO-FAIL**: Skrip Puppeteer di atas WAJIB menangkap dan memunculkan error hard-fail jika mendeteksi:
    - Penggunaan Emoji di dalam DOM.
    - Adanya class TailwindCSS.
