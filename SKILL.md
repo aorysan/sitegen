@@ -49,11 +49,12 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
 
 6. **Penggabungan (Integration):** Setelah semua halaman selesai dan disetujui, gabungkan navigasi antar halaman agar berfungsi sempurna.
 
-7. **SEO Validation & Debug Lokal Final**:
-   a. Panggil skill SEO eksternal (dari github.com/affaan-m/everything-claude-code) untuk validasi struktur SEO terhadap `final_intake.md` dan PRD.
-   b. Pastikan dev server masih berjalan, lalu panggil `debug` untuk visual debugging, Lighthouse, dan SEO fixing akhir.
+7. **SEO Validation**: Panggil sub-skill `seo-validator` dan perintahkan untuk membaca `landings/<brand>/planning/PLAN-USER-NEEDS.md`, `PLAN-COMPETITOR.md`, serta `PRD.md`. Ekstrak keyword yang relevan dari kedua dokumen tersebut dan lakukan validasi SEO secara komprehensif pada setiap halaman web yang dihasilkan. Dalam audit ini, validator WAJIB menginspeksi secara eksplisit seluruh tag `<img />` dan komponen gambar `next/image`: PASTIKAN setiap tag terbekali dengan kedua atribut `alt="..."` dan `title="..."` dengan untai teks yang kaya makna SEO spesifik brand (tanpa teks hampa/kosong).
 
-8. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan keseluruhan website ke user untuk persetujuan akhir. **HARD STOP**: BERHENTI TOTAL.
+8. **Debug Lokal Final**: Sebelum menyerahkan hasil akhir kepada user, Anda wajib melakukan debug lokal dengan menjalankan build produksi secara mandiri via tools di latar belakang:
+   - Jalankan terminal: `cd landings/<brand> && npm run build` (atau perintah build setara sesuai `AGENTS.md`).
+   - Lakukan verifikasi bahwa build berhasil tanpa error statik maupun TypeScript.
+   - Panggil kembali `qa-reviewer` untuk melakukan uji kewarasan (*sanity test*) dan verifikasi kesiapan pengiriman: **Verifikasi Eksplisit Terakhir**: cek keberfungsian interaksi mobile pada komponen pemutar video/media (*touch screen accessible*, memiliki kendali navigasi tekan jelas tanpa terjeda lock interaktif) serta pastikan Top Navbar konstan merekat melayang dengan gaya kelas CSS `sticky top-0` yang tidak terhalangi overflow container lain di semua breakpoint resolusi uji.
 
 9. **Deploy**: Jika user setuju, panggil `deploy` ke Vercel.
 
