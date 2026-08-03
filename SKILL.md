@@ -28,9 +28,9 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
 
 4. **Fase Persiapan Batch (PRD & Visual):**
    a. **Buat PRD Semua Halaman:** Baca `landings/<brand>/planning/PAGES-LIST.md`. Panggil sub-skill `planner` mode=page untuk men-generate PRD (`PLAN-<halaman>.md`) untuk **semua** halaman yang terdaftar sekaligus.
-   b. **Review QA PRD:** Panggil `qa-reviewer` untuk menilai kelayakan semua `PLAN-<halaman>.md` secara internal.
-   c. **Persiapan Visual & Aset:** Periksa folder `public/assets/` untuk logo. Panggil `ui-ux-pro-max` dan `impeccable` untuk mendapatkan pedoman layout dan animasi yang memukau.
-   d. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan semua PRD yang telah dibuat dan konsep visual kepada user. **HARD STOP**: Anda WAJIB berhenti bekerja dan menunggu persetujuan user sebelum lanjut.
+   b. **Review QA PRD & Konsolidasi Master PRD:** Panggil `qa-reviewer` untuk menilai kelayakan semua `PLAN-<halaman>.md` secara internal. Segera pasca lulus QA, panggil sub-skill `planner` mode=`merge` untuk mengkonsolidasikan seluruh `PLAN-<halaman>.md`, `PLAN-GLOBAL.md`, dan `PLAN-DESIGN-SYSTEM.md` menjadi dokumen tunggal Master PRD di `landings/<brand>/PRD.md` sebagai patokan utama generator.
+   c. **Persiapan Visual & Asset Mapping (Anti-Placeholder Enforcer):** Periksa folder `public/assets/` dan hasilkan dokumen pemetaan **`landings/<brand>/planning/ASSET-MAPPING.md`** yang memprioritaskan pemetaan eksplisit gambar statis (logo, ilustrasi) maupun video lokal ke target section spesifik di UI. Panggilan sub-skill `ui-ux-pro-max` dan `impeccable` dilanjutkan untuk merasionalkan layout dan animasi yang memukau. **DILARANG KERAS** menyulap link gambar eksternal ataupun menyetel placeholder kotak kosong fiktif.
+   d. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Perlihatkan dokumen Master PRD (`PRD.md`), dokumen `ASSET-MAPPING.md`, dan konsep visual kepada user. **HARD STOP**: Anda WAJIB berhenti bekerja dan menunggu persetujuan user sebelum lanjut.
 
 5. **Fase Eksekusi Halaman (Hybrid SDD Iteration):**
    Jalankan dev server di background (misal: `cd landings/<brand> && npm run dev`) sebelum memulai iterasi agar Playwright dan user bisa memvalidasi halaman.
