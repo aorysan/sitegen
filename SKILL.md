@@ -7,7 +7,7 @@ description: Master orkestrator untuk pembuatan seluruh website. Menggunakan daf
 
 Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan langkah-langkah ini sesuai urutan yang tepat.
 
-1. **Intake**: Panggil `intake` untuk mengekstrak data PDF ke `landings/<brand>/intake_compro.md`.
+1. **Intake**: Panggil `intake` untuk mengekstrak data dari dokumen PDF ke `landings/<brand>/intake_compro.md`. Wajib verifikasi dan catat ketersediaan aset media/video dari compro: jika video nihil, beri label status *[No-Video Default]* agar perancangan selanjutnya menyiapkan fallback antarmuka interaktif atau mengkonfirmasi input video langsung ke user.
 
 2. **Research**: Panggil sub-skill `research` untuk menghasilkan 2 dokumen riset:
    - `landings/<brand>/planning/PLAN-USER-NEEDS.md`: analisis pain points, jobs-to-be-done, objection & counter-messaging, FAQ pra-pembelian, user journey, dan trigger pembelian target user
