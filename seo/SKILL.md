@@ -7,7 +7,7 @@ metadata:
 
 # Sitegen SEO
 
-Improve search visibility through technical correctness, performance, and content relevance. Periksa website yang telah dibuat terhadap SOP Checklist SEO berikut. Pastikan seluruh poin terpenuhi. Tulis hasil analisis dan poin yang gagal/harus diperbaiki ke dalam file `landings/<brand>/SEO-REPORT.md` secara detail agar dapat dibaca dan diperbaiki oleh skill `debug`.
+Skill ini bertindak sebagai **Auditor/Checker Akhir** SEO. Agen `seo` bertugas memeriksa website (source code dan infrastruktur SEO buatan skill `generator`) terhadap SOP Checklist SEO di bawah ini. Agen `seo` TIDAK membuat atau mengedit file `sitemap.ts`, `robots.ts`, atau JSON-LD secara langsung, melainkan membaca source code hasil kerja `generator`. Tulis hasil analisis dan seluruh temuan error/poin yang gagal ke dalam file `landings/<brand>/SEO-REPORT.md` secara detail agar dapat dibaca dan diperbaiki oleh skill `debug`.
 
 ## When to Use
 
