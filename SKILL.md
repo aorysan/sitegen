@@ -36,10 +36,14 @@ Anda adalah master orkestrator untuk membangun website secara lengkap. Jalankan 
    Jalankan dev server di background (misal: `cd landings/<brand> && npm run dev`) sebelum memulai iterasi agar Playwright dan user bisa memvalidasi halaman.
    Lakukan loop berurutan untuk *setiap halaman* dari `PAGES-LIST.md`:
    a. **AI-to-AI SDD Loop:**
-      - Panggil subagent `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js berdasarkan PRD-nya. Generator WAJIB membaca pedoman visual dan `PLAN-DESIGN-SYSTEM.md`.
-      - Setelah selesai, panggil subagent `qa-reviewer` untuk mengecek hasil kode terhadap PRD dan best practices.
-      - Jika ada bug, UI kurang memukau, atau tidak sesuai PRD, biarkan subagent saling berkoordinasi: panggil ulang `generator` (atau `systematic-debugging` / `impeccable`) untuk memperbaikinya secara otomatis. Batasi maksimal 5 iterasi (fix loop) tanpa interupsi user.
-   b. **Playwright Spec:** Setelah AI menganggap halaman sempurna, generate test `tests/<halaman>.spec.ts` berdasarkan PRD dan jalankan.
+      - Panggil subagent `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js berdasarkan Master PRD (`PRD.md`), pedoman visual, dan `ASSET-MAPPING.md`.
+      - **Kepatuhan Arsitektur & Aturan Eksekusi Wajib Generator:**
+        1. **Framework Compliance**: WAJIB memuat dan mematuhi aturan panduan modern di file `AGENTS.md` serta dokumentasi resmi Next.js App Router. Menolak struktur kuno (Page Router).
+        2. **Strict Slug Enforcement**: Generator DILARANG mengubah, mentranslasikan, atau memodifikasi nama slug string dari `PAGES-LIST.md`. Rute folder, nama penanganan struktur komponen, hingga referensi tautan WAJIB 100% kongruen dengan string tepat di daftar pages (contoh: apabila slug di daftar berbunyi `kontak`, dilarang merubah menjadi `contact`).
+        3. **Mandatory SEO Image Attributes**: Saat mengabaikan komponen gambar (`<img />` atau `next/image`), Generator WAJIB MENYERTAKAN pasangan atribut `alt="..."` DAN `title="..."` dengan untaian kata kunci (keyword) SEO yang akurat.
+      - Setelah pembangunan halaman selesai, panggil subagent `qa-reviewer` untuk mengecek hasil kode terhadap PRD, *Strict Slug*, dan best practices. QA Reviewer bertugas mengotentikasi keandalan fungsionalitas Top Navbar `sticky top-0` dan interaktivitas komponen pemutar video berdaya *touch-safe control* (dilarang ada video yang tidak bisa di-pause/stop di layar mobile).
+      - Jika ada bug, UI kurang memukau, atau pelanggaran spesifikasi di atas, biarkan subagent saling berkoordinasi: panggil ulang `generator` (atau `systematic-debugging` / `impeccable`) untuk memperbaikinya secara otomatis. Batasi maksimal 5 iterasi (fix loop) tanpa interupsi user.
+   b. **Playwright Spec:** Setelah AI menganggap halaman sempurna, generate file pengujian Playwright berdasarkan PRD dan jalankan pengujian. Patuhi kaidah **Strict Slug Enforcement**: file test WAJIB menggunakan format nama `tests/<slug_tepat>.spec.ts` yang 100% identik dengan string di `PAGES-LIST.md`.
    c. **[CRITICAL STOP - TUNGGU REVIEW USER]:** Tampilkan hasil akhir halaman tersebut kepada user. **HARD STOP**: BERHENTI MENGEKSEKUSI TOOL. Tunggu user mengecek dev server (misal `localhost:3000`) dan memberikan persetujuan atau revisi. JANGAN lanjut ke halaman berikutnya sebelum disetujui.
    d. Ulangi loop untuk halaman berikutnya dari langkah 5a.
 
