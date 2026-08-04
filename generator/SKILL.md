@@ -39,7 +39,7 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 ## Workflow Eksekusi
 
 ### GATE 0 — PREREQUISITE: PRD & INTAKE DATA
-BACA dan GUNAKAN dokumen `landings/<brand>/PRD.md` yang telah LULUS QA (disetujui oleh skill `qa-reviewer`) beserta `intake_data.md` dan aset gambar dari skill `intake`. DILARANG membuat asumsi atau perencanaan ulang di luar PRD.
+BACA dan GUNAKAN dokumen PRD spesifik halaman (misalnya `PLAN-<halaman>.md`). Namun, apabila terdapat dokumen Master PRD gabungan bernama `PRD.md` di folder root brand, maka prioritaskan penggunaan `PRD.md` tersebut. Gunakan juga `final_intake.md` dan aset gambar dari skill `intake`. DILARANG membuat asumsi atau perencanaan ulang di luar PRD.
 
 ### GATE 1 — BACA DAN PAHAMI PRD
 Gunakan pemetaan halaman dari `PAGES-LIST.md` / `landings/<brand>/PRD.md`, keyword, Title Tag, Meta Description, struktur section, dan instruksi spesifik (seperti Auto-slide Carousel) yang sudah ada di PRD. JANGAN membuat file JSON terpisah. JANGAN melakukan riset keyword atau merencanakan ulang konten. Langsung gunakan PRD sebagai referensi cetak biru untuk tahap selanjutnya.

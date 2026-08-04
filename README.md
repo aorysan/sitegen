@@ -7,7 +7,7 @@ Sitegen adalah master orkestrator berbasis agen AI (AI Agent) untuk membangun we
 Alur kerja Sitegen terdiri dari tahapan-tahapan yang terstruktur dan wajib dijalankan secara berurutan:
 
 1. **Intake (`/intake`)**
-   Mengekstrak data mentah seperti *company profile* PDF (teks, gambar, warna, brand) dan menyimpannya ke `landings/<brand>/intake_data.md`.
+   Mengekstrak data mentah seperti *company profile* PDF (teks, gambar, warna, brand) dan menyimpannya ke `landings/<brand>/final_intake.md`.
 2. **Research (`/research`)**
    Melakukan riset mendalam berbasis inferensi intake dan web search otomatis untuk menghasilkan dokumen `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md`.
 3. **Perencanaan (`/planner`)**
