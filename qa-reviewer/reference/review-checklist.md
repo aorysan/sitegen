@@ -39,7 +39,7 @@ Digunakan saat me-review `PLAN-GLOBAL.md`.
 
 | Item | Poin | Kriteria |
 |---|---|---|
-| Semua kalimat persuasi dari PDF ada | 10 | Cross-check dengan intake_data, tidak ada yang hilang |
+| Semua kalimat persuasi dari PDF ada | 10 | Cross-check dengan final_intake, tidak ada yang hilang |
 | Setiap kalimat ditandai target halaman | 5 | Kolom "Target Halaman" terisi untuk semua |
 | Setiap kalimat ditandai target section | 5 | Kolom "Target Section" terisi untuk semua |
 | Value proposition inti tercantum | 5 | Min 3 keunggulan inti dari PDF |
@@ -74,7 +74,7 @@ Terbagi 2 dimensi: **Business Review** (60 poin) dan **Technical Review** (40 po
 
 | Item | Poin | Kriteria |
 |---|---|---|
-| Informasi akurat sesuai PDF | 5 | Cross-check konten dengan intake_data |
+| Informasi akurat sesuai PDF | 5 | Cross-check konten dengan final_intake |
 | Layanan/produk sesuai data PDF | 4 | Tidak mengandung info yang dibuat-buat |
 | Tidak ada placeholder "[...]" | 3 | Semua field konten terisi |
 

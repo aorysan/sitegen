@@ -1,6 +1,6 @@
 # PLAN-COMPETITOR — [Nama Brand]
 
-> Dokumen ini berisi analisis kompetitor yang dilakukan oleh skill `research` menggunakan web search berdasarkan industri dari `intake_data.md`. Semua data berdasarkan observasi nyata, bukan karangan.
+> Dokumen ini berisi analisis kompetitor yang dilakukan oleh skill `research` menggunakan web search berdasarkan industri dari `final_intake.md`. Semua data berdasarkan observasi nyata, bukan karangan.
 
 ---
 
