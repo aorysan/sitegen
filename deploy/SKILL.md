@@ -8,6 +8,9 @@ metadata:
 
 # Deploy to Vercel
 
+> [!CAUTION]
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum menjalankan proses pengiriman ke Vercel, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\deploy\AGENTS.md`). Larangan melamar deploy tatkala build lokal masih gagal bersifat mutlak.
+
 Deploy any project to Vercel. **Always deploy as preview** (not production) unless the user explicitly asks for production.
 
 The goal is to get the user into the best long-term setup: their project linked to Vercel with git-push deploys. Every method below tries to move the user closer to that state.

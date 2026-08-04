@@ -5,6 +5,9 @@ description: QA Otomatis, Visual Debugging (Puppeteer), dan Analisis Performa/SE
 
 # Sitegen Debug
 
+> [!CAUTION]
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi diagnosis dan perbaikan bug, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\debug\AGENTS.md`). Kepatuhan pada batasan putaran iterasi maksimal dan pemecahan root cause bersifat mutlak.
+
 Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wajib berikut:
 
 ## Tahap 0: Pahami PRD
