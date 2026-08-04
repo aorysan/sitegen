@@ -64,7 +64,8 @@ def _is_neutral_color(hex_str):
         r = int(hex_str[1:3], 16)
         g = int(hex_str[3:5], 16)
         b = int(hex_str[5:7], 16)
-    except ValueError:
+    except (ValueError, TypeError, IndexError) as e:
+        sys.stderr.write(f"Warning: Could not parse hex color '{hex_str}': {e}\n")
         return True
         
     diff = max(r, g, b) - min(r, g, b)
@@ -79,19 +80,22 @@ def _is_neutral_color(hex_str):
 def extract_colors_from_pdf(doc):
     all_hex_colors = []
     
-    for page in doc:
+    for page_idx, page in enumerate(doc):
         try:
             for item in page.get_drawings():
-                if "color" in item and item["color"] is not None:
-                    c = _color_to_hex(item["color"])
-                    if c:
-                        all_hex_colors.append(c)
-                if "fill" in item and item["fill"] is not None:
-                    c = _color_to_hex(item["fill"])
-                    if c:
-                        all_hex_colors.append(c)
-        except Exception:
-            pass
+                try:
+                    if "color" in item and item["color"] is not None:
+                        c = _color_to_hex(item["color"])
+                        if c:
+                            all_hex_colors.append(c)
+                    if "fill" in item and item["fill"] is not None:
+                        c = _color_to_hex(item["fill"])
+                        if c:
+                            all_hex_colors.append(c)
+                except (AttributeError, KeyError, TypeError, ValueError) as e:
+                    sys.stderr.write(f"Warning: Failed processing drawing color on page {page_idx}: {e}\n")
+        except (AttributeError, RuntimeError, TypeError) as e:
+            sys.stderr.write(f"Warning: Failed retrieving drawings for page {page_idx}: {e}\n")
             
         try:
             text_dict = page.get_text("rawdict")
@@ -99,12 +103,15 @@ def extract_colors_from_pdf(doc):
                 if block.get("type") == 0:
                     for line in block.get("lines", []):
                         for span in line.get("spans", []):
-                            if "color" in span and span["color"] is not None:
-                                c = _color_to_hex(span["color"])
-                                if c:
-                                    all_hex_colors.append(c)
-        except Exception:
-            pass
+                            try:
+                                if "color" in span and span["color"] is not None:
+                                    c = _color_to_hex(span["color"])
+                                    if c:
+                                        all_hex_colors.append(c)
+                            except (AttributeError, KeyError, TypeError, ValueError) as e:
+                                sys.stderr.write(f"Warning: Failed processing span color on page {page_idx}: {e}\n")
+        except (AttributeError, KeyError, RuntimeError, TypeError) as e:
+            sys.stderr.write(f"Warning: Failed retrieving rawdict text for page {page_idx}: {e}\n")
             
     counter = collections.Counter(all_hex_colors)
     neutral_list = []
@@ -133,7 +140,8 @@ def extract_colors_from_pdf(doc):
 def _find_nearby_heading(page, img_rect):
     try:
         img_y0 = float(img_rect[1]) if img_rect is not None else float("inf")
-    except (IndexError, TypeError, AttributeError, ValueError):
+    except (IndexError, TypeError, AttributeError, ValueError) as e:
+        sys.stderr.write(f"Warning: Invalid img_rect for heading search: {e}\n")
         img_y0 = float("inf")
         
     candidates = []
@@ -142,27 +150,30 @@ def _find_nearby_heading(page, img_rect):
         text_dict = page.get_text("dict")
         for block in text_dict.get("blocks", []):
             if block.get("type") == 0:
-                bbox = block.get("bbox", (0, 0, 0, 0))
-                block_text_parts = []
-                max_size = 0.0
-                for line in block.get("lines", []):
-                    for span in line.get("spans", []):
-                        text_val = span.get("text", "")
-                        if text_val:
-                            block_text_parts.append(text_val.strip())
-                        size_val = span.get("size", 0.0)
-                        if size_val > max_size:
-                            max_size = size_val
-                full_text = " ".join(part for part in block_text_parts if part).strip()
-                if full_text:
-                    candidates.append({
-                        "text": full_text,
-                        "y0": float(bbox[1]),
-                        "y1": float(bbox[3]),
-                        "size": float(max_size)
-                    })
-    except Exception:
-        pass
+                try:
+                    bbox = block.get("bbox", (0, 0, 0, 0))
+                    block_text_parts = []
+                    max_size = 0.0
+                    for line in block.get("lines", []):
+                        for span in line.get("spans", []):
+                            text_val = span.get("text", "")
+                            if text_val:
+                                block_text_parts.append(text_val.strip())
+                            size_val = span.get("size", 0.0)
+                            if size_val > max_size:
+                                max_size = size_val
+                    full_text = " ".join(part for part in block_text_parts if part).strip()
+                    if full_text:
+                        candidates.append({
+                            "text": full_text,
+                            "y0": float(bbox[1]),
+                            "y1": float(bbox[3]),
+                            "size": float(max_size)
+                        })
+                except (AttributeError, KeyError, ValueError, TypeError) as e:
+                    sys.stderr.write(f"Warning: Error parsing text block for heading: {e}\n")
+    except (AttributeError, RuntimeError, TypeError, KeyError) as e:
+        sys.stderr.write(f"Warning: Could not retrieve dict text for heading search: {e}\n")
         
     if not candidates:
         try:
@@ -175,8 +186,8 @@ def _find_nearby_heading(page, img_rect):
                         "y1": float(b[3]),
                         "size": 12.0
                     })
-        except Exception:
-            pass
+        except (AttributeError, RuntimeError, TypeError, IndexError) as e:
+            sys.stderr.write(f"Warning: Fallback block search failed: {e}\n")
             
     if not candidates:
         return ""
@@ -188,8 +199,9 @@ def _find_nearby_heading(page, img_rect):
     above_candidates.sort(key=lambda x: (round(x["size"]), x["y0"]), reverse=True)
     return above_candidates[0]["text"]
 
-def extract_images_with_pixmap(doc, out_dir):
-    if out_dir and not os.path.exists(out_dir):
+def extract_images_with_pixmap(doc, out_dir=None):
+    out_dir = out_dir or os.getcwd()
+    if not os.path.exists(out_dir):
         os.makedirs(out_dir, exist_ok=True)
         
     extracted_images = []
@@ -203,8 +215,8 @@ def extract_images_with_pixmap(doc, out_dir):
             for b in td.get("blocks", []):
                 if b.get("type") == 1 and "bbox" in b:
                     backup_rects.append(b["bbox"])
-        except Exception:
-            pass
+        except (AttributeError, KeyError, RuntimeError, TypeError) as e:
+            sys.stderr.write(f"Warning: Could not extract backup image block rects on page {page_num}: {e}\n")
             
         image_list = page.get_images()
         for img_idx, img_info in enumerate(image_list):
@@ -220,9 +232,8 @@ def extract_images_with_pixmap(doc, out_dir):
                     
                 ext = "png" if pix.alpha else "jpg"
                 filename = f"img_p{page_num}_{xref}.{ext}"
-                if out_dir:
-                    filepath = os.path.join(out_dir, filename)
-                    pix.save(filepath)
+                filepath = os.path.join(out_dir, filename)
+                pix.save(filepath)
                     
                 img_rect = None
                 try:
@@ -230,8 +241,8 @@ def extract_images_with_pixmap(doc, out_dir):
                         rects = page.get_image_rects(xref)
                         if rects:
                             img_rect = rects[0]
-                except Exception:
-                    pass
+                except (AttributeError, RuntimeError, TypeError, IndexError) as e:
+                    sys.stderr.write(f"Warning: Could not get image rects for xref {xref} on page {page_num}: {e}\n")
                     
                 if img_rect is None and img_idx < len(backup_rects):
                     img_rect = backup_rects[img_idx]
@@ -245,7 +256,8 @@ def extract_images_with_pixmap(doc, out_dir):
                     "height": pix.height,
                     "nearby_heading": heading_text
                 })
-            except Exception:
+            except (AttributeError, RuntimeError, ValueError, TypeError, IndexError, KeyError) as e:
+                sys.stderr.write(f"Warning: Failed extracting pixmap for image {img_idx} on page {page_num}: {e}\n")
                 continue
                 
     return extracted_images
@@ -259,10 +271,7 @@ def extract_from_pdf(pdf_path, out_dir=None):
         print("Error: PyMuPDF (fitz) module not installed")
         sys.exit(1)
         
-    if out_dir is None:
-        output_dir = sys.argv[2] if len(sys.argv) > 2 else os.getcwd()
-    else:
-        output_dir = out_dir
+    output_dir = out_dir or os.getcwd()
 
     doc = fitz.open(pdf_path)
     text_content = []
@@ -291,7 +300,8 @@ def extract_from_pdf(pdf_path, out_dir=None):
                     image_filename = os.path.join(asset_dir, f"extracted_img_{page_num}_{img_count}.{image_ext}")
                     with open(image_filename, "wb") as image_file:
                         image_file.write(image_bytes)
-            except Exception:
+            except (AttributeError, KeyError, RuntimeError, ValueError, TypeError, IndexError) as e:
+                sys.stderr.write(f"Warning: Failed conventional extraction of image xref on page {page_num}: {e}\n")
                 continue
                 
     print("=== EXTRACTED TEXT ===")
