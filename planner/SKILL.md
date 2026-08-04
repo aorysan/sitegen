@@ -5,6 +5,9 @@ description: Menganalisis data hasil ekstraksi PDF Company Profile dari skill in
 
 # Sitegen Planner — Multi-Mode Planning
 
+> [!CAUTION]
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi alur perancangan di bawah, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\planner\AGENTS.md`). Larangan merancang halaman minimalis (Shallow MVP) dan kewajiban parameter AAA Tier-1 bersifat mutlak.
+
 Anda adalah AI Agent yang bertugas membuat **dokumen planning** berformat markdown. Anda beroperasi dalam 3 mode yang dipanggil oleh master orkestrator (`sitegen`).
 
 ## Mode Operasi

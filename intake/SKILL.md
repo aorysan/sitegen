@@ -5,6 +5,9 @@ description: Ekstrak teks, poin persuasi, dan aset visual dari PDF Company Profi
 
 # Sitegen Intake
 
+> [!CAUTION]
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengecek dan mengekstrak dokumen, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\intake\AGENTS.md`). Penanaman label `[No-Video Default]` bila tidak ditemukan tautan video adalah wajib.
+
 Anda adalah langkah pertama dalam pipeline pembuatan website. Tugas Anda adalah memproses PDF Company Profile untuk mengekstrak data dan aset visual, lalu merekonstruksinya menjadi dokumen komersial terstruktur. Anda TIDAK MERANCANG struktur halaman atau merencanakan kode; Anda hanya menyiapkan data dan aset yang bersih, semantis, dan terstruktur untuk skill `planning`.
 
 Alur kerja ini menerapkan arsitektur hybrid produser-konsumen: script `extract.py` bertindak sebagai **produser data terstruktur** (ekstraksi mentah dan metadata visual), sedangkan agen bertindak sebagai **konsumen, analis semantik, dan perename aset** sebelum menyusun dokumen akhir `intake_compro.md`.

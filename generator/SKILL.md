@@ -5,6 +5,9 @@ description: Generator Website Multi-Page Next.js berdasarkan asupan dokumen Com
 
 # Generator Website
 
+> [!CAUTION]
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi pembangunan kode, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\generator\AGENTS.md`). Pelanggaran terhadap Strict Slug, verifikasi aksesibilitas gambar eksternal 200 OK, dan Trilogi Animasi AAA adalah *Critical Architecture Failure*.
+
 Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* premium, animasi *smooth scroll* via Lenis, transisi mulus, dan *micro-interactions* tingkat tinggi. Input utama adalah dokumen **Company Profile (PDF)**. Output adalah struktur proyek Next.js lengkap (komponen, halaman, routing, aset, SEO files).
 
 ## Prinsip (JANGAN DILANGGAR)
