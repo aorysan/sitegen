@@ -21,9 +21,3 @@
    - **Trilogi Dynamic Motion AAA:** Wajib meresepkan pemakaian 3 library standar: (1) **Lenis** untuk *inertial smooth scrolling* di Root Layout, (2) **Anime.js** untuk animasi mikro prosedural & partikel interaktif, dan (3) **Framer Motion** untuk *scroll-reveal* & hover fluiditas kartu dengan penulisan tipe ketat (`as const`).
    - **Touch-Safe Mobile Video:** Pemutar video wajib terbungkus di area ergonomis dengan target tombol >44x44px, menyediakan kontrol eksplisit tanpa auto-lock fullscreen atau autoplay berpotensi macet.
    - **Active Visual Sourcing & Asset Mapping:** Dokumen perancangan wajib menjamin ketersediaan pemetaan aset (`ASSET-MAPPING.md`) menuju URL gambar asli beresolusi tinggi. Dilarang merancang UI hampa gambar (*text-only layout*) ataupun memakai tautan rusak/fiktif.
-
----
-
-## PASAL III: KETENTUAN TAMBAHAN (TASK 8)
-1. **Konsistensi Riset:** Desain arsitektur informasi dan spesifikasi harus merujuk pada `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md`.
-2. **Kepatuhan SEO Gambar Ganda:** Setiap referensi gambar di dalam PRD atau halaman yang direkam wajib menyertakan draf teks untuk atribut `alt` dan `title`.

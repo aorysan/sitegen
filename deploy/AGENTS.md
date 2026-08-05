@@ -8,8 +8,3 @@
 1. **Sanity Check Sebelum Deploy:**
    - Sebelum mengeksekusi pengiriman menuju production cloud (Vercel), agen wajib memastikan bahwa proses pemeriksaan tipe statik (`npx tsc --noEmit`) dan tes build produksi secara lokal (`npm run build`) telah terkonfirmasi LULUS 100% tanpa error.
    - Dilarang melakukan deploy apabila masih terdapat error statik atau laporan kegagalan tes Playwright dari tahapan QA sebelumnya.
-
----
-
-## PASAL II: KETENTUAN TAMBAHAN (TASK 8)
-1. **Verifikasi Pre-Deploy:** Pastikan build local `npm run build` sukses 100% dan seluruh halaman siap sebelum trigger deploy CLI.

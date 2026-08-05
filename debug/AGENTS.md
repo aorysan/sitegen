@@ -9,8 +9,3 @@
    - Dalam mengoperasikan perbaikan bug lokal maupun pasca-deploy, agen wajib mengidentifikasi akar penyebab (*root cause*) dengan membaca laporan kegagalan tes, `SEO-REPORT.md`, dan log terminal sebelum menerapkan pengeditan kode.
 2. **Batasan Iterasi & Pencegahan Loop Tanpa Henti:**
    - Putaran iterasi perbaikan dibatasi maksimal sesuai instruksi master (maksimal 5 putaran di fase generator, maksimal 2 putaran di post-deploy). Apabila masalah belum bergeming, berhentikan sesi dan laporkan diagnosis kepada user.
-
----
-
-## PASAL II: KETENTUAN TAMBAHAN (TASK 8)
-1. **Pendekatan Sistematis:** Identifikasi dan perbaiki error log berbasis bukti eksekusi langsung. Dilarang menebak tanpa menjalankan command pembuktian.
