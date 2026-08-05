@@ -9,7 +9,7 @@ metadata:
 # Deploy to Vercel
 
 > [!CAUTION]
-> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum menjalankan proses pengiriman ke Vercel, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\deploy\AGENTS.md`). Larangan melakukan deploy tatkala build lokal masih gagal bersifat mutlak.
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum menjalankan proses pengiriman ke Vercel, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Larangan melakukan deploy tatkala build lokal masih gagal bersifat mutlak.
 
 Deploy any project to Vercel. **Always deploy as preview** (not production) unless the user explicitly asks for production.
 
@@ -169,6 +169,9 @@ The Vercel CLI isn't set up at all.
 ```bash
 bash /mnt/skills/user/deploy-to-vercel/resources/deploy.sh [path]
 ```
+
+> [!NOTE]
+> Path `/mnt/skills/user/deploy-to-vercel/resources/deploy.sh` hanya berlaku untuk sandbox Linux (claude.ai). Untuk environment lokal Windows/Mac, gunakan Vercel CLI (`vercel deploy`) sesuai instruksi di atas.
 
 **Arguments:**
 - `path` - Directory to deploy, or a `.tgz` file (defaults to current directory)

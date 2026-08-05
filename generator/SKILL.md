@@ -6,7 +6,7 @@ description: Generator Website Multi-Page Next.js berdasarkan asupan dokumen Com
 # Generator Website
 
 > [!CAUTION]
-> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi pembangunan kode, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\generator\AGENTS.md`). Pelanggaran terhadap Strict Slug, verifikasi aksesibilitas gambar eksternal 200 OK, dan Trilogi Animasi AAA adalah *Critical Architecture Failure*.
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi pembangunan kode, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Pelanggaran terhadap Strict Slug, verifikasi aksesibilitas gambar eksternal 200 OK, dan Trilogi Animasi AAA adalah *Critical Architecture Failure*.
 
 Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* premium, animasi *smooth scroll* via Lenis, transisi mulus, dan *micro-interactions* tingkat tinggi. Input utama adalah dokumen **Company Profile (PDF)**. Output adalah struktur proyek Next.js lengkap (komponen, halaman, routing, aset, SEO files).
 
@@ -15,7 +15,7 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 1. **Estetika Profesional, Rasa Dinamis (Trilogi Animasi AAA Standard).** Desain WAJIB 100% profesional dan elegan (Corporate style). Animasi WAJIB memadukan dua kekuatan utama: (1) **Anime.js (`animejs`) + `IntersectionObserver`** via komponen HOC `AnimatedSection.tsx` untuk kemunculan sekuensial dan animasi mikro bersusun, serta (2) **Framer Motion** untuk interaksi *scroll-reveal* dua arah (`viewport={{ once: false, amount: 0.15 }}`) dan transisi *hover state* kartu yang fluid (*infinite ambient looping*). Untuk mencegah glitch di React Strict Mode dan memory leak, Anda WAJIB memanggil `anime.remove(elementRef.current)` pada fungsi *cleanup return* `useEffect`. *Smooth scrolling* Lenis tetap aktif di seluruh halaman. **Kewajiban Animasi Mikro (Staggering):** Selain section utama, SETIAP elemen detail (poin-poin, list, cards, grid items) WAJIB diberikan class `.stagger-item` dan dianimasikan berurutan menggunakan Anime.js (`delay: anime.stagger(100)`). Jangan hanya menganimasi section luarnya saja; elemen di dalamnya harus muncul satu per satu dengan transisi halus yang responsif terhadap gulir layar dari arah atas maupun bawah (tanpa larangan sekali-jalan).
 2. **Framework & Styling Wajib.** Hanya gunakan **Next.js (App Router)** dengan **TypeScript (`.tsx`)** dan **Vanilla CSS Modules** (`.module.css`). **DILARANG KERAS menggunakan Tailwind CSS**.
 3. **Anti-AI Slop & Dilarang Emoji.** DILARANG KERAS menggunakan EMOJI (seperti 🚀, 💡, 🛡️) di elemen UI mana pun karena merusak tingkat profesionalisme korporat. Anda WAJIB hanya menggunakan *iconography* modern berbasis SVG murni atau *library* ikon profesional seperti `lucide-react`.
-4. **Gambar Unik, Responsif & Terverifikasi (DILARANG PLACEHOLDER).** DILARANG KERAS menggunakan gambar *placeholder* (seperti `picsum.photos` atau sejenisnya). Prioritas penggunaan gambar: (1) Cek gambar ekstraksi compro di `final_intake.md`/assets. Jika cocok, gunakan. (2) Jika kurang, WAJIB lakukan web search untuk mencari gambar eksternal yang relevan. (3) WAJIB lakukan pengecekan URL eksternal (HTTP ping) untuk memastikan HTTP Status 200 OK (bukan 404). Jika tidak ditemukan gambar eksternal yang valid (berstatus 200 OK), HENTIKAN proses (*halt*) dan minta pengguna menempatkan gambar di folder `public/assets/`. Semua tag `<Image />` harus diberi styling responsif (`max-width: 100%`, `height: auto`, `object-fit: cover`). Sebelum merakit, Anda WAJIB memanggil sub-skill `ui-ux-pro-max` dan `impeccable` untuk mengkurasi.
+4. **Gambar Unik, Responsif & Terverifikasi (DILARANG PLACEHOLDER).** DILARANG KERAS menggunakan gambar *placeholder* (seperti `picsum.photos` atau sejenisnya). Prioritas penggunaan gambar: (1) Cek gambar ekstraksi compro di `final_intake.md`/assets. Jika cocok, gunakan. (2) Jika kurang, WAJIB lakukan web search untuk mencari gambar eksternal yang relevan. (3) WAJIB lakukan pengecekan URL eksternal (HTTP ping) untuk memastikan HTTP Status 200 OK (bukan 404). Jika tidak ditemukan gambar eksternal yang valid (berstatus 200 OK), HENTIKAN proses (*halt*) dan minta pengguna menempatkan gambar di folder `public/assets/`. Semua tag `<Image />` harus diberi styling responsif (`max-width: 100%`, `height: auto`, `object-fit: cover`). Gunakan panduan visual dari `PLAN-GLOBAL.md` dan `PLAN-DESIGN-SYSTEM.md` yang sudah dibuat di fase planning.
 5. **Preservasi Pesan & Persuasi PDF.** Teks persuasi, poin *value proposition*, dan kalimat berdaya pikat yang ada di PDF Company Profile DILARANG dihapus/dibuang. Teks tersebut harus diadaptasi secara alami dan diperkaya dengan kata kunci SEO.
 6. **Animasi Lenis & Anime.js Mandatory.** Setiap proyek WAJIB menginstal `lenis` dan `animejs`. Integrasikan Lenis secara global di `app/layout.tsx` untuk *smooth scrolling*, dan gunakan komponen `AnimatedSection.tsx` (berbasis Anime.js) untuk animasi interaksi saat scroll.
 7. **Kepatuhan Mutlak pada PRD.** Seluruh keyword SEO, metadata (Title/Description), konten, struktur halaman, layout section (seperti Grid vs Carousel), dan URL WAJIB diimplementasikan PERSIS seperti yang tertulis di PRD. Dilarang mengarang konten, melakukan riset ulang, atau melanggar spesifikasi PRD.
@@ -48,6 +48,8 @@ BACA dan GUNAKAN dokumen PRD spesifik halaman (misalnya `PLAN-<halaman>.md`). Na
 Gunakan pemetaan halaman dari `PAGES-LIST.md` / `landings/<brand>/PRD.md`, keyword, Title Tag, Meta Description, struktur section, dan instruksi spesifik (seperti Auto-slide Carousel) yang sudah ada di PRD. JANGAN membuat file JSON terpisah. JANGAN melakukan riset keyword atau merencanakan ulang konten. Langsung gunakan PRD sebagai referensi cetak biru untuk tahap selanjutnya.
 
 ### GATE 2 — SCAFFOLDING (TypeScript)
+**Guard**: Jika file `landings/<brand>/package.json` sudah ada, SKIP scaffolding dan langsung ke GATE 3. Hanya scaffold jika project belum ada.
+
 Beralihlah ke folder `landings/` di root workspace, dan buat folder `<brand>` jika belum ada.
 Jalankan perintah inisialisasi Next.js TypeScript secara non-interaktif:
 ```bash
@@ -100,11 +102,14 @@ cd landings/<brand> && npm run build
 - DILARANG KERAS melanjut ke GATE 4 (Git Initialization) atau mengklaim eksekusi selesai sebelum build terverifikasi 100% sukses.
 
 ### GATE 4 — GIT INITIALIZATION
-Lakukan inisialisasi Git di dalam folder Next.js yang baru dibuat.
+**Guard**: Jika folder `landings/<brand>/.git` sudah ada, SKIP `git init` dan lakukan commit saja.
+
 ```bash
 cd landings/<brand>
+# Hanya jika .git belum ada:
 git init
+# Selalu lakukan:
 git add .
-git commit -m "Initial commit: Next.js project scaffolded by generator"
+git commit -m "feat: page [nama halaman] built by generator"
 ```
 Eksekusi generator selesai di sini. Master orchestrator akan mengambil alih untuk tahap selanjutnya.

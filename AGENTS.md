@@ -7,7 +7,7 @@
 ## PASAL I: GERBANG PERSETUJUAN MULTI-TAHAP (HARD STOP GATES - ZERO BYPASS)
 1. **Kepatuhan Pada Jeda Eksplisit:**
    - Setiap instruksi dalam alur orkestrasi yang bertanggat **`[CRITICAL STOP]`**, **`[HARD STOP]`**, atau **`[TUNGGU REVIEW USER]`** adalah BATAS INTERUPSI KERAS.
-   - **Aturan Eksekusi:** Master Orchestrator **WAJIB LANGSUNG BERHENTI MENGEKSEKUSI TOOL APA PUN** (`END TURN`) segera setelah menghasilkan dokumen atau tugas pada gerbang tersebut.
+   - **Aturan Eksekusi:** Master Orchestrator **WAJIB LANGSUNG BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN)** segera setelah menghasilkan dokumen atau tugas pada gerbang tersebut. Tunggu konfirmasi persetujuan dari user secara eksplisit sebelum melompat ke tahap berikutnya. Dilarang memanfaatkan momentum untuk meneruskan eksekusi secara mandiri.
    - **Larangan Keras:** Dilarang berasumsi bahwa user akan menyetujui. Dilarang merakit sub-skill atau subagent tahap berikutnya secara bersamaan atau memanfaatkan *momentum otomatisasi* untuk melintasi gerbang sebelum ada teks persetujuan eksplisit dari user di terminal.
 
 ---

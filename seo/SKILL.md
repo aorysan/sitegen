@@ -8,7 +8,7 @@ metadata:
 # Sitegen SEO
 
 > [!CAUTION]
-> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengaudit dokumen dan kode web, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\seo\AGENTS.md`). Kepatuhan audit terhadap atribut ganda `alt`/`title` dan keaslian foto bersifat mutlak.
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengaudit dokumen dan kode web, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Kepatuhan audit terhadap atribut ganda `alt`/`title` dan keaslian foto bersifat mutlak.
 
 Skill ini bertindak sebagai **Auditor/Checker Akhir** SEO. Agen `seo` bertugas memeriksa website (source code dan infrastruktur SEO buatan skill `generator`) terhadap SOP Checklist SEO di bawah ini. Agen `seo` TIDAK membuat atau mengedit file `sitemap.ts`, `robots.ts`, atau JSON-LD secara langsung, melainkan membaca source code hasil kerja `generator`. Tulis hasil analisis dan seluruh temuan error/poin yang gagal ke dalam file `landings/<brand>/SEO-REPORT.md` secara detail agar dapat dibaca dan diperbaiki oleh skill `debug`.
 
