@@ -99,7 +99,7 @@ Setelah user setuju dengan pendekatan:
 [Catatan lain dari diskusi]
 ```
 
-2. **[HARD STOP]**: Perlihatkan isi `user_preferences.md` ke user. BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN). Tunggu konfirmasi user sebelum mengembalikan kontrol ke master orchestrator.
+2. **[HARD STOP]**: Perlihatkan isi `user_preferences.md` ke user. BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN). Tunggu konfirmasi user sebelum mengembalikan kontrol ke master orchestrator. Tunggu konfirmasi persetujuan dari user secara eksplisit sebelum melompat ke tahap berikutnya. Dilarang memanfaatkan momentum untuk meneruskan eksekusi secara mandiri.
 
 ## Prinsip
 
