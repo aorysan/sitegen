@@ -6,7 +6,7 @@ description: Master orkestrator untuk pembuatan seluruh website. Menggunakan daf
 # Sitegen Master Flow
 
 > [!CAUTION]
-> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi alur kerja di bawah, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi master `AGENTS.md` yang berada se-direktori dengan file skill ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\AGENTS.md`). Pelanggaran terhadap gerbang persetujuan (*Hard Stop*) atau pasal di file tersebut adalah *Critical Architecture Failure*.
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi alur kerja di bawah, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi master `AGENTS.md` yang berada se-direktori dengan file skill ini (`AGENTS.md`). Pelanggaran terhadap gerbang persetujuan (*Hard Stop*) atau pasal di file tersebut adalah *Critical Architecture Failure*.
 > 
 > **ATURAN PEMANGGILAN SUB-SKILL**: Setiap kali instruksi di bawah menyuruh Anda memanggil sub-skill (contoh: `intake`, `research`, `brainstorming`, `generator`, dll), Anda **WAJIB membaca file panduannya** (misal: `intake/SKILL.md`) menggunakan tool `view_file` SEBELUM menjalankan instruksinya. JANGAN MENGASUMSIKAN CARA KERJANYA!
 

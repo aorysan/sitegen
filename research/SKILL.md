@@ -6,7 +6,7 @@ description: Melakukan riset mendalam tentang kebutuhan user dan analisis kompet
 # Sitegen Research Skill
 
 > [!CAUTION]
-> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum melakukan analisa riset pasar dan kompetitor, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\research\AGENTS.md`). Larangan halusinasi data kompetitor dan kewajiban web search riil bersifat mutlak.
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum melakukan analisa riset pasar dan kompetitor, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Larangan halusinasi data kompetitor dan kewajiban web search riil bersifat mutlak.
 
 Anda adalah AI Researcher. Tugas Anda menghasilkan 2 dokumen riset yang menjadi fondasi planning selanjutnya. Anda TIDAK merancang halaman atau menulis kode. Anda hanya melakukan riset berbasis data dan web search.
 
