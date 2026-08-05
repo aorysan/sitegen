@@ -21,5 +21,5 @@
 
 ## PASAL III: GERBANG PERSETUJUAN USER (HARD STOP)
 1. **User Approval Wajib:**
-   - Setelah agen mengusulkan pendekatan desain dan user menyetujui, agen WAJIB menulis `user_preferences.md` kemudian BERHENTI dan mengembalikan kontrol ke master orchestrator.
+   - Setelah agen mengusulkan pendekatan desain dan user menyetujui, agen WAJIB menulis `user_preferences.md` kemudian BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN) serta mengembalikan kontrol ke master orchestrator.
    - DILARANG langsung melakukan rekonsiliasi, planning, atau eksekusi kode apa pun.
