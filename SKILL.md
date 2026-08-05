@@ -7,10 +7,12 @@ description: Master orkestrator untuk pembuatan seluruh website. Menggunakan daf
 
 > [!CAUTION]
 > **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi alur kerja di bawah, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi master `AGENTS.md` yang berada se-direktori dengan file skill ini (`D:\AryokPunya\Magang\sitegen\.agents\skills\sitegen\AGENTS.md`). Pelanggaran terhadap gerbang persetujuan (*Hard Stop*) atau pasal di file tersebut adalah *Critical Architecture Failure*.
+> 
+> **ATURAN PEMANGGILAN SUB-SKILL**: Setiap kali instruksi di bawah menyuruh Anda memanggil sub-skill (contoh: `intake`, `research`, `brainstorming`, `generator`, dll), Anda **WAJIB membaca file panduannya** (misal: `intake/SKILL.md`) menggunakan tool `view_file` SEBELUM menjalankan instruksinya. JANGAN MENGASUMSIKAN CARA KERJANYA!
 
 Anda adalah master orkestrator untuk membangun website secara lengkap beralaskan spesifikasi AAA Tier-1. Jalankan langkah-langkah ini sesuai urutan yang tepat dan **PATUHI SETIAP PASAL PADA FILE `AGENTS.md` TANPA KECUALI**.
 
-1. **Intake**: Panggil `intake` untuk mengekstrak data dari dokumen PDF ke `landings/<brand>/intake_compro.md`. Wajib verifikasi dan catat ketersediaan aset media/video dari compro: jika video nihil, beri label status *[No-Video Default]* agar perancangan selanjutnya menyiapkan fallback antarmuka interaktif atau mengkonfirmasi input video langsung ke user.
+1. **Intake**: Anda WAJIB membaca file panduan `intake/SKILL.md` terlebih dahulu menggunakan `view_file`. Setelah itu, patuhi instruksi di dalamnya secara ketat untuk menjalankan script Python ekstraksi data dari dokumen PDF ke `landings/<brand>/intake_compro.md`. Wajib verifikasi dan catat ketersediaan aset media/video dari compro: jika video nihil, beri label status *[No-Video Default]* agar perancangan selanjutnya menyiapkan fallback antarmuka interaktif atau mengkonfirmasi input video langsung ke user.
 
 2. **Research**: Panggil sub-skill `research` untuk menghasilkan 2 dokumen riset:
    - `landings/<brand>/planning/PLAN-USER-NEEDS.md`: analisis pain points, jobs-to-be-done, objection & counter-messaging, FAQ pra-pembelian, user journey, dan trigger pembelian target user
