@@ -36,3 +36,10 @@
 ## PASAL IV: TOUCH-SAFE MOBILE VIDEO CONTROLLER
 1. Seluruh pemutar video (YouTube iframe maupun video lokal) wajib disajikan dalam wrapper ergonomis dengan target tombol interaksi >44x44px.
 2. Dilarang memaksakan penguncian *fullscreen* otomatis (*force-lock*) atau *autoplay* suara mendadak yang merusak performa peramban seluler.
+
+---
+
+## PASAL V: KETENTUAN TAMBAHAN (TASK 8)
+1. **Anti-Placeholder & Logo Asli (Bab II Master Rules):** Dilarang keras menggunakan foto stok yang tidak relevan atau URL placeholder. Wajib menggunakan logo resmi dan aset yang valid. Atribut ganda `alt` dan `title` hukumnya mutlak pada semua tag gambar.
+2. **Trilogi Animasi AAA (Bab III Master Rules):** Wajib menggunakan Lenis (smooth scroll), Framer Motion bidirectional (`viewport={{ once: false, amount: 0.15 }}`), dan animasi mikro tak henti.
+3. **Kedalaman Konten & Touch-Safe Media (Bab IV & V):** Dilarang membuat halaman dangkal/MVP sederhana. Target klik media mobile minimal 44x44px tanpa autoplay suara.

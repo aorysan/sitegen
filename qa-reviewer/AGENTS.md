@@ -24,3 +24,9 @@
 
 ## PASAL III: KEPATUHAN PENAMAAN & BERKAS PLAYWRIGHT
 1. Setelah seluruh pengecekan lulus, berkas pengujian Playwright end-to-end yang di-generate WAJIB menempuh penamaan yang akurat dan kongruen terhadap slug halaman target, tepatnya berformat: `tests/<slug_tepat>.spec.ts` (Tanpa modifikasi kata atau translasi sepihak).
+
+---
+
+## PASAL IV: KETENTUAN TAMBAHAN (TASK 8)
+1. **Obyektivitas Audit:** Evaluasi kode dan dokumen berdasarkan checklist teknis yang ketat (termasuk verifikasi keberadaan atribut `alt` dan `title`, konfigurasi animasi bidirectional Framer Motion tanpa `once: true`, serta validasi link aset fungsional tanpa placeholder).
+2. **Ambang Batas Kelulusan:** Jika skor audit < 80, berikan mandat revisi spesifik. Dilarang meluluskan PR atau dokumen yang melanggar pasal-pasal di atas.
