@@ -277,6 +277,9 @@ Simpan laporan ke file output sesuai mode.
 ---
 
 ## Feedback Revisi (jika skor < 90)
-1. **[Business/Technical]** — [Apa yang kurang] — **Perbaikan**: [Instruksi spesifik]
+1. **[Business/Technical]**
+   - **Target File:** `[Path/Nama File Komponen Spesifik, misal: components/FAQ.tsx atau app/about/page.tsx]`
+   - **Root Cause / Masalah:** `[Deskripsi detail mengapa kode/konten tidak memenuhi spesifikasi PRD]`
+   - **Tugas Revisi Spesifik:** `[Instruksi perbaikan pasti per baris kode/properti yang harus di-patch oleh generator]`
 
 ---
