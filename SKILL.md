@@ -39,15 +39,15 @@ Anda adalah master orkestrator untuk membangun website secara lengkap beralaskan
 5. **Fase Eksekusi Halaman (Hybrid SDD Iteration & Deep Storytelling):**
    Jalankan dev server di background (misal: `cd landings/<brand> && npm run dev`) sebelum memulai iterasi agar Playwright dan user bisa memvalidasi halaman.
    Lakukan loop berurutan untuk *setiap halaman* dari `PAGES-LIST.md`:
-   a. **AI-to-AI SDD Loop:**
-      - Panggil subagent `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js berdasarkan Master PRD (`PRD.md`), pedoman visual, dan `ASSET-MAPPING.md`.
-      - **Kepatuhan Arsitektur & Aturan Eksekusi Wajib Generator (`AGENTS.md` Compliance):**
-        1. **Framework Compliance**: WAJIB memuat dan mematuhi aturan panduan modern di file `AGENTS.md` serta dokumentasi resmi Next.js App Router.
-        2. **Strict Slug Enforcement**: Generator DILARANG mengubah, mentranslasikan, atau memodifikasi nama slug string dari `PAGES-LIST.md`. Rute folder, nama penanganan struktur komponen, hingga referensi tautan WAJIB 100% kongruen.
-        3. **Mandatory Brand Logo & Relevant Artwork Attributes**: Generator WAJIB menyisipkan elemen logo brand asli dan gambar produk tulen bersumber dari `ASSET-MAPPING.md` pada kartu dan banner, dengan pasangan atribut ganda `alt="..."` DAN `title="..."` berisikan kata kunci (keyword) SEO yang akurat.
-        4. **Continuous Bidirectional & Looped Animations (Anti Sekali Jalan)**: Gunakan **Anime.js v4** dan Framer Motion dengan animasi gulir dua arah (`viewport={{ once: false, amount: 0.15 }}`) serta animasi mikro melayang tak henti (*repeat: Infinity*) pada elemen kartu, ikon, dan background kosmik agar UI hidup 24/7.
-      - Setelah pembangunan halaman selesai, panggil subagent `qa-reviewer` untuk mengecek hasil kode terhadap PRD, *Strict Slug*, keberadaan logo & gambar nyata yang relevan, serta verifikasi bahwa animasi TIDAK berjalan sekali doang (`once: false`).
-      - Jika ada bug, UI kurang memukau, atau pelanggaran spesifikasi di atas, biarkan subagent saling berkoordinasi (maksimal 5 iterasi fix loop).
+    a. **AI-to-AI SDD Loop:**
+       - Panggil subagent `generator` khusus untuk membangun halaman tersebut ke dalam project Next.js berdasarkan `PLAN-<halaman>.md`, `PLAN-GLOBAL.md`, pedoman visual, dan `ASSET-MAPPING.md`. `generator` WAJIB merakit halaman dengan memecah *section* menjadi beberapa file komponen mandiri (`components/Hero.tsx`, `components/FAQ.tsx`, dll) terlebih dahulu sebelum menggabungkannya ke halaman utama (`page.tsx`).
+       - **Kepatuhan Arsitektur & Aturan Eksekusi Wajib Generator (`AGENTS.md` Compliance):**
+         1. **Framework Compliance**: WAJIB memuat dan mematuhi aturan panduan modern di file `AGENTS.md` serta dokumentasi resmi Next.js App Router.
+         2. **Strict Slug Enforcement**: Generator DILARANG mengubah, mentranslasikan, atau memodifikasi nama slug string dari `PAGES-LIST.md`. Rute folder, nama penanganan struktur komponen, hingga referensi tautan WAJIB 100% kongruen.
+         3. **Mandatory Brand Logo & Relevant Artwork Attributes**: Generator WAJIB menyisipkan elemen logo brand asli dan gambar produk tulen bersumber dari `ASSET-MAPPING.md` pada kartu dan banner, dengan pasangan atribut ganda `alt="..."` DAN `title="..."` berisikan kata kunci (keyword) SEO yang akurat.
+         4. **Continuous Bidirectional & Looped Animations (Anti Sekali Jalan)**: Gunakan **Anime.js v4** dan Framer Motion dengan animasi gulir dua arah (`viewport={{ once: false, amount: 0.15 }}`) serta animasi mikro melayang tak henti (*repeat: Infinity*) pada elemen kartu, ikon, dan background kosmik agar UI hidup 24/7.
+       - Setelah pembangunan halaman selesai, panggil subagent `qa-reviewer` untuk mengecek hasil kode terhadap PRD, *Strict Slug*, keberadaan logo & gambar nyata yang relevan, serta verifikasi bahwa animasi TIDAK berjalan sekali doang (`once: false`).
+       - Jika ada bug, UI kurang memukau, atau pelanggaran spesifikasi di atas, biarkan subagent saling berkoordinasi (maksimal 5 iterasi fix loop). **Aturan Fix Loop Presisi:** Saat melakukan perbaikan, `generator` DILARANG KERAS merender ulang/mengirim seluruh file kode utuh ke obrolan, melainkan HANYA membaca konteks komponen spesifik yang bermasalah dan merevisinya menggunakan *line-level editing* (edit spesifik per baris/patch).
    b. **Playwright Spec:** Setelah AI menganggap halaman sempurna, generate file pengujian Playwright berdasarkan PRD dan jalankan pengujian dengan nama `tests/<slug_tepat>.spec.ts`.
    c. **[CRITICAL STOP - TUNGGU REVIEW USER - ZERO BYPASS]:** Tampilkan hasil akhir halaman tersebut kepada user. **HARD STOP**: BERHENTI MENGEKSEKUSI TOOL APA PUN (END TURN). Tunggu user mengecek dev server dan memberikan persetujuan eksplisit atau revisi. JANGAN lanjut ke halaman berikutnya sebelum disetujui.
    d. Ulangi loop untuk halaman berikutnya dari langkah 5a.
