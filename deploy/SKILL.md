@@ -170,6 +170,9 @@ The Vercel CLI isn't set up at all.
 bash /mnt/skills/user/deploy-to-vercel/resources/deploy.sh [path]
 ```
 
+> [!NOTE]
+> Path `/mnt/skills/user/deploy-to-vercel/resources/deploy.sh` hanya berlaku untuk sandbox Linux (claude.ai). Untuk environment lokal Windows/Mac, gunakan Vercel CLI (`vercel deploy`) sesuai instruksi di atas.
+
 **Arguments:**
 - `path` - Directory to deploy, or a `.tgz` file (defaults to current directory)
 

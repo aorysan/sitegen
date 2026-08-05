@@ -2,30 +2,39 @@
 
 Sitegen adalah master orkestrator berbasis agen AI (AI Agent) untuk membangun website secara komprehensif dari awal (ekstraksi data) hingga akhir (deployment). Sistem ini dirancang menggunakan arsitektur modular (plugin-based) di mana setiap fungsi utama ditangani oleh sub-skill terpisah yang dipanggil secara berurutan.
 
+## 📋 Prerequisites
+
+Pastikan sudah terinstall sebelum menjalankan sitegen:
+- **Python 3.x** — untuk script extraction (`intake/scripts/extract.py`) dan UI search (`ui-ux-pro-max/scripts/search.py`)
+- **Node.js 18+** — untuk Next.js scaffolding dan Playwright
+- **Git** — untuk version control
+
 ## 🚀 Alur Kerja (Master Workflow)
 
-Alur kerja Sitegen terdiri dari tahapan-tahapan yang terstruktur dan wajib dijalankan secara berurutan:
-
+0. **User Onboarding (`[HARD STOP]`)**
+   Tanya nama brand dan path ke file PDF Company Profile. Verifikasi file exists.
 1. **Intake (`/intake`)**
-   Mengekstrak data mentah seperti *company profile* PDF (teks, gambar, warna, brand) dan menyimpannya ke `landings/<brand>/final_intake.md`.
+   Mengekstrak data dari PDF company profile dan menyimpannya ke `landings/<brand>/intake_compro.md` beserta aset gambar.
 2. **Research (`/research`)**
-   Melakukan riset mendalam berbasis inferensi intake dan web search otomatis untuk menghasilkan dokumen `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md`.
-3. **Perencanaan (`/planner`)**
-   Membuat PRD (Product Requirements Document) berdasarkan hasil intake dan riset yang telah diekstrak, mendefinisikan struktur halaman (`PAGES-LIST.md`) dan kebutuhan fungsional.
-4. **QA & Review PRD (`/qa-reviewer`)**
-   Melakukan audit terhadap PRD. Jika skor kelayakan di bawah 90, dokumen akan dikembalikan ke `planner` untuk direvisi hingga mencapai standar lulus (PASS, skor >= 90).
-5. **Persetujuan Pengguna (User Approval)**
-   *Tahap tunggu (Blocking).* PRD akan ditampilkan kepada pengguna. Proses tidak akan masuk ke tahap pemrograman sebelum mendapat persetujuan eksplisit dari pengguna.
-6. **Pembuatan Kode (`/generator`)**
-   Membuat struktur aplikasi **Next.js** dan men-generate seluruh kode sumber berdasarkan spesifikasi dalam PRD yang disetujui.
-7. **Per-Page Playwright Testing (`/debug`)**
-   Membuat test Playwright (`.spec.ts`) otomatis per halaman berdasarkan PRD, menjalankannya secara headless, dan melakukan *auto-fix* hingga lolos sebelum lanjut ke halaman berikutnya.
-8. **SEO Validation (`/seo`)**
-   Memvalidasi situs yang baru dibuat terhadap checklist SEO teknikal, performa, dan relevansi konten berdasarkan standar eksternal, lalu membuat laporan status optimasinya.
-9. **Debugging & QA Final (`/debug`)**
-   Menjalankan pengetesan komprehensif: visual debugging, analisis Lighthouse, injeksi perbaikan SEO, serta melakukan iterasi *Debugging Mandiri*. Tujuannya agar tidak ada satupun *bug* layout, hydration, atau responsivitas yang tersisa.
-10. **Deployment (`/deploy`)**
-   Mendeploy situs secara otomatis ke **Vercel** dan memberikan *repository* GitHub serta URL Vercel yang sudah live kepada pengguna.
+   Riset mendalam berbasis `intake_compro.md` dan web search otomatis. Menghasilkan `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md`.
+3. **Brainstorming (`/brainstorming`) — Sesi Interaktif**
+   Sesi dialog multi-turn dengan user untuk menggali preferensi desain. Menghasilkan `user_preferences.md`.
+4. **Rekonsiliasi & Review (`[HARD STOP]`)**
+   Menggabungkan `intake_compro.md` dan `user_preferences.md` menjadi `final_intake.md`. User review dan approve.
+5. **Global Design & Planning (`/planner`, `/ui-ux-pro-max`, `/impeccable`)**
+   Membuat `PLAN-GLOBAL.md`, `PLAN-DESIGN-SYSTEM.md`, dan `PAGES-LIST.md`.
+6. **PRD Batch & Asset Mapping (`/planner`, `/qa-reviewer`)**
+   Generate PRD per halaman, QA review, merge menjadi `PRD.md`, dan buat `ASSET-MAPPING.md`.
+7. **Eksekusi Halaman (`/generator`, `/qa-reviewer`) — Loop per Halaman**
+   Scaffold Next.js (hanya 1x), lalu build setiap halaman dengan generator, QA review, Playwright test.
+8. **Integration**
+   Gabungkan navigasi antar halaman.
+9. **SEO & Debug Final (`/seo`, `/debug`)**
+   Validasi SEO dan debug lokal final.
+10. **User Review Final (`[HARD STOP]`)**
+11. **Deploy (`/deploy`)**
+12. **Post-Deploy Debug (`/debug`)**
+13. **Cleanup**
 
 ## 📁 Struktur Direktori Repositori
 
