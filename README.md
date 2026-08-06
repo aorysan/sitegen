@@ -14,13 +14,13 @@ Pastikan sudah terinstall sebelum menjalankan sitegen:
 0. **User Onboarding (`[HARD STOP]`)**
    Tanya nama brand dan path ke file PDF Company Profile. Verifikasi file exists.
 1. **Intake (`/intake`)**
-   Mengekstrak data dari PDF company profile dan menyimpannya ke `landings/<brand>/intake_compro.md` beserta aset gambar.
+   Mengekstrak data dari PDF company profile dan menyimpannya ke `landings/<brand>/intake/intake_compro.md` beserta aset gambar.
 2. **Research (`/research`)**
-   Riset mendalam berbasis `intake_compro.md` dan web search otomatis. Menghasilkan `PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md`.
+   Riset mendalam berbasis `intake_compro.md` dan web search otomatis. Menghasilkan `landings/<brand>/planning/PLAN-USER-NEEDS.md` dan `PLAN-COMPETITOR.md`.
 3. **Brainstorming (`/brainstorming`) — Sesi Interaktif**
-   Sesi dialog multi-turn dengan user untuk menggali preferensi desain. Menghasilkan `user_preferences.md`.
+   Sesi dialog multi-turn dengan user untuk menggali preferensi desain. Menghasilkan `landings/<brand>/intake/user_preferences.md`.
 4. **Rekonsiliasi & Review (`[HARD STOP]`)**
-   Menggabungkan `intake_compro.md` dan `user_preferences.md` menjadi `final_intake.md`. User review dan approve.
+   Menggabungkan `intake_compro.md` dan `user_preferences.md` menjadi `landings/<brand>/intake/final_intake.md`. User review dan approve.
 5. **Global Design & Planning (`/planner`, `/ui-ux-pro-max`, `/impeccable`)**
    Membuat `PLAN-GLOBAL.md`, `PLAN-DESIGN-SYSTEM.md`, dan `PAGES-LIST.md`.
 6. **PRD Batch & Asset Mapping (`/planner`, `/qa-reviewer`)**

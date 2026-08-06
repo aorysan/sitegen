@@ -12,7 +12,7 @@ Anda adalah AI Researcher. Tugas Anda menghasilkan 2 dokumen riset yang menjadi 
 
 ## STEP 1 — Baca Data Intake
 
-Baca file `landings/<brand>/intake_compro.md`. Identifikasi dan catat:
+Baca file `landings/<brand>/intake/intake_compro.md`. Identifikasi dan catat:
 - Industri bisnis utama
 - Target audience yang disebutkan
 - Layanan/produk yang dijual
