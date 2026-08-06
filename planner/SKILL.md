@@ -15,7 +15,7 @@ Anda adalah AI Agent yang bertugas membuat **dokumen planning** berformat markdo
 Membuat planning global yang berlaku untuk SELURUH website.
 
 **Input:**
-- Data intake: `landings/<brand>/final_intake.md`
+- Data intake: `landings/<brand>/intake/final_intake.md`
 - Data riset: `landings/<brand>/planning/PLAN-USER-NEEDS.md` & `landings/<brand>/planning/PLAN-COMPETITOR.md`
 
 **Output:**
@@ -60,7 +60,7 @@ Membuat planning global yang berlaku untuk SELURUH website.
 Membuat planning untuk SATU halaman spesifik.
 
 **Input:**
-- Data intake: `landings/<brand>/final_intake.md`
+- Data intake: `landings/<brand>/intake/final_intake.md`
 - Planning global: `landings/<brand>/planning/PLAN-GLOBAL.md` (sebagai context)
 - Daftar halaman: `landings/<brand>/planning/PAGES-LIST.md`
 - Parameter: nama halaman yang akan di-plan
@@ -140,7 +140,7 @@ Menggabungkan semua planning yang sudah approved menjadi PRD final.
 - Semua file `landings/<brand>/planning/PLAN-<halaman>.md` berdasarkan daftar di `PAGES-LIST.md`
 
 **Output:**
-- File: `landings/<brand>/PRD.md`
+- File: `landings/<brand>/planning/PRD.md`
 - Format: HARUS identik dengan `reference/prd-template.md` (format lama)
 
 **Aturan Merge:**

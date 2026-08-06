@@ -17,7 +17,7 @@ Review planning global (`PLAN-GLOBAL.md`).
 
 **Input:**
 - File planning global: `landings/<brand>/planning/PLAN-GLOBAL.md`
-- Data intake asli: `landings/<brand>/final_intake.md`
+- Data intake asli: `landings/<brand>/intake/final_intake.md`
 
 **Output:**
 - File: `landings/<brand>/planning/QA-REVIEW-GLOBAL.md`
@@ -33,7 +33,7 @@ Review planning per halaman (`PLAN-<halaman>.md`).
 **Input:**
 - File planning halaman: `landings/<brand>/planning/PLAN-<halaman>.md`
 - Planning global: `landings/<brand>/planning/PLAN-GLOBAL.md` (untuk cross-check konsistensi)
-- Data intake asli: `landings/<brand>/final_intake.md`
+- Data intake asli: `landings/<brand>/intake/final_intake.md`
 
 **Output:**
 - File: `landings/<brand>/planning/QA-REVIEW-<halaman>.md`
@@ -54,7 +54,7 @@ Review semua dokumen planning sekaligus, termasuk 3 dokumen baru dari skill `res
 - `landings/<brand>/planning/PLAN-USER-NEEDS.md`
 - `landings/<brand>/planning/PLAN-COMPETITOR.md`
 - `landings/<brand>/planning/PLAN-DESIGN-SYSTEM.md`
-- `landings/<brand>/final_intake.md`
+- `landings/<brand>/intake/final_intake.md`
 
 **Output:**
 - File: `landings/<brand>/planning/QA-REVIEW-EXTENDED.md`
