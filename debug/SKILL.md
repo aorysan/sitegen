@@ -42,7 +42,7 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
    - **Kesesuaian Visual**: Pastikan elemen menggunakan Warna Brand dan Font yang ditetapkan dari PRD.
    - **PENEKANAN KUAT**: Jika hasil *render* melenceng dari PRD, meskipun tidak ada error sintaks/kode, agen **WAJIB** memperbaikinya kembali sesuai PRD.
    - **Lenis Smooth Scroll**: Pastikan scroll berjalan mulus dan tidak ada error Lenis di console.
-   - **Animasi Scroll Anime.js**: Pastikan elemen/section menggunakan `AnimatedSection.tsx` (Anime.js), animasi HANYA terpicu saat scroll dari atas ke bawah (menggunakan `IntersectionObserver`), dan status animasi ter-reset (`anime.remove()`) secara asimetris.
+   - **Animasi Scroll Anime.js (Unidirectional)**: Pastikan elemen/section menggunakan `AnimatedSection.tsx` (Anime.js), animasi HANYA terpicu saat scroll dari atas ke bawah (deteksi arah scroll via `scrollY` tracking), TIDAK terpicu saat scroll ke atas, dan elemen ter-RESET saat keluar viewport. DILARANG `once: true`. Status animasi ter-reset (`anime.remove()`) secara asimetris.
    - **Auto-slide Carousel**: Pastikan list dengan 10+ item otomatis bergeser tanpa interaksi.
    - **Schema.org JSON-LD**: Pastikan metadata JSON-LD valid dan sesuai tipe halaman (Beranda, Layanan, Blog, dll).
    - **Blog Backlink**: Pastikan halaman `/blog` memuat tepat 3 artikel backlink dengan gambar clickable.
