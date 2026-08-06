@@ -29,7 +29,7 @@
 ## PASAL III: IMPLEMENTASI TRILOGI ANIMASI AAA TIER-1
 1. **Inertial Smooth Scrolling:** Root Layout (`app/layout.tsx`) wajib dipasangi wrapper smooth scrolling memanfaatkan library **`lenis`** untuk kelembutan gulir beresolusi tinggi.
 2. **Animasi Mikro & Staggering:** Seluruh elemen detail (poin-poin, list, card, grid) wajib dipasangi class `.stagger-item` dan dianimasikan menggunakan **Anime.js** (`anime.stagger`). Jangan hanya menganimasi section luar; elemen anak harus muncul satu per satu. Wajib memprioritaskan pembersihan (`anime.remove`) di fungsi cleanup `useEffect`.
-3. **Scroll-Reveal & Fluidity Cards:** Komponen antarmuka yang memerlukan transisi gesek (*scroll-triggered enters*) dan *hover state* kartu fluid dikerjakan menggunakan **Framer Motion** dengan penulisan tipe ketat (menambah `as const` pada spesifikasi `transition.ease` agar lolos TypeScript checking).
+3. **Scroll-Reveal Satu Arah & Fluidity Cards:** Komponen antarmuka yang memerlukan transisi gesek (*scroll-triggered enters*) dikerjakan menggunakan **Framer Motion** dengan animasi HANYA terpicu saat scroll KE BAWAH (implementasikan deteksi arah scroll, DILARANG `once: true`, DILARANG bidirectional). *Hover state* kartu fluid menggunakan penulisan tipe ketat (menambah `as const` pada spesifikasi `transition.ease` agar lolos TypeScript checking).
 
 ---
 
