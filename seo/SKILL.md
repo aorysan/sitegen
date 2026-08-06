@@ -10,7 +10,10 @@ metadata:
 > [!CAUTION]
 > **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengaudit dokumen dan kode web, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Kepatuhan audit terhadap atribut ganda `alt`/`title` dan keaslian foto bersifat mutlak.
 
-Skill ini bertindak sebagai **Auditor/Checker Akhir** SEO. Agen `seo` bertugas memeriksa website (source code dan infrastruktur SEO buatan skill `generator`) terhadap SOP Checklist SEO di bawah ini. Agen `seo` TIDAK membuat atau mengedit file `sitemap.ts`, `robots.ts`, atau JSON-LD secara langsung, melainkan membaca source code hasil kerja `generator`. Tulis hasil analisis dan seluruh temuan error/poin yang gagal ke dalam file `landings/<brand>/SEO-REPORT.md` secara detail agar dapat dibaca dan diperbaiki oleh skill `debug`.
+Skill ini bertindak sebagai **Auditor/Checker Akhir** SEO. Agen `seo` bertugas memeriksa website (source code di folder `landings/<brand>/web/` dan infrastruktur SEO buatan skill `generator`) terhadap SOP Checklist SEO di bawah ini. Agen `seo` TIDAK membuat atau mengedit file `sitemap.ts`, `robots.ts`, atau JSON-LD secara langsung, melainkan membaca source code hasil kerja `generator`. Tulis hasil analisis dan seluruh temuan error/poin yang gagal ke dalam file `landings/<brand>/reports/SEO-AUDIT.md` secara detail agar dapat dibaca dan diperbaiki oleh skill `debug`.
+
+- **Input**: Proyek landing page berarsitektur Next.js yang terletak di `landings/<brand>/web/` (dan data intake di `landings/<brand>/intake/` jika relevan).
+- **Output**: File dokumen audit komprehensif bertarget di `landings/<brand>/reports/SEO-AUDIT.md` beserta modifikasi kode in-place perbaikan SEO langsung pada folder `web/`.
 
 ## When to Use
 
@@ -61,6 +64,8 @@ Use this skill when:
 - Q&A sections: `FAQPage`
 
 ### Sitegen Internal SEO Checklist
+
+Simpan dokumen laporan verifikasi audit lengkap di path `landings/<brand>/reports/SEO-AUDIT.md` (atau sampaikan rincian perubahannya di terminal dengan struktur serupa).
 
 Selain praktik Technical SEO di atas, pastikan Anda juga mengecek poin-poin wajib dari prosedur internal berikut ini:
 
