@@ -14,7 +14,7 @@
 
 ## PASAL II: OUTPUT WAJIB & FORMAT
 1. **Dokumen `user_preferences.md`:**
-   - Seluruh keputusan user selama sesi brainstorming WAJIB direkam dan disimpan ke file `landings/<brand>/user_preferences.md`.
+   - Seluruh keputusan user selama sesi brainstorming WAJIB direkam dan disimpan ke file `landings/<brand>/intake/user_preferences.md`.
    - File ini mencakup minimal: (1) Visi & tujuan website, (2) Target audience prioritas, (3) Tone & personality brand, (4) Preferensi visual, (5) Fitur/section prioritas, (6) Konten tambahan di luar compro.
 
 ---

@@ -19,9 +19,9 @@ Agen WAJIB menjalankan perintah command line secara berurutan dalam Virtual Envi
 3. Instal dependensi: `pip install -r ./intake/scripts/requirements.txt`
 4. Eksekusi script: `python ./intake/scripts/extract.py <path_ke_compro.pdf> [direktori_output]`
 
-Script `extract.py` menghasilkan log teks di terminal DAN file terstruktur `intake_raw.json` di direktori output (misal: di `landings/<brand>/`). File JSON ini memuat:
+Script `extract.py` menghasilkan log teks di terminal DAN file terstruktur `intake_raw.json` di direktori output (misal: di `landings/<brand>/intake/`). File JSON ini memuat:
 - **`colors`**: Daftar warna brand terklasifikasi (`primary`, `secondary`, `neutral`) dalam format hex `#RRGGBB`.
-- **`images`**: Metadata visual termasuk nomor halaman (`page`), dimensi resolusi (`width`, `height`), dan teks judul/heading terdekat (`nearby_heading`). Gambar berukuran <50px telah difilter secara otomatis oleh script sehingga hanya tersisa gambar bermakna yang disimpan di direktori `assets/` (atau `landings/<brand>/assets/`).
+- **`images`**: Metadata visual termasuk nomor halaman (`page`), dimensi resolusi (`width`, `height`), dan teks judul/heading terdekat (`nearby_heading`). Gambar berukuran <50px telah difilter secara otomatis oleh script sehingga hanya tersisa gambar bermakna yang disimpan di direktori `assets/` (atau `landings/<brand>/intake/assets/`).
 
 ## 2. Analisis & Rekonstruksi Komponen Komersial (Konsumen & Analisis Semantik)
 Sebelum menyusun dokumen akhir `intake_compro.md`, agen WAJIB membaca dan memproses data terstruktur dari `intake_raw.json` serta melakukan pengelolaan aset visual dengan prosedur berikut:
@@ -33,7 +33,7 @@ Sebelum menyusun dokumen akhir `intake_compro.md`, agen WAJIB membaca dan mempro
 4. Gunakan tool `run_command` dengan perintah shell (seperti `Move-Item` / `Rename-Item` di PowerShell atau `mv` jika di bash) untuk merename file fisik tersebut secara nyata di dalam direktori `assets/`.
 
 ### B. Penyusunan Dokumen `intake_compro.md`
-Buat dokumen `intake_compro.md` di folder `landings/<brand>/intake_compro.md` yang memuat rekonstruksi komponen komersial secara terstruktur:
+Buat dokumen `intake_compro.md` di folder `landings/<brand>/intake/intake_compro.md` yang memuat rekonstruksi komponen komersial secara terstruktur:
 - **Teks Mentah & Komponen Komersial**: Teks yang sudah dirapikan, mempertahankan semua poin persuasi, value proposition, dan informasi kontak.
 - **Palet Warna Desain (Color Palette & Design Tokens)**: Rangkuman hasil ekstraksi warna (`#RRGGBB` untuk warna utama, sekunder, dan netral) dari `intake_raw.json` yang akan menjadi dasar token desain UI.
 - **Link Aset & Metadata Visual**: Daftar semua path gambar di direktori `assets/` beserta keterangan konteks atau peranan visualnya dalam presentasi.
@@ -42,4 +42,4 @@ Buat dokumen `intake_compro.md` di folder `landings/<brand>/intake_compro.md` ya
 
 ### Aturan Wajib (Mandatory Rules)
 - **Mandate Nama Semantik**: Seluruh referensi tautan gambar di dalam dokumen `intake_compro.md` HARUS menggunakan **nama file semantik baru** yang telah direname (bukan lagi nama mentah berawalan `img_pX_Y` atau `extracted_img_`).
-- **Batasan Skala Kerja**: JANGAN merencanakan struktur, layout, atau kode halaman website. Satu-satunya output akhir Anda pada tahap ini adalah aset fisik yang telah ter-rename di direktori `assets/` dan file dokumen `landings/<brand>/intake_compro.md`.
+- **Batasan Skala Kerja**: JANGAN merencanakan struktur, layout, atau kode halaman website. Satu-satunya output akhir Anda pada tahap ini adalah aset fisik yang telah ter-rename di direktori `assets/` dan file dokumen `landings/<brand>/intake/intake_compro.md`.
