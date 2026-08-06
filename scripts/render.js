@@ -9,7 +9,7 @@ async function renderScreenshots() {
     ? process.argv.slice(4)
     : ['/', '/about', '/layanan-aplikasi-rt-digital', '/portfolio', '/blog', '/careers', '/contact'];
 
-  const previewDir = path.join(process.cwd(), 'landings', brand, '.preview');
+  const previewDir = path.join(process.cwd(), 'landings', brand, 'reports', '.preview');
   if (!fs.existsSync(previewDir)) {
     fs.mkdirSync(previewDir, { recursive: true });
   }

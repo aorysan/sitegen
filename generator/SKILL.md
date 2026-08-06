@@ -1,6 +1,6 @@
 ---
 name: Generator Website
-description: Generator Website Multi-Page Next.js berdasarkan asupan dokumen Company Profile (PDF). Menghasilkan website korporat profesional dengan standar animasi interaktif modern (terinspirasi dari *Zenless Zone Zero*), animasi smooth scroll Lenis, serta optimasi SEO Lanjutan & UI/UX Pro Max. Output berupa project Next.js TypeScript lengkap (App Router, Vanilla CSS Modules) di folder `landings/<brand>/`.
+description: Generator Website Multi-Page Next.js berdasarkan asupan dokumen Company Profile (PDF). Menghasilkan website korporat profesional dengan standar animasi interaktif modern (terinspirasi dari *Zenless Zone Zero*), animasi smooth scroll Lenis, serta optimasi SEO Lanjutan & UI/UX Pro Max. Output berupa project Next.js TypeScript lengkap (App Router, Vanilla CSS Modules) di folder `landings/<brand>/web/`.
 ---
 
 # Generator Website
@@ -24,7 +24,7 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
    - Semua elemen Grid/List dengan **2-9 item WAJIB dibungkus `<SwipeableCards>`** yang dilengkapi **indikator visual jelas** (*pagination dots*, *horizontal scrollbar*, atau *peek effect*).
    - Elemen Grid/List dengan **10 item atau lebih WAJIB diubah menjadi Auto-slide Carousel** dengan indikator visual dan kontrol gesture agar pengguna tidak lelah/bingung melakukan swipe manual terlalu banyak.
 9. **Aksesibilitas & Attributes (A11y).** Semua tag `<a>` (link) dan `<img>` / `<Image />` WAJIB memiliki atribut `title` dan `alt`. Seluruh elemen interaktif (seperti tombol Carousel, kartu Swipeable, modal, burger menu) WAJIB dilengkapi `aria-label` yang deskriptif, `tabindex="0"` (jika bukan elemen input/button bawaan), serta mendukung penuh navigasi keyboard (akses via tombol `Tab`, `Enter`, `Space`, dan tombol panah `ArrowLeft`/`ArrowRight`).
-10. **LOKASI OUTPUT.** Hasil akhir (proyek Next.js) DILARANG ditaruh di dalam folder skill `.agents/skills/sitegen/`. Harus selalu di-*scaffold* di root `landings/<brand>/`.
+10. **LOKASI OUTPUT.** Hasil akhir (proyek Next.js) DILARANG ditaruh di dalam folder skill `.agents/skills/sitegen/`. Harus selalu di-*scaffold* di folder aplikasi `landings/<brand>/web/`.
 11. **Generasi Kode Bertahap & Penanganan Revisi Presisi (Atomic Chunking & Line-level Patching).** DILARANG KERAS menghasilkan atau melempar seluruh kode proyek/file sekaligus dalam satu langkah besar untuk menghindari batas token (token limit) atau respon terpotong (*truncated output*). Proses eksekusi WAJIB dilakukan secara bertahap (chunking): scaffold -> setup styling & utility -> buat komponen pendukung mandiri (`components/Hero.tsx`, `components/FAQ.tsx`, dll) -> rakit halaman satu per satu -> validasi build. **Aturan Penanganan Feedback QA:** Jika menerima instruksi revisi dari QA-Reviewer, Anda WAJIB menargetkan secara spesifik file komponen yang disebutkan oleh QA. DILARANG KERAS menulis ulang seluruh kode halaman atau merender ulang file dari awal; Anda HANYA boleh melakukan patch/edit baris (*line-level editing*) pada titik kerusakan spesifik di dalam file komponen tersebut.
 12. ** Aturan Wajib Penanganan Logo & Aset Visual (Mandatory Asset Inspection):**
     - **Pemeriksaan Aset Ekstraksi Wajib**: Sebelum membuat atau memperbarui komponen `Header.tsx` dan `Footer.tsx`, Agent WAJIB memeriksa ketersediaan file gambar di folder `public/assets/` atau `assets/`. Cari file gambar hasil ekstraksi (misal `extracted_img_*`, `logo.*`, `brand-logo.*`).
@@ -45,22 +45,22 @@ Menghasilkan **Website Multi-Page berbasis Next.js (TypeScript)** dengan *feel* 
 BACA dan GUNAKAN dokumen PRD spesifik halaman (misalnya `PLAN-<halaman>.md`). Namun, apabila terdapat dokumen Master PRD gabungan bernama `PRD.md` di folder root brand, maka prioritaskan penggunaan `PRD.md` tersebut. Gunakan juga `final_intake.md` dan aset gambar dari skill `intake`. DILARANG membuat asumsi atau perencanaan ulang di luar PRD.
 
 ### GATE 1 — BACA DAN PAHAMI PRD
-Gunakan pemetaan halaman dari `PAGES-LIST.md` / `landings/<brand>/PRD.md`, keyword, Title Tag, Meta Description, struktur section, dan instruksi spesifik (seperti Auto-slide Carousel) yang sudah ada di PRD. JANGAN membuat file JSON terpisah. JANGAN melakukan riset keyword atau merencanakan ulang konten. Langsung gunakan PRD sebagai referensi cetak biru untuk tahap selanjutnya.
+Gunakan pemetaan halaman dari `PAGES-LIST.md` / `landings/<brand>/planning/PRD.md`, keyword, Title Tag, Meta Description, struktur section, dan instruksi spesifik (seperti Auto-slide Carousel) yang sudah ada di PRD. JANGAN membuat file JSON terpisah. JANGAN melakukan riset keyword atau merencanakan ulang konten. Langsung gunakan PRD sebagai referensi cetak biru untuk tahap selanjutnya.
 
 ### GATE 2 — SCAFFOLDING (TypeScript)
-**Guard**: Jika file `landings/<brand>/package.json` sudah ada, SKIP scaffolding dan langsung ke GATE 3. Hanya scaffold jika project belum ada.
+**Guard**: Jika file `landings/<brand>/web/package.json` sudah ada, SKIP scaffolding dan langsung ke GATE 3. Hanya scaffold jika project belum ada.
 
 Beralihlah ke folder `landings/` di root workspace, dan buat folder `<brand>` jika belum ada.
-Jalankan perintah inisialisasi Next.js TypeScript secara non-interaktif:
+Eksekusi perintah berikut untuk men-scaffold project baru Next.js interaktif (tanpa prompt, menggunakan Vanilla CSS Modules SAMA SEKALI TANPA Tailwind) langsung ke folder web:
 ```bash
-npx -y create-next-app@latest ./landings/<brand> --use-npm --eslint --tailwind=false --src-dir=false --app --ts --import-alias="@/*"
+npx -y create-next-app@latest ./landings/<brand>/web --use-npm --eslint --tailwind=false --src-dir=false --app --ts --import-alias="@/*"
 ```
 - Jika ada warning Turbopack/lockfile, atur `next.config.ts`.
-- Instal dependensi animasi Lenis, Anime.js, Framer Motion & Ikon: `cd landings/<brand> && npm install -y --no-fund lenis lucide-react animejs @types/animejs framer-motion`.
+- Instal dependensi animasi Lenis, Anime.js, Framer Motion & Ikon: `cd landings/<brand>/web && npm install -y --no-fund lenis lucide-react animejs @types/animejs framer-motion`.
 
 ### GATE 3 — DEVELOPMENT, MOBILE UX & SEO INTEGRATION
 Setelah Next.js siap:
-1. **MANAJEMEN ASET GAMBAR (CRITICAL):** Anda WAJIB memindahkan atau menyalin seluruh isi folder `landings/<brand>/assets/` ke dalam folder statis Next.js yaitu `landings/<brand>/public/assets/`. Pastikan pemanggilan komponen `<Image src="/assets/..." />` merujuk tepat ke path tersebut. Jika Anda menggunakan gambar dari URL eksternal, WAJIB pastikan gambar tersebut membalas HTTP 200 OK (DILARANG placeholder seperti `picsum.photos`; jika tidak ada gambar valid, HENTIKAN proses dan minta pengguna menaruh gambar di `public/assets/`). Anda WAJIB mendaftarkan domain eksternal tersebut ke dalam properti `images.remotePatterns` pada file `next.config.ts`.
+1. **MANAJEMEN ASET GAMBAR (CRITICAL - ZERO DUPLICATION):** Anda WAJIB memindahkan total (*Move-Item* atau `mv`, BUKAN di-copy atau symlink) seluruh isi folder `landings/<brand>/intake/assets/` ke dalam folder statis Next.js yaitu `landings/<brand>/web/public/assets/`. Jika file gambar sudah terisi di `web/public/assets/` dan folder `intake/assets/` sudah kosong (misal karena pengulangan eksekusi), maka abaikan/SKIP langkah pemindahan ini dengan aman. Pastikan pemanggilan komponen `<Image src="/assets/..." />` merujuk tepat ke path tersebut. Jika Anda menggunakan gambar dari URL eksternal, WAJIB pastikan gambar tersebut membalas HTTP 200 OK (DILARANG placeholder seperti `picsum.photos`; jika tidak ada gambar valid, HENTIKAN proses dan minta pengguna menaruh gambar di `public/assets/`). Anda WAJIB mendaftarkan domain eksternal tersebut ke dalam properti `images.remotePatterns` pada file `next.config.ts`.
 2. **CSS System & Anti-Overflow:** Atur CSS variables dari warna brand PDF di `app/globals.css`. Pastikan `html, body` diset `max-width: 100vw; overflow-x: hidden;` untuk mencegah bug konten keluar layar di mobile.
 3. **Lenis Provider & SEO Meta:** Konfigurasi Smooth Scroll Lenis di `app/layout.tsx` bersama global metadata.
 4. **Komponen Animasi `AnimatedSection.tsx` (Anime.js HOC Standard & Framer Motion Integration):** Buat komponen `AnimatedSection.tsx` sebagai Client Component (`'use client'`). Gunakan `useRef` untuk mereferensikan elemen DOM dan `IntersectionObserver` untuk mendeteksi kapan elemen masuk ke viewport. **Deteksi Arah Scroll Wajib:** Implementasikan tracking `window.scrollY` (atau variabel `lastScrollY`) untuk mendeteksi arah guliran. Animasi Anime.js HANYA boleh dijalankan ketika elemen memasuki viewport DAN arah scroll adalah KE BAWAH (`currentScrollY > lastScrollY`). Jika user scroll ke atas, animasi TIDAK BOLEH terpicu meskipun elemen re-enter viewport. Animasi harus di-RESET (`opacity: 0, translateY: 30`) saat elemen KELUAR viewport, sehingga animasi siap terpicu kembali saat scroll ke bawah berikutnya. Panggil `anime({ targets: elementRef.current, opacity: [0, 1], translateY: [30, 0], duration: 800, easing: 'easeOutCubic', ... })`. Untuk mencegah glitch di React Strict Mode dan memory leak, Anda WAJIB memanggil `anime.remove(elementRef.current)` dan `observer.disconnect()` di fungsi *cleanup return* `useEffect`. Pada komponen bergaya interaktif (seperti kartu atau banner), aplikasikan juga pembungkus **Framer Motion** (`motion.div`) dengan spesifikasi tipe ketat (`as const` pada `transition.ease`) dan loop efek melayang statis (*infinite ambient looping*).
@@ -99,19 +99,21 @@ Setelah Next.js siap:
     - **Aksesibilitas**: Setiap kartu wajib memiliki `aria-label` deskriptif dan `tabindex="0"`.
 
 ### GATE 3.5 — VALIDASI BUILD & ERROR HANDLING (CRITICAL)
-Sebelum melakukan inisialisasi Git pada GATE 4, Anda WAJIB menjalankan perintah validasi build di folder `landings/<brand>`:
+Sebelum melakukan inisialisasi Git pada GATE 4, Anda WAJIB menjalankan perintah validasi build di folder `landings/<brand>/web`:
 ```bash
-cd landings/<brand> && npm run build
+cd landings/<brand>/web && npm run build
 ```
-- Periksa output build untuk memastikan tidak ada error TypeScript (`TS2304`, `TS2322`, dsb.), *broken imports*, kesalahan sintaks, atau error Next.js build.
-- Jika ditemukan error atau kegagalan build, Anda WAJIB langsung memperbaiki error tersebut dan menjalankan `npm run build` kembali hingga seluruh proses build berhasil tanpa error (*clean build*).
-- DILARANG KERAS melanjut ke GATE 4 (Git Initialization) atau mengklaim eksekusi selesai sebelum build terverifikasi 100% sukses.
+Jika build gagal atau melempar error (terutama masalah TypeScript, komponen belum di-import, atau struktur HTML salah), HENTIKAN proses. JANGAN melanjut ke inisialisasi git sebelum error diperbaiki sepenuhnya (Anda dilarang mengabaikan kegagalan build ini).
 
-### GATE 4 — GIT INITIALIZATION
-**Guard**: Jika folder `landings/<brand>/.git` sudah ada, SKIP `git init` dan lakukan commit saja.
+---
 
+### GATE 4 — Version Control (Git Repo Setup)
+
+**Guard**: Jika folder `landings/<brand>/web/.git` sudah ada, SKIP `git init` dan lakukan commit saja.
+
+Buka terminal dan lakukan inisialisasi repositori Git dan buat commit awal di dalam folder proyek Anda:
 ```bash
-cd landings/<brand>
+cd landings/<brand>/web
 # Hanya jika .git belum ada:
 git init
 # Selalu lakukan:

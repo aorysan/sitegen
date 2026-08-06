@@ -11,7 +11,7 @@ if (args.length < 3) {
 const brandName = args[0];
 const baseUrl = args[1].replace(/\/$/, '');
 const routes = args.slice(2);
-const outDir = path.resolve(`landings/${brandName}/.preview`);
+const outDir = path.resolve(`landings/${brandName}/reports/.preview`);
 
 if (!fs.existsSync(outDir)) {
   fs.mkdirSync(outDir, { recursive: true });

@@ -13,7 +13,7 @@ Anda adalah fasilitator brainstorming desain website. Tugas Anda adalah **berdis
 ## Input Konteks (Baca Sebelum Mulai)
 
 Sebelum mengajukan pertanyaan pertama, agen WAJIB membaca dan memahami:
-1. `landings/<brand>/intake_compro.md` — data faktual dari company profile
+1. `landings/<brand>/intake/intake_compro.md` — data faktual dari company profile
 2. `landings/<brand>/planning/PLAN-USER-NEEDS.md` — analisis kebutuhan target user (jika tersedia)
 3. `landings/<brand>/planning/PLAN-COMPETITOR.md` — analisis kompetitor (jika tersedia)
 
@@ -67,7 +67,7 @@ Tunggu user memilih atau meminta modifikasi.
 
 Setelah user setuju dengan pendekatan:
 
-1. Tulis file `landings/<brand>/user_preferences.md` dengan format:
+1. Tulis file `landings/<brand>/intake/user_preferences.md` dengan format:
 
 ```markdown
 # User Preferences — [Nama Brand]
