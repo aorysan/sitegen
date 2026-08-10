@@ -8,16 +8,13 @@ description: Ekstrak teks, poin persuasi, dan aset visual dari PDF Company Profi
 > [!CAUTION]
 > **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengecek dan mengekstrak dokumen, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Penanaman label `[No-Video Default]` bila tidak ditemukan tautan video adalah wajib.
 
-Anda adalah langkah pertama dalam pipeline pembuatan website. Tugas Anda adalah memproses PDF Company Profile untuk mengekstrak data dan aset visual, lalu merekonstruksinya menjadi dokumen komersial terstruktur. Anda TIDAK MERANCANG struktur halaman atau merencanakan kode; Anda hanya menyiapkan data dan aset yang bersih, semantis, dan terstruktur untuk skill `planning`.
+Panduan Operasional Sub-skill Intake: Agen ini bertugas memproses PDF Company Profile untuk mengekstrak data dan aset visual, lalu merekonstruksinya menjadi dokumen komersial terstruktur. Agen ini TIDAK MERANCANG struktur halaman atau merencanakan kode; tugasnya hanya menyiapkan data dan aset yang bersih, semantis, dan terstruktur untuk skill `planning`.
 
 Alur kerja ini menerapkan arsitektur hybrid produser-konsumen: script `extract.py` bertindak sebagai **produser data terstruktur** (ekstraksi mentah dan metadata visual), sedangkan agen bertindak sebagai **konsumen, analis semantik, dan perename aset** sebelum menyusun dokumen akhir `intake_compro.md`.
 
 ## 1. Jalankan Ekstraksi (Produser Data)
-Agen WAJIB menjalankan perintah command line secara berurutan dalam Virtual Environment yang terisolasi berikut ini:
-1. Buat virtual environment: `python -m venv venv`
-2. Aktifkan venv: `venv\Scripts\activate`
-3. Instal dependensi: `pip install -r ./intake/scripts/requirements.txt`
-4. Eksekusi script: `python ./intake/scripts/extract.py <path_ke_compro.pdf> [direktori_output]`
+Jalankan perintah ekstraksi dalam SATU rantai eksekusi shell berurutan:
+`python -m venv venv && venv\Scripts\activate && pip install -r ./intake/scripts/requirements.txt && python ./intake/scripts/extract.py <path_ke_compro.pdf> [direktori_output]`
 
 Script `extract.py` menghasilkan log teks di terminal DAN file terstruktur `intake_raw.json` di direktori output (misal: di `landings/<brand>/intake/`). File JSON ini memuat:
 - **`colors`**: Daftar warna brand terklasifikasi (`primary`, `secondary`, `neutral`) dalam format hex `#RRGGBB`.
@@ -42,4 +39,4 @@ Buat dokumen `intake_compro.md` di folder `landings/<brand>/intake/intake_compro
 
 ### Aturan Wajib (Mandatory Rules)
 - **Mandate Nama Semantik**: Seluruh referensi tautan gambar di dalam dokumen `intake_compro.md` HARUS menggunakan **nama file semantik baru** yang telah direname (bukan lagi nama mentah berawalan `img_pX_Y` atau `extracted_img_`).
-- **Batasan Skala Kerja**: JANGAN merencanakan struktur, layout, atau kode halaman website. Satu-satunya output akhir Anda pada tahap ini adalah aset fisik yang telah ter-rename di direktori `assets/` dan file dokumen `landings/<brand>/intake/intake_compro.md`.
+- **Batasan Skala Kerja**: JANGAN merencanakan struktur, layout, atau kode halaman website. Satu-satunya output akhir pada tahap ini adalah aset fisik yang telah ter-rename di direktori `assets/` dan file dokumen `landings/<brand>/intake/intake_compro.md`.
