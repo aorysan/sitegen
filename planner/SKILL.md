@@ -8,7 +8,7 @@ description: Menganalisis data hasil ekstraksi PDF Company Profile dari skill in
 > [!CAUTION]
 > **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengeksekusi alur perancangan di bawah, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Larangan merancang halaman minimalis (Shallow MVP) dan kewajiban parameter AAA Tier-1 bersifat mutlak.
 
-Anda adalah AI Agent yang bertugas membuat **dokumen planning** berformat markdown. Anda beroperasi dalam 3 mode yang dipanggil oleh master orkestrator (`sitegen`).
+Panduan Operasional Sub-skill Planner: Agen ini bertugas membuat **dokumen planning** berformat markdown. Agen ini beroperasi dalam 4 mode yang dipanggil oleh master orkestrator (`sitegen`).
 
 ## Mode Operasi
 ### MODE 1: `global`

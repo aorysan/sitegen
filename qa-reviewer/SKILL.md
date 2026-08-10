@@ -1,6 +1,6 @@
 ---
 name: qa-reviewer
-description: Me-review planning yang dihasilkan skill planner. Mendukung 2 mode (global dan page). Review per halaman memuat 2 dimensi: Business Review dan Technical Review. Skor 0-100, threshold ≥90. Max 2 putaran revisi.
+description: Me-review planning dan kode yang dihasilkan planner/generator. Mendukung 4 mode (global, page, global-extended, dan code-review). Review per halaman memuat 2 dimensi: Business Review dan Technical Review. Skor 0-100, threshold ≥90.
 ---
 
 # Sitegen QA Reviewer — Adaptive Quality Gate
@@ -8,7 +8,7 @@ description: Me-review planning yang dihasilkan skill planner. Mendukung 2 mode 
 > [!CAUTION]
 > **MANDATORY CONSTITUTIONAL BINDING**: Sebelum melakukan review, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Prinsip *Zero Tolerance* terhadap cacat Strict Slug, foto rusak/fiktif, dan kehilangan atribut SEO ganda bersifat mutlak.
 
-Anda adalah AI Agent yang bertugas menjadi **Quality Gate** untuk planning sebelum di-review oleh manusia. Anda beroperasi dalam 2 mode.
+Panduan Operasional Sub-skill QA-Reviewer: Agen ini bertugas menjadi **Quality Gate** untuk planning dan kode. Agen beroperasi dalam 4 mode.
 
 ## Mode Operasi
 
@@ -144,6 +144,25 @@ Review semua dokumen planning sekaligus, termasuk 3 dokumen baru dari skill `res
 
 ---
 
+### MODE 4: `code-review`
+Review hasil KODE eksekusi halaman di Next.js terhadap PRD.
+
+**Input:**
+- File PRD halaman: `landings/<brand>/planning/PLAN-<halaman>.md`
+- File Kode: `landings/<brand>/web/app/<slug>/page.tsx` dan komponen terkait di `web/components/`
+- Asset Mapping: `landings/<brand>/planning/ASSET-MAPPING.md`
+
+**Output:**
+- File: `landings/<brand>/reports/QA-CODE-<halaman>.md`
+
+**Yang di-review:**
+1. **Strict Slug & Struktur**: Apakah nama komponen dan slug URL 100% kongruen dengan PRD.
+2. **Kesesuaian Fitur & Section**: Cek kehadiran semua section dari PRD di dalam file kode.
+3. **Pengecekan Atribut Logo & Gambar**: Verifikasi bahwa `<Image>` memanggil path yang benar dari folder `public/assets/` sesuai `ASSET-MAPPING.md` dan memiliki `alt` & `title`.
+4. **Instruksi Revisi**: Hasilkan instruksi baris-per-baris untuk generator jika ada pelanggaran.
+
+---
+
 ## Prinsip Review (JANGAN DILANGGAR)
 
 1. **Objektif dan Terukur.** Setiap poin penilaian merujuk ke item spesifik di rubrik. Cek satu per satu.
@@ -152,7 +171,7 @@ Review semua dokumen planning sekaligus, termasuk 3 dokumen baru dari skill `res
 4. **Cross-Check dengan PLAN-GLOBAL.** (Khusus mode page) Pastikan keyword, URL, dan branding konsisten dengan planning global.
 5. **Cek Copywriting Quality.** Verifikasi batas karakter (copyfitting), tone of voice, dan standar penulisan konversi sesuai aturan yang diadopsi dari LPG.
 6. **Feedback Revisi Harus Spesifik.** Sebutkan PERSIS apa yang kurang, di section mana, dan apa yang harus ditambah/diubah.
-7. **Loop Revision: Max 2 Putaran.** Jika setelah 2 putaran skor masih < 90, eskalasi ke user: *"Revisi maksimal tercapai, skor masih < 90. Apakah Anda ingin Force Pass atau memberi instruksi manual?"*
+7. **Batas Revisi (Eskalasi):** Serahkan kendali batas iterasi kepada Orkestrator. QA hanya memberikan feedback perbaikan spesifik.
 8. **Cross-Check Konsistensi (mode global-extended).** Verifikasi bahwa pain points, gap kompetitor, token warna, dan objection user saling terhubung secara kohesif antar semua dokumen planning.
 
 
@@ -278,8 +297,6 @@ Simpan laporan ke file output sesuai mode.
 
 ## Feedback Revisi (jika skor < 90)
 1. **[Business/Technical]**
-   - **Target File:** `[Path/Nama File Komponen Spesifik, misal: components/FAQ.tsx atau app/about/page.tsx]`
-   - **Root Cause / Masalah:** `[Deskripsi detail mengapa kode/konten tidak memenuhi spesifikasi PRD]`
-   - **Tugas Revisi Spesifik:** `[Instruksi perbaikan pasti per baris kode/properti yang harus di-patch oleh generator]`
+   - **Root Cause / Masalah:** `[Deskripsi detail mengapa planning/konten tidak memenuhi spesifikasi]`
 
 ---
