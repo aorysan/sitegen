@@ -1,14 +1,39 @@
 ---
 name: intake
-description: Ekstrak teks, poin persuasi, dan aset visual dari PDF Company Profile.
+description: Sub-skill intake data bisnis. Mendukung dua mode: Mode 1 (PDF Extraction) jika user memiliki file PDF Company Profile, dan Mode 2 (Questionnaire) jika user tidak memiliki PDF. Output kedua mode identik: `intake_compro.md`.
 ---
 
 # Sitegen Intake
 
 > [!CAUTION]
-> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum mengecek dan mengekstrak dokumen, Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Penanaman label `[No-Video Default]` bila tidak ditemukan tautan video adalah wajib.
+> **MANDATORY CONSTITUTIONAL BINDING**: Sebelum menjalankan mode apapun (Mode 1 maupun Mode 2), Anda WAJIB MEMBACA DAN MEMATUHI file konstitusi `AGENTS.md` di folder ini (`AGENTS.md`). Aturan ini berlaku untuk kedua mode tanpa pengecualian. Penanaman label `[No-Video Default]` bila tidak tersedia aset video adalah wajib di kedua mode.
 
-Panduan Operasional Sub-skill Intake: Agen ini bertugas memproses PDF Company Profile untuk mengekstrak data dan aset visual, lalu merekonstruksinya menjadi dokumen komersial terstruktur. Agen ini TIDAK MERANCANG struktur halaman atau merencanakan kode; tugasnya hanya menyiapkan data dan aset yang bersih, semantis, dan terstruktur untuk skill `planning`.
+Panduan Operasional Sub-skill Intake: Agen ini bertugas menyiapkan data bisnis dan aset visual, lalu merekonstruksinya menjadi dokumen `intake_compro.md` yang terstruktur untuk dikonsumsi oleh skill `planning`. Agen ini TIDAK MERANCANG struktur halaman atau merencanakan kode.
+
+Sub-skill ini mendukung **dua mode operasi** tergantung ketersediaan aset dari user. Output akhir kedua mode **identik**: file `landings/<brand>/intake/intake_compro.md`.
+
+---
+
+## ⚡ ROUTING GATE — BACA DAN TENTUKAN MODE INI SEBELUM MELAKUKAN APAPUN
+
+> [!IMPORTANT]
+> Sebelum menjalankan satu langkah pun, periksa instruksi yang diberikan oleh master orchestrator (`sitegen`).
+> Master orchestrator sudah mencatat apakah user berada dalam `[PDF Mode]` atau `[No-PDF Mode]`.
+
+| Kondisi dari Orchestrator | Mode yang Dijalankan | Langsung Lompat ke |
+|--------------------------|---------------------|--------------------|
+| User memberikan path file PDF (`[PDF Mode]`) | **MODE 1: PDF Extraction** | Lanjutkan membaca ke bawah ↓ |
+| User tidak punya PDF (`[No-PDF Mode]`) | **MODE 2: Questionnaire** | **Lewati seluruh MODE 1. Langsung lompat ke bagian `## MODE 2` di bawah.** |
+
+> [!CAUTION]
+> **DILARANG KERAS** menjalankan `extract.py` atau langkah apapun dari MODE 1 jika orchestrator sudah mencatat `[No-PDF Mode]`.
+> **DILARANG KERAS** menampilkan questionnaire MODE 2 jika orchestrator sudah mencatat `[PDF Mode]`.
+
+---
+
+## MODE 1: PDF Extraction
+
+*Jalankan mode ini HANYA jika orchestrator menetapkan `[PDF Mode]`.*
 
 Alur kerja ini menerapkan arsitektur hybrid produser-konsumen: script `extract.py` bertindak sebagai **produser data terstruktur** (ekstraksi mentah dan metadata visual), sedangkan agen bertindak sebagai **konsumen, analis semantik, dan perename aset** sebelum menyusun dokumen akhir `intake_compro.md`.
 
