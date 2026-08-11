@@ -28,12 +28,19 @@ Anda adalah master orkestrator untuk membangun website secara lengkap beralaskan
 
 0. **User Onboarding [HARD STOP]:**
    a. Tanya user: **nama brand/perusahaan** yang akan dibuatkan website.
-   b. Tanya user: **path ke file PDF Company Profile** (compro) yang akan digunakan sebagai sumber data.
-   c. Verifikasi file PDF tersebut benar-benar ada di filesystem menggunakan tool yang tersedia.
+   b. Tanya user: **apakah Anda memiliki file PDF Company Profile (compro)?**
+      - Jika **YA** → Minta user memberikan **path lengkap ke file PDF** tersebut di filesystem lokal (contoh: `C:\Users\Nama\Documents\compro-brand.pdf`). Lanjutkan ke poin c.
+      - Jika **TIDAK** → Catat status `[No-PDF Mode]`. Lewati poin c. Lanjutkan langsung ke poin d.
+   c. *(Hanya jika user punya PDF)* Verifikasi file PDF tersebut benar-benar ada di filesystem menggunakan tool yang tersedia. Jika file tidak ditemukan, minta user mengecek ulang path-nya dan tunggu.
    d. Buat folder `landings/<brand>/` jika belum ada (gunakan nama brand yang di-slug-kan), serta inisialisasi struktur direktori 4-pilar di bawahnya: `intake/`, `planning/`, `web/`, dan `reports/`.
-   e. **[HARD STOP]**: BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN). Tunggu user memberikan jawaban kedua pertanyaan di atas. Tunggu konfirmasi persetujuan dari user secara eksplisit sebelum melompat ke tahap berikutnya. Dilarang memanfaatkan momentum untuk meneruskan eksekusi secara mandiri.
+   e. **[HARD STOP]**: BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN). Tunggu user memberikan jawaban pertanyaan di atas (nama brand + ketersediaan PDF). Tunggu konfirmasi eksplisit sebelum melanjutkan ke tahap berikutnya. Dilarang memanfaatkan momentum untuk meneruskan eksekusi secara mandiri.
 
-1. **Intake**: Anda WAJIB membaca file panduan `sitegen/intake/SKILL.md` terlebih dahulu menggunakan `view_file`. Setelah itu, patuhi instruksi di dalamnya secara ketat untuk menjalankan script Python ekstraksi data dari dokumen PDF ke `landings/<brand>/intake/intake_compro.md` beserta file pendukungnya di folder `landings/<brand>/intake/`. Wajib verifikasi dan catat ketersediaan aset media/video dari compro: jika video nihil, beri label status *[No-Video Default]* agar perancangan selanjutnya menyiapkan fallback antarmuka interaktif atau mengkonfirmasi input video langsung ke user.
+1. **Intake** *(percabangan berdasarkan ketersediaan PDF)*: Anda WAJIB membaca file panduan `sitegen/intake/SKILL.md` terlebih dahulu menggunakan `view_file`. Setelah itu, pilih mode yang sesuai:
+   - Jika user memberikan path PDF (`[PDF Mode]`): Jalankan **Mode 1 (PDF Extraction)** sesuai instruksi di dalam `skills/intake/SKILL.md`.
+   - Jika user tidak punya PDF (`[No-PDF Mode]`): Jalankan **Mode 2 (Questionnaire)** sesuai instruksi di dalam `skills/intake/SKILL.md`.
+
+   Di kedua mode, output akhir yang wajib dihasilkan tetap sama: file `landings/<brand>/intake/intake_compro.md`.
+   Wajib verifikasi dan catat ketersediaan aset media/video: jika video nihil, beri label status *[No-Video Default]* agar perancangan selanjutnya menyiapkan fallback antarmuka interaktif atau mengkonfirmasi input video langsung ke user.
 
 2. **Research [PARALEL — 2 SUBAGENT]**: Panggil sub-skill `sitegen-research` untuk menghasilkan 2 dokumen riset. **Kedua dokumen ini BOLEH di-generate secara PARALEL** menggunakan 2 subagent terpisah karena keduanya membaca input yang sama (`landings/<brand>/intake/intake_compro.md`) tetapi menulis ke file output yang berbeda:
    - **Subagent A** → `landings/<brand>/planning/PLAN-USER-NEEDS.md`: analisis pain points, jobs-to-be-done, objection & counter-messaging, FAQ pra-pembelian, user journey, dan trigger pembelian target user
