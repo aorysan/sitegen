@@ -39,9 +39,13 @@ Ajukan pertanyaan **satu per satu**, tunggu jawaban user sebelum pertanyaan beri
    - "Bagaimana kesan yang ingin ditampilkan website ini?"
    - Opsi: Formal & profesional / Friendly & approachable / Bold & modern / Elegant & premium / Playful & energetic
 
-4. **Preferensi Visual**
-   - "Apakah ada referensi website atau gaya visual yang Anda sukai?"
-   - Tanya juga: preferensi warna (di luar warna PDF), dark mode vs light mode
+4. **Pendekatan Visual & Template**
+   - "Untuk desain visual, apakah ingin menggunakan template atau membuat desain baru?"
+   - Opsi: 
+     1. Pakai Template Saja (Pilih dari: https://show.saasfly.io/en, https://launch-pad-roan.vercel.app/en, https://screwfast.uk/, https://jawara-woad.vercel.app/)
+     2. Pakai Template + Modifikasi (Pilih template di atas lalu beri masukan desain/warna tambahan)
+     3. Desain Baru/Custom
+   - Jika memilih (2) atau (3), gali lebih lanjut warna (di luar warna PDF), gaya visual spesifik, dan preferensi dark/light mode.
 
 5. **Fitur & Section Prioritas**
    - "Section mana yang PALING PENTING untuk website ini?"
@@ -84,7 +88,9 @@ Setelah user setuju dengan pendekatan:
 [Jawaban user]
 
 ## Preferensi Visual
-- Style direction: [Nama pendekatan yang dipilih]
+- Pendekatan: [Template Saja / Template + Modif / Custom]
+- Template Pilihan: [URL/Nama Template, jika memilih template]
+- Style direction: [Nama pendekatan yang dipilih, jika custom/modif]
 - Warna preferensi: [...]
 - Mode: [Light / Dark / Auto]
 - Referensi website: [jika ada]
