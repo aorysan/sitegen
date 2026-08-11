@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "sitegen-marketplace",
+  "description": "Sitegen - master orchestrator for end-to-end website generation from PDF intake to deployment",
+  "owner": {
+    "name": "Aryo Adi Putro"
+  },
+  "plugins": [
+    {
+      "name": "sitegen",
+      "source": "./",
+      "description": "Master orchestrator for end-to-end website generation from PDF intake to deployment. Handles intake, research, brainstorming, planning, code generation, QA, SEO validation, debugging, and deployment.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Aryo Adi Putro"
+      }
+    }
+  ]
+}
