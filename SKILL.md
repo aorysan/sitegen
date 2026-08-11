@@ -35,7 +35,7 @@ Anda adalah master orkestrator untuk membangun website secara lengkap beralaskan
    d. Buat folder `landings/<brand>/` jika belum ada (gunakan nama brand yang di-slug-kan), serta inisialisasi struktur direktori 4-pilar di bawahnya: `intake/`, `planning/`, `web/`, dan `reports/`.
    e. **[HARD STOP]**: BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN). Tunggu user memberikan jawaban pertanyaan di atas (nama brand + ketersediaan PDF). Tunggu konfirmasi eksplisit sebelum melanjutkan ke tahap berikutnya. Dilarang memanfaatkan momentum untuk meneruskan eksekusi secara mandiri.
 
-1. **Intake** *(percabangan berdasarkan ketersediaan PDF)*: Anda WAJIB membaca file panduan `sitegen/intake/SKILL.md` terlebih dahulu menggunakan `view_file`. Setelah itu, pilih mode yang sesuai:
+1. **Intake** *(percabangan berdasarkan ketersediaan PDF)*: Anda WAJIB membaca file panduan `skills/intake/SKILL.md` terlebih dahulu menggunakan `view_file`. Setelah itu, pilih mode yang sesuai:
    - Jika user memberikan path PDF (`[PDF Mode]`): Jalankan **Mode 1 (PDF Extraction)** sesuai instruksi di dalam `skills/intake/SKILL.md`.
    - Jika user tidak punya PDF (`[No-PDF Mode]`): Jalankan **Mode 2 (Questionnaire)** sesuai instruksi di dalam `skills/intake/SKILL.md`.
 
