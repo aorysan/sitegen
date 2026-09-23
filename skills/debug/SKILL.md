@@ -1,6 +1,6 @@
 ---
 name: debug
-description: QA Otomatis, Visual Debugging (Puppeteer), dan Analisis Performa/SEO (Lighthouse).
+description: QA Otomatis, Visual Debugging (Playwright), dan Analisis Performa/SEO (Lighthouse).
 ---
 
 # Sitegen Debug
@@ -16,19 +16,15 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
 ## Tahap 0: Pahami PRD
 **WAJIB EKSTRAK & BACA**: Agen wajib membaca file `landings/<brand>/planning/PRD.md` dan `landings/<brand>/intake/final_intake.md` terlebih dahulu untuk memahami Visi, Misi, Tema Font, UI/UX preferensi user
 
-## Tahap 1: Visual Debugging (Puppeteer)
-1. Jalankan harness screenshot resmi dengan rute dari PAGES-LIST.md:
-   `node <sitegen-skill-dir>/skills/scripts/render.mjs <brand> <baseUrl> <route1> [route2...]`
-   Contoh: `node .claude/plugins/sitegen/skills/scripts/render.mjs timebase http://localhost:3000 / /about`
-   di mana `<sitegen-skill-dir>` adalah path absolut folder `.claude/plugins/sitegen/` di workspace aktif.
-2. **STRICT AUTO-FAIL**: Skrip Puppeteer di atas WAJIB menangkap dan memunculkan error hard-fail jika mendeteksi:
-   - Penggunaan Emoji di dalam DOM.
-   - Adanya class TailwindCSS.
-   - Tag `html` atau `body` tidak memiliki `overflow-x: hidden` dan `max-width: 100vw`.
-   - Elemen `<SwipeableCards>` (container flex) yang tidak memiliki `flex-shrink: 0` pada *children*-nya atau gagal menjadi `flex-direction: row` di mobile.
-   - Tag `<img>` atau `<Image>` yang tidak memiliki `alt`, `title`, atau tidak responsif (`max-width: 100%`).
-   - 404 network error pada pemuatan gambar, atau penggunaan placeholder gambar (`picsum.photos`).
-   - Ketiadaan animasi (elemen gagal muncul/ter-render) atau layout yang keluar batas (overflow-x).
+## Tahap 1: Visual Debugging (Playwright)
+1. Jalankan E2E + screenshot Playwright dari folder web brand (rute dari PAGES-LIST.md):
+   `cd landings/<brand>/web && npx playwright test --project=chromium`
+   Spec `tests/<slug_tepat>.spec.ts` (template Batch 2) menangkap Desktop 1280x720 + Mobile 375x667 ke `landings/<brand>/reports/.preview/`.
+2. **STRICT AUTO-FAIL**: nyatakan hard-fail bila ditemukan (via assertion spec + `node <skill-dir>/seo/scripts/check-technical.js landings/<brand>/web`):
+   - Emoji di DOM; class TailwindCSS; `html`/`body` tanpa `overflow-x: hidden` + `max-width: 100vw`;
+   - `<SwipeableCards>` tanpa `flex-shrink: 0` pada children / gagal `flex-direction: row` di mobile;
+   - `<img>`/`<Image>` tanpa `alt`, `title`, atau tidak responsif; gambar 404 / `picsum.photos`;
+   - Elemen gagal render / overflow-x.
 3. Periksa log console untuk error React/Next.js (hydration, dll) dan segera perbaiki kode.
 4. Periksa semua gambar screenshot di folder `landings/<brand>/reports/.preview/`.
 5. Jika ada layout rusak (overflow, gambar terpotong, tipografi error, atau SwipeableCards rusak), perbaiki komponen lalu **ulangi skrip screenshot** sampai 100% sempurna.

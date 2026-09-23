@@ -4,7 +4,6 @@
   "type": "module",
   "description": "QC tooling untuk skill sitegen — hanya untuk screenshot verifikasi hasil scaffold Next.js App Router.",
   "scripts": {
-    "qc": "node scripts/render.mjs",
     "install:fast": "npm install --omit=optional",
     "install:qc": "npm install"
   },
@@ -13,7 +12,6 @@
     "pdf-parse": "^2.4.5"
   },
   "optionalDependencies": {
-    "puppeteer": "^25.3.0",
     "sharp": "^0.35.3"
   }
 }
