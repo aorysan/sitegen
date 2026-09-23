@@ -17,8 +17,10 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
 **WAJIB EKSTRAK & BACA**: Agen wajib membaca file `landings/<brand>/planning/PRD.md` dan `landings/<brand>/intake/final_intake.md` terlebih dahulu untuk memahami Visi, Misi, Tema Font, UI/UX preferensi user
 
 ## Tahap 1: Visual Debugging (Puppeteer)
-1. Jalankan skrip screenshot crawler dengan membaca port aktif dan rute dinamis dari PAGES-LIST.md:
-   `node ../../scripts/render.js http://localhost:<port> <brand> <routes...>`
+1. Jalankan harness screenshot resmi dengan rute dari PAGES-LIST.md:
+   `node <sitegen-skill-dir>/skills/scripts/render.mjs <brand> <baseUrl> <route1> [route2...]`
+   Contoh: `node .claude/plugins/sitegen/skills/scripts/render.mjs timebase http://localhost:3000 / /about`
+   di mana `<sitegen-skill-dir>` adalah path absolut folder `.claude/plugins/sitegen/` di workspace aktif.
 2. **STRICT AUTO-FAIL**: Skrip Puppeteer di atas WAJIB menangkap dan memunculkan error hard-fail jika mendeteksi:
    - Penggunaan Emoji di dalam DOM.
    - Adanya class TailwindCSS.
