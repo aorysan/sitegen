@@ -42,9 +42,11 @@ Ajukan pertanyaan **satu per satu**, tunggu jawaban user sebelum pertanyaan beri
 4. **Pendekatan Visual & Template**
    - "Untuk desain visual, apakah ingin menggunakan template atau membuat desain baru?"
    - Opsi: 
-     1. Pakai Template Saja (Pilih dari: https://show.saasfly.io/en, https://launch-pad-roan.vercel.app/en, https://screwfast.uk/, https://jawara-woad.vercel.app/)
-     2. Pakai Template + Modifikasi (Pilih template di atas lalu beri masukan desain/warna tambahan)
-     3. Desain Baru/Custom
+     1. Pakai Template Saja — HANYA untuk template Next.js + Vanilla CSS (terverifikasi: `jawara-woad` ✅ aman).
+     2. Pakai Template + Modifikasi Konversi — untuk template berbasis Tailwind/Astro
+        (`screwfast.uk` = Astro + Tailwind ⚠️, `launch-pad-roan` = Next.js + Tailwind ⚠️, `show.saasfly.io` = stack CSS belum terverifikasi ⚠️):
+        wajib konversi penuh ke Vanilla CSS Modules, tambah estimasi +30-50% waktu generate.
+     3. Desain Baru/Custom (Rekomendasi default) — tanpa warisan stack asing.
    - Jika memilih (2) atau (3), gali lebih lanjut warna (di luar warna PDF), gaya visual spesifik, dan preferensi dark/light mode.
 
 5. **Fitur & Section Prioritas**

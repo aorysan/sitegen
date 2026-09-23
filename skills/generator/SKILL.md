@@ -48,6 +48,8 @@ BACA dan GUNAKAN dokumen PRD spesifik halaman (misalnya `PLAN-<halaman>.md`). Na
 Gunakan pemetaan halaman dari `PAGES-LIST.md` / `landings/<brand>/planning/PRD.md`, keyword, Title Tag, Meta Description, struktur section, dan instruksi spesifik (seperti Auto-slide Carousel) yang sudah ada di PRD. JANGAN membuat file JSON terpisah. JANGAN melakukan riset keyword atau merencanakan ulang konten. Langsung gunakan PRD sebagai referensi cetak biru untuk tahap selanjutnya.
 
 ### GATE 2 — SCAFFOLDING (TypeScript)
+> **GATE 2 RULE:** TOLAK template berbasis Tailwind/Astro: bila PRD merujuknya tanpa rencana konversi Vanilla, HENTIKAN proses dan minta user memilih opsi 2 (konversi) atau 3 (custom).
+
 **Guard**: Jika file `landings/<brand>/web/package.json` sudah ada, SKIP scaffolding dan langsung ke GATE 3. Hanya scaffold jika project belum ada.
 
 Beralihlah ke folder `landings/` di root workspace, dan buat folder `<brand>` jika belum ada.
