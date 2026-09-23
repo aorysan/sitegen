@@ -36,7 +36,7 @@ Skill ini dipanggil setelah server berjalan. Jalankan QA otomatis dalam tahap wa
    `npx -y lighthouse http://localhost:<port> --output html --output-path ./landings/<brand>/reports/lighthouse-report.html --view`
 2. Analisis skor *Performance*, *Accessibility*, *Best Practices*, dan *SEO*.
 3. Lakukan penyesuaian kode (optimasi gambar, aria-labels, dll) untuk meningkatkan skor, lalu jalankan ulang Lighthouse jika perlu.
-4. Baca file `landings/<brand>/reports/SEO-AUDIT.md` (atau `reports/SEO-REPORT.md`) dari skill `seo`, perbaiki seluruh masalah meta tag, SOP keyword, dan checklist SEO di folder `web/` hingga 100% patuh.
+4. Baca file `landings/<brand>/reports/SEO-AUDIT.md` dari skill `seo`, perbaiki seluruh masalah meta tag, SOP keyword, dan checklist SEO di folder `web/` hingga 100% patuh.
 
 ## Tahap 3: Debugging Mandiri
 1. Lakukan pengecekan terhadap kepatuhan aturan `generator`. Agen **WAJIB memverifikasi secara manual**:
