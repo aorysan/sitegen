@@ -28,7 +28,7 @@ Pastikan sudah terinstall sebelum menjalankan sitegen:
 - **Linux (bash):** `source venv/bin/activate`
 - **Windows (PowerShell):** `venv\Scripts\Activate.ps1`
 
-> ⚠️ **Catatan dependensi berat:** browser binary Playwright (±120–170MB saat unduh pertama) dan `sharp` (native binary) hanya dibutuhkan untuk sesi QC/debug lokal — instal terpisah lewat `install:qc` (dengan `--include=optional`), bukan untuk alur normal.
+> ⚠️ **Catatan dependensi berat:** browser binary Playwright (±120–170MB saat unduh pertama) hanya dibutuhkan untuk sesi QC/debug lokal — instal per-brand lewat `npx playwright install` dari `landings/<brand>/web`, bukan untuk alur normal.
 
 ## 🚀 Alur Kerja (Master Workflow)
 
