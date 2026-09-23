@@ -2,7 +2,7 @@
   "name": "sitegen-skill",
   "private": true,
   "type": "module",
-  "description": "QC tooling untuk skill sitegen — hanya untuk screenshot verifikasi hasil scaffold Next.js App Router.",
+  "description": "Templates & tooling untuk skill sitegen — boilerplate dan section snippets Next.js App Router (screenshot QC via Playwright di tiap proyek web).",
   "scripts": {
     "install:fast": "npm install --omit=optional",
     "install:qc": "npm install --include=optional"
