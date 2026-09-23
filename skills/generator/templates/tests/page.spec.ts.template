@@ -1,0 +1,23 @@
+// Salin menjadi tests/<slug_tepat>.spec.ts (slug 100% dari PAGES-LIST.md, tanpa translasi).
+// Ganti <slug_tepat> dan {{BRAND_SLUG}} sebelum dijalankan.
+import { test, expect } from "@playwright/test";
+
+const SLUG = "<slug_tepat>";
+const BASE = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000";
+
+test.describe(`Halaman ${SLUG}`, () => {
+  test("desktop 1280x720 + screenshot", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await page.goto(`${BASE}${SLUG}`, { waitUntil: "networkidle" });
+    await expect(page.locator("main")).toBeVisible();
+    await page.screenshot({ path: `../reports/.preview/desktop-${SLUG.replace(/\//g, "-")}.png`, fullPage: true });
+  });
+
+  test("mobile 375x667 + screenshot", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto(`${BASE}${SLUG}`, { waitUntil: "networkidle" });
+    await expect(page.locator("main")).toBeVisible();
+    await page.screenshot({ path: `../reports/.preview/mobile-${SLUG.replace(/\//g, "-")}.png`, fullPage: true });
+  });
+});
+// Brand: {{BRAND_SLUG}}. Jalankan dari landings/{{BRAND_SLUG}}/web.
