@@ -184,6 +184,7 @@ Baca file planning yang akan di-review (PLAN-GLOBAL atau PLAN-<halaman>).
 Buka `reference/review-checklist.md`. Pilih bagian yang relevan:
 - Mode global → Bagian A
 - Mode page → Bagian B
+- Mode global-extended → Bagian A + C + D + E (lihat reference/review-checklist.md).
 
 ### STEP 3 — Penilaian
 Cek setiap item di rubrik satu per satu. Beri skor per item.
