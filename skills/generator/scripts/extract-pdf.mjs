@@ -1,3 +1,4 @@
+// DEPRECATED (Batch 2): kanal resmi ekstraksi PDF adalah skills/intake/scripts/extract.py. File ini dipertahankan 1 versi untuk kompatibilitas, dihapus di Batch 3.
 import { PDFParse } from 'pdf-parse';
 import fs from 'fs';
 

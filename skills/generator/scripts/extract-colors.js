@@ -1,3 +1,4 @@
+// DEPRECATED (Batch 2): ekstraksi warna resmi via extract.py (_color_to_hex). File ini dipertahankan 1 versi untuk kompatibilitas, dihapus di Batch 3.
 import Vibrant from 'node-vibrant';
 import fs from 'fs';
 import path from 'path';
