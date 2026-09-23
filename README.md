@@ -28,7 +28,7 @@ Pastikan sudah terinstall sebelum menjalankan sitegen:
 - **Linux (bash):** `source venv/bin/activate`
 - **Windows (PowerShell):** `venv\Scripts\Activate.ps1`
 
-> ⚠️ **Catatan dependensi berat:** `puppeteer` (±120–170MB) dan `sharp` (native binary) hanya dibutuhkan untuk sesi QC/debug lokal — instal terpisah lewat `install:qc` (dengan `--include=optional`), bukan untuk alur normal.
+> ⚠️ **Catatan dependensi berat:** browser binary Playwright (±120–170MB saat unduh pertama) dan `sharp` (native binary) hanya dibutuhkan untuk sesi QC/debug lokal — instal terpisah lewat `install:qc` (dengan `--include=optional`), bukan untuk alur normal.
 
 ## 🚀 Alur Kerja (Master Workflow)
 
@@ -98,6 +98,7 @@ Semua 12 subfolder skill dilengkapi `AGENTS.md` konstitusi lokal.
 - **Trilogi Animasi unidirectional** — Lenis (smooth scroll) + Anime.js v4 (mikro animasi/partikel) + Framer Motion (scroll-reveal **satu arah** ke bawah + reset; DILARANG `once: true` dan bidirectional).
 - **Laporan tunggal `SEO-AUDIT.md`** — standar `landings/<brand>/reports/SEO-AUDIT.md` di semua skill; nama `SEO-REPORT` tidak dipakai lagi.
 - **Harness resmi `render.mjs`** — satu skrip ESM di `skills/scripts/render.mjs` (argumen eksplisit `<brand> <baseUrl> <route...>`); `render.js` (CJS, default `pawitra`) dihapus.
+- **Hutang harness (Batch 3)** — jalur QC debug saat ini memakai Playwright (`npx playwright test`), sehingga harness `render.mjs` menjadi yatim sementara; SPEC-17 (Batch 3) wajib re-link atau retire harness tersebut, PLUS meng-amend README ini saat SPEC-17 dijalankan (setelah Batch 1 GO).
 - **Stack `nextjs` + Vanilla CSS Modules** — `ui-ux-pro-max` WAJIB dipakai dengan stack `nextjs`; DILARANG `html-tailwind` dan `shadcn`.
 - **Spesifikasi `2026-08-05` §2.2 (bidirectional) kedaluwarsa** — digantikan keputusan unidirectional di atas, sesuai supreme `AGENTS.md` repo.
 
