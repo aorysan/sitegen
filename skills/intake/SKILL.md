@@ -132,7 +132,7 @@ Cukup balas pesan ini dengan menyalin daftar di bawah dan mengisi jawaban setela
 Kirimkan jawaban Anda. AI akan melanjutkan setelah menerima semua jawaban di atas.
 ---
 
-**[HARD STOP]**: Setelah menampilkan daftar pertanyaan di atas, BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN). Tunggu user mengirimkan jawabannya secara eksplisit sebelum melanjutkan ke Langkah M2-2.
+**[HARD STOP]**: Setelah menampilkan daftar pertanyaan di atas, tunggu user mengirimkan jawabannya secara eksplisit sebelum melanjutkan ke Langkah M2-2. BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN). Tunggu konfirmasi persetujuan dari user secara eksplisit sebelum melanjutkan ke tahap berikutnya. Dilarang memanfaatkan momentum untuk meneruskan eksekusi secara mandiri.
 
 ---
 
@@ -154,7 +154,7 @@ Setelah menerima jawaban dari user, periksa apakah **9 pertanyaan wajib** sudah 
 
 Jika ada pertanyaan wajib yang **belum dijawab atau kosong**:
 - Tanyakan ulang **hanya pertanyaan yang kosong** tersebut. Jangan tampilkan ulang semua 26 pertanyaan.
-- **[HARD STOP]**: Tunggu jawaban user sebelum melanjutkan.
+- **[HARD STOP]**: Tunggu jawaban user sebelum melanjutkan. BERHENTI MENGEKSEKUSI TOOL APA PUN DAN AKHIRI GILIRAN (END TURN). Tunggu konfirmasi persetujuan dari user secara eksplisit sebelum melanjutkan ke tahap berikutnya. Dilarang memanfaatkan momentum untuk meneruskan eksekusi secara mandiri.
 
 Jika semua 9 pertanyaan wajib sudah terisi → lanjut ke Langkah M2-3.
 
