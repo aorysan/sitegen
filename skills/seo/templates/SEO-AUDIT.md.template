@@ -1,0 +1,21 @@
+# SEO Audit — {{BRAND}} — <tanggal>
+
+## 1. Keyword & halaman (anti-kanibalisasi: 1 halaman = 1 grup)
+- [ ] buying keyword + ≥2 LSI per halaman
+- [ ] URL memuat keyword utama
+
+## 2. Title & Meta (cek otomatis: scripts/check-technical.js)
+- [ ] Title ≤55 char, 2-3 keyword, CTR-oriented
+- [ ] Description ≤155 char, LSI di luar title
+
+## 3. Struktur & file
+- [ ] sitemap.ts, robots.ts, llms.txt (H1 + absolute link), JSON-LD per tipe halaman
+- [ ] alt+title di tiap <img>/<Image>; title di tiap <a>
+
+## 4. Backlink & SMO
+- [ ] Blog: 3 artikel + gambar clickable ke situs utama
+- [ ] 1 section video SMO per halaman
+
+## Temuan (STATUS: LULUS / PERBAIKI)
+| # | Lokasi | Masalah | Perbaikan |
+|---|---|---|---|
