@@ -160,6 +160,7 @@ Review hasil KODE eksekusi halaman di Next.js terhadap PRD.
 2. **Kesesuaian Fitur & Section**: Cek kehadiran semua section dari PRD di dalam file kode.
 3. **Pengecekan Atribut Logo & Gambar**: Verifikasi bahwa `<Image>` memanggil path yang benar dari folder `public/assets/` sesuai `ASSET-MAPPING.md` dan memiliki `alt` & `title`.
 4. **Instruksi Revisi**: Hasilkan instruksi baris-per-baris untuk generator jika ada pelanggaran.
+5. **Cek Token Kotor**: Jalankan `rg "{{[A-Z_]+}}"` pada file halaman (page + komponen terkait) — ada match apa pun = **KOTOR**, tolak hasilnya.
 
 ---
 
