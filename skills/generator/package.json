@@ -6,12 +6,5 @@
   "scripts": {
     "install:fast": "npm install --omit=optional",
     "install:qc": "npm install --include=optional"
-  },
-  "dependencies": {
-    "node-vibrant": "^3.1.6",
-    "pdf-parse": "^2.4.5"
-  },
-  "optionalDependencies": {
-    "sharp": "^0.35.3"
   }
 }
