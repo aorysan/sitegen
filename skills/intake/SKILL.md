@@ -38,8 +38,12 @@ Sub-skill ini mendukung **dua mode operasi** tergantung ketersediaan aset dari u
 Alur kerja ini menerapkan arsitektur hybrid produser-konsumen: script `extract.py` bertindak sebagai **produser data terstruktur** (ekstraksi mentah dan metadata visual), sedangkan agen bertindak sebagai **konsumen, analis semantik, dan perename aset** sebelum menyusun dokumen akhir `intake_compro.md`.
 
 ## 1. Jalankan Ekstraksi (Produser Data)
-Jalankan perintah ekstraksi dalam SATU rantai eksekusi shell berurutan:
-`python -m venv venv && venv\Scripts\activate && pip install -r ./intake/scripts/requirements.txt && python ./intake/scripts/extract.py <path_ke_compro.pdf> [direktori_output]`
+Jalankan ekstraksi dari repo root. Pilih varian OS:
+Linux/macOS (bash):
+`python3 -m venv venv && source venv/bin/activate && pip install -r .claude/plugins/sitegen/skills/intake/scripts/requirements.txt && python .claude/plugins/sitegen/skills/intake/scripts/extract.py <path_ke_compro.pdf> <direktori_output>`
+Windows (PowerShell):
+`python -m venv venv; venv\Scripts\Activate.ps1; pip install -r .claude/plugins/sitegen/skills/intake/scripts/requirements.txt; python .claude/plugins/sitegen/skills/intake/scripts/extract.py <path_ke_compro.pdf> <direktori_output>`
+Catatan: folder `venv/` dibuat di repo root (di luar 4-pilar, jangan di-commit).
 
 Script `extract.py` menghasilkan log teks di terminal DAN file terstruktur `intake_raw.json` di direktori output (misal: di `landings/<brand>/intake/`). File JSON ini memuat:
 - **`colors`**: Daftar warna brand terklasifikasi (`primary`, `secondary`, `neutral`) dalam format hex `#RRGGBB`.
