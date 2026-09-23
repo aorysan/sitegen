@@ -88,7 +88,7 @@ Semua 12 subfolder skill dilengkapi `AGENTS.md` konstitusi lokal.
 
 ### Skrip Resmi
 
-- `skills/scripts/render.mjs` — harness render resmi (ESM): `node render.mjs <brand> <baseUrl> <route...>`
+- Harness render resmi (ESM) — **diretire Batch 3 SPEC-17**; QC resmi kini `npx playwright test --project=chromium` dari `landings/<brand>/web`, output ke `landings/<brand>/reports/.preview/`
 - `skills/intake/scripts/extract.py` — ekstraksi PDF company profile
 - `skills/seo/scripts/check-technical.js` — cek SEO teknis
 - `skills/ui-ux-pro-max/scripts/search.py` — pencarian basis data UI/UX
@@ -97,8 +97,8 @@ Semua 12 subfolder skill dilengkapi `AGENTS.md` konstitusi lokal.
 
 - **Trilogi Animasi unidirectional** — Lenis (smooth scroll) + Anime.js v4 (mikro animasi/partikel) + Framer Motion (scroll-reveal **satu arah** ke bawah + reset; DILARANG `once: true` dan bidirectional).
 - **Laporan tunggal `SEO-AUDIT.md`** — standar `landings/<brand>/reports/SEO-AUDIT.md` di semua skill; nama `SEO-REPORT` tidak dipakai lagi.
-- **Harness resmi `render.mjs`** — satu skrip ESM di `skills/scripts/render.mjs` (argumen eksplisit `<brand> <baseUrl> <route...>`); `render.js` (CJS, default `pawitra`) dihapus.
-- **Hutang harness (Batch 3)** — jalur QC debug saat ini memakai Playwright (`npx playwright test`), sehingga harness `render.mjs` menjadi yatim sementara; SPEC-17 (Batch 3) wajib re-link atau retire harness tersebut, PLUS meng-amend README ini saat SPEC-17 dijalankan (setelah Batch 1 GO).
+- **Harness resmi — diretire SPEC-17 Batch 3** — skrip harness ESM (dan varian CJS lama yang sudah dihapus sejak Batch 1) di `skills/scripts/` tak lagi dipakai; QC resmi = `npx playwright test` dari `landings/<brand>/web` dengan output ke `reports/.preview/`.
+- **Hutang harness (Batch 3) — LUNAS** — diselesaikan oleh SPEC-17 Batch 3: harness resmi telah direntire dan QC berpindah penuh ke Playwright (`npx playwright test`); README ini diamend pada saat SPEC-17 dijalankan (Batch 3).
 - **Stack `nextjs` + Vanilla CSS Modules** — `ui-ux-pro-max` WAJIB dipakai dengan stack `nextjs`; DILARANG `html-tailwind` dan `shadcn`.
 - **Spesifikasi `2026-08-05` §2.2 (bidirectional) kedaluwarsa** — digantikan keputusan unidirectional di atas, sesuai supreme `AGENTS.md` repo.
 
@@ -110,7 +110,7 @@ Semua 12 subfolder skill dilengkapi `AGENTS.md` konstitusi lokal.
 | SPEC-02 | Path master `plugin.json` | `plugin.json` |
 | SPEC-03 | Cross-ref template `research` | `skills/research/SKILL.md` |
 | SPEC-04 | Nama laporan SEO tunggal `SEO-AUDIT.md` | `skills/seo/AGENTS.md`, `skills/debug/SKILL.md` |
-| SPEC-05 | Satu harness resmi `render.mjs` | `skills/scripts/render.mjs`, `skills/debug/SKILL.md` |
+| SPEC-05 | Satu harness resmi (skrip render ESM) | `skills/scripts/`, `skills/debug/SKILL.md` (diretire SPEC-17 Batch 3 — QC via Playwright) |
 | SPEC-06 | Intake Linux-compat + path absolut | `skills/intake/SKILL.md` |
 | SPEC-07 | Constraint stack `ui-ux-pro-max` (nextjs vanilla) | `SKILL.md` |
 | SPEC-08 | Rubrik C/D/E `qa-reviewer` extended | `skills/qa-reviewer/reference/review-checklist.md`, `skills/qa-reviewer/SKILL.md` |
