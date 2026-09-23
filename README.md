@@ -7,8 +7,8 @@ Sitegen adalah master orkestrator berbasis agen AI (AI Agent) untuk membangun we
 Sitegen tersedia sebagai **plugin Claude Code** dan dapat dipasang dari marketplace `sitegen-marketplace`:
 
 ```shell
-/plugin marketplace add aorysan/sitegen
-/plugin install sitegen@sitegen-marketplace
+/plugin marketplace add aorysan/marketplace
+/plugin install sitegen@marketplace
 ```
 
 Setelah terpasang, jalankan `/sitegen` untuk memulai alur master. Sub-skill tersedia dengan namespace: `/sitegen:intake`, `/sitegen:planner`, `/sitegen:generator`, `/sitegen:qa-reviewer`, dan lainnya.
