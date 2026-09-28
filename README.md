@@ -13,7 +13,7 @@ Sitegen tersedia sebagai **plugin Claude Code** dan dapat dipasang dari marketpl
 
 Setelah terpasang, jalankan `/sitegen` untuk memulai alur master. Sub-skill tersedia dengan namespace: `/sitegen:intake`, `/sitegen:planner`, `/sitegen:generator`, `/sitegen:qa-reviewer`, dan lainnya.
 
-> Instalasi manual: tanpa marketplace, kamu bisa memuat plugin ini langsung dengan `claude --plugin-dir <path-ke-repo>`. Nama marketplace mengikuti `.claude-plugin/marketplace.json` (`aorysan-marketplace`).
+> Instalasi manual: tanpa marketplace, kamu bisa memuat plugin ini langsung dengan `claude --plugin-dir <path-ke-repo>`. Marketplace kanonik (`aorysan-marketplace`) didefinisikan di repo `aorysan/marketplace` — repo plugin ini tidak lagi memuat salinan `marketplace.json`.
 >
 > **Konvensi path skill:** seluruh perintah di skill memakai variabel resmi `$CLAUDE_PLUGIN_ROOT` (folder plugin yang sedang aktif) — jangan hardcode `.claude/plugins/sitegen/` maupun `.agents/skills/sitegen/`.
 
@@ -84,7 +84,7 @@ Seluruh aktivitas per brand WAJIB terpisah ke dalam empat pilar mandiri — root
 - `research` — riset kebutuhan user & kompetitor
 - `seo` — audit & implementasi SEO
 - `systematic-debugging` — disiplin debug berbasis bukti
-- `ui-ux-pro-max` — basis data gayu, palet, font, motion, chart
+- `ui-ux-pro-max` — basis data gaya, palet, font, motion, chart
 
 Semua 12 subfolder skill dilengkapi `AGENTS.md` konstitusi lokal.
 

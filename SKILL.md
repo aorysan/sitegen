@@ -24,7 +24,12 @@ Anda adalah master orkestrator untuk membangun website secara lengkap beralaskan
 | 5. Global Design | `landings/<brand>/intake/final_intake.md`, research docs | `landings/<brand>/planning/PLAN-GLOBAL.md`, `landings/<brand>/planning/PLAN-DESIGN-SYSTEM.md`, `landings/<brand>/planning/PAGES-LIST.md` |
 | 6. PRD Batch | `landings/<brand>/planning/PAGES-LIST.md`, `PLAN-GLOBAL.md`, `final_intake.md` | `landings/<brand>/planning/PLAN-<halaman>.md`, `landings/<brand>/planning/PRD.md`, `landings/<brand>/planning/ASSET-MAPPING.md` |
 | 7. Eksekusi | `landings/<brand>/planning/PRD.md`, `ASSET-MAPPING.md`, `PLAN-DESIGN-SYSTEM.md` | `landings/<brand>/web/` (Next.js project), Playwright tests, `landings/<brand>/reports/.preview/` |
-| 8-11. | Hasil eksekusi di `landings/<brand>/web/` | `landings/<brand>/reports/SEO-AUDIT.md`, `landings/<brand>/reports/DEBUG_LOG.md`, deploy URL |
+| 8. Integration | `landings/<brand>/web/` (seluruh halaman ter-QA) | Navigasi antar halaman tersambung di bawah Lenis smooth scrolling |
+| 9. SEO & Debug Final | `landings/<brand>/web/` | `landings/<brand>/reports/SEO-AUDIT.md`, `landings/<brand>/reports/DEBUG_LOG.md` |
+| 10. User Review Final | `landings/<brand>/reports/SEO-AUDIT.md`, `landings/<brand>/reports/DEBUG_LOG.md` | Persetujuan user untuk lanjut deploy |
+| 11. Deploy | `landings/<brand>/web/` | URL deploy Vercel |
+| 12. Post-Deploy Debug | URL deploy Vercel | `landings/<brand>/reports/DEBUG_LOG.md` |
+| 13. Cleanup | - | Dev server Node.js di `landings/<brand>/web/` dimatikan |
 
 0. **User Onboarding [HARD STOP]:**
    a. Tanya user: **nama brand/perusahaan** yang akan dibuatkan website.
